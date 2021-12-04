@@ -1,0 +1,16 @@
+[alias]
+rr = "run --release"
+br = "build --release"
+
+[cargo-new]
+vcs = "none" 
+
+[profile.release]
+lto=true
+
+[build]
+rustflags = [
+"-C","target-feature=-crt-static",
+"-C","target-cpu=native",
+"-C","panic=abort",
+]
