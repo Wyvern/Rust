@@ -6,6 +6,7 @@ br = "build --release"
 vcs = "none" 
 
 [profile.release]
+rpath = true
 #strip="symbols"
 #lto=true
 
@@ -16,11 +17,9 @@ rpath = true
 rustflags = [
 "-C","target-feature=-crt-static",
 "-C","target-cpu=native",
-"-C","panic=abort",
+#"-C","panic=abort",
+"-C","prefer-dynamic"
 ]
 
-[target.x86_64-apple-darwin]
-rustflags = [
-"-C","prefer-dynamic",
-"-C","link-args=-Wl,-rpath,/opt/Rust/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/x86_64-apple-darwin/lib",
-]
+# $ORIGIN/../lib | @loader_path/../lib
+# "-C","link-args=-Wl,-rpath,@loader_path/../lib",
