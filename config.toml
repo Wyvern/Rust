@@ -5,15 +5,19 @@ br = "build --release"
 [cargo-new]
 vcs = "none" 
 
+cargo-features = ["strip"]
+
 [profile.release]
-#strip="symbols"
+opt-level='z'
+#strip=true
 #lto=true
 
 [build]
 rustflags = [
 "-C","target-feature=-crt-static",
 "-C","target-cpu=native",
-#"-C","panic=abort",
 "-C","prefer-dynamic",
-"-C","rpath=yes"
+"-C","rpath=yes",
+#"-C","panic=abort",
+#"-C","build-std-features=panic_immediate_abort"
 ]
