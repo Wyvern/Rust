@@ -6,20 +6,14 @@ br = "build --release"
 vcs = "none" 
 
 [profile.release]
-rpath = true
 #strip="symbols"
 #lto=true
-
-[profile.dev]
-rpath = true
 
 [build]
 rustflags = [
 "-C","target-feature=-crt-static",
 "-C","target-cpu=native",
 #"-C","panic=abort",
-"-C","prefer-dynamic"
+"-C","prefer-dynamic",
+"-C","rpath=yes"
 ]
-
-# $ORIGIN/../lib | @loader_path/../lib
-# "-C","link-args=-Wl,-rpath,@loader_path/../lib",
