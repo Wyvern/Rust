@@ -1,11 +1,10 @@
 [alias]
 rr = "run --release"
 br = "build --release"
+bl = "build --lib --release"
 
 [cargo-new]
 vcs = "none" 
-
-cargo-features = ["strip"]
 
 [profile.release]
 opt-level='z'
