@@ -17,6 +17,8 @@ rustflags = [
 "-C","target-cpu=native",
 "-C","prefer-dynamic",
 "-C","rpath=yes",
+"-A","unused",
+"-A","nonstandard_style",
 #"-C","panic=abort",
 #"-C","build-std-features=panic_immediate_abort"
 ]
