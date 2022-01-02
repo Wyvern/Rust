@@ -7,7 +7,6 @@ bl = "build --lib --release"
 vcs = "none" 
 
 [profile.release]
-opt-level='z'
 #strip=true
 #lto=true
 
@@ -17,8 +16,10 @@ rustflags = [
 "-C","target-cpu=native",
 "-C","prefer-dynamic",
 "-C","rpath=yes",
+"-C","opt-level=s",
 "-A","unused",
 "-A","nonstandard_style",
+
 #"-C","panic=abort",
-#"-C","build-std-features=panic_immediate_abort"
+#"-C","build-std-features=panic_immediate_abort",
 ]
