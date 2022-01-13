@@ -1,6 +1,6 @@
 [alias]
 rr = "run --release"
-br = "build --release --bins"
+br = "build --release"
 bl = "build --lib --release"
 
 [cargo-new]
