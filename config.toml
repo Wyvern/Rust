@@ -1,6 +1,6 @@
 [alias]
 rr = "run --release"
-br = "build --release"
+br = "build --release --bins"
 bl = "build --lib --release"
 
 [cargo-new]
@@ -12,7 +12,7 @@ vcs = "none"
 
 [unstable]
 #build-std = ["core","alloc"]
-build-std-features = ["panic_immediate_abort"]
+#build-std-features = ["panic_immediate_abort"]
 
 [build]
 rustflags = [
