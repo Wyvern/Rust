@@ -10,6 +10,10 @@ vcs = "none"
 #strip=true
 #lto=true
 
+[profile.release.build-override]
+overflow-checks = false
+debug-assertions = false
+
 [unstable]
 #build-std = ["core","alloc"]
 #build-std-features = ["panic_immediate_abort"]
