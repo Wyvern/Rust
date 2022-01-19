@@ -11,12 +11,12 @@ vcs = "none"
 #lto=true
 
 [profile.release.build-override]
-overflow-checks = false
-debug-assertions = false
+overflow-checks=false
+debug-assertions=false
 
 [unstable]
-#build-std = ["core","alloc"]
-#build-std-features = ["panic_immediate_abort"]
+#build-std = ["core","alloc","std","compiler_builtins"]
+#build-std-features = ["panic_immediate_abort","compiler-builtins-mem"]
 
 [build]
 rustflags = [
@@ -30,6 +30,7 @@ rustflags = [
 #"-C","panic=abort",
 #"-C","build-std-features=panic_immediate_abort",
 ]
+#target="x86_64-apple-darwin"
 
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
