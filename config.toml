@@ -7,7 +7,7 @@ bl = "build --lib --release"
 vcs = "none" 
 
 [profile.release]
-#strip=true
+strip=true
 #lto=true
 
 [profile.release.build-override]
