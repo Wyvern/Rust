@@ -1,7 +1,7 @@
 [alias]
-rr = "run --release"
-br = "build --release"
-bl = "build --lib --release"
+rr = "run -r"
+br = "build -r"
+bl = "build --lib -r"
 
 [cargo-new]
 vcs = "none" 
