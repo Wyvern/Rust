@@ -32,17 +32,18 @@ rustflags = [
 "-Cno-redzone",
 
 "-Ztune-cpu=native",
-"-Zpanic-abort-tests",
-"-Zfunction-sections",
-"-Zno-unique-section-names",
+"-Zpanic-abort-tests=yes",
+"-Zfunction-sections=no",
+"-Zno-unique-section-names=yes",
 "-Zno-profiler-runtime",
-#"-Znew-llvm-pass-manager",
-"-Zthinlto",
+"-Znew-llvm-pass-manager=yes",
+"-Zthinlto=yes",
 "-Zno-generate-arange-section",
 "-Zno-leak-check",
-"-Zdep-info-omit-d-target",
+"-Zdep-info-omit-d-target=yes",
 "-Zborrowck=mir",
-"-Zpolonius",
+"-Zpolonius=yes",
+
 
 "-Aunused",
 "-Anonstandard_style",
@@ -50,6 +51,7 @@ rustflags = [
 #"-Clink-args=-Wl,-z=lazy -Wl,-znorelro",
 #"-Ctune-cpu=native",
 #"-Cpanic=abort",
+#"-Zpanic-in-drop=abort",
 ]
 #target="x86_64-apple-darwin"
 
