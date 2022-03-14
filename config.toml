@@ -24,12 +24,11 @@ rustflags = [
 "-Ctarget-cpu=native",
 "-Cprefer-dynamic",
 "-Crpath",
-
 "-Coverflow-checks=no",
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
 "-Cdefault-linker-libraries=no",
-"-Cno-redzone",
+"-Cincremental=yes",
 
 "-Ztune-cpu=native",
 "-Zpanic-abort-tests=yes",
@@ -52,6 +51,7 @@ rustflags = [
 #"-Ctune-cpu=native",
 #"-Cpanic=abort",
 #"-Zpanic-in-drop=abort",
+#"-Zbuild-std",
 ]
 #target="x86_64-apple-darwin"
 
