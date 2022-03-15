@@ -27,12 +27,10 @@ rustflags = [
 "-Coverflow-checks=no",
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
-"-Cdefault-linker-libraries=no",
+"-Cdefault-linker-libraries=yes",
 
 "-Ztune-cpu=native",
 "-Zpanic-abort-tests",
-"-Zfunction-sections=no",
-"-Zno-unique-section-names",
 "-Zno-profiler-runtime",
 "-Znew-llvm-pass-manager=yes",
 "-Zthinlto",
