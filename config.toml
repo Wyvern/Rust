@@ -42,6 +42,8 @@ rustflags = [
 "-Zdep-info-omit-d-target",
 "-Zborrowck=mir",
 "-Zpolonius=yes",
+"-Ztrim-diagnostic-paths",
+
 
 "-Aunused",
 "-Anonstandard_style",
