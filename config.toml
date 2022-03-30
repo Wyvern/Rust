@@ -35,15 +35,15 @@ rustflags = [
 "-Zno-profiler-runtime",
 "-Zfunction-sections=no",
 "-Zno-unique-section-names",
-"-Znew-llvm-pass-manager=yes",
+"-Znew-llvm-pass-manager",
 "-Zthinlto",
 "-Zno-generate-arange-section",
 "-Zno-leak-check",
 "-Zdep-info-omit-d-target",
 "-Zborrowck=mir",
-"-Zpolonius=yes",
+"-Zpolonius",
 "-Ztrim-diagnostic-paths",
-
+"-Zpanic-abort-tests",
 
 "-Aunused",
 "-Anonstandard_style",
