@@ -47,6 +47,7 @@ rustflags = [
 "-Ztrim-diagnostic-paths",
 "-Zoom=abort",
 "-Zthir-unsafeck",
+"-Zshare-generics",
 
 
 "-Aunused",
