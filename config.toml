@@ -11,6 +11,7 @@ strip=true
 #lto=true
 
 [profile.release.build-override]
+strip=true
 overflow-checks=false
 debug-assertions=false
 
@@ -27,9 +28,11 @@ rustflags = [
 "-Ctarget-cpu=native",
 "-Cprefer-dynamic",
 "-Crpath",
+"-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
+"-Cincremental=yes",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -38,12 +41,13 @@ rustflags = [
 "-Znew-llvm-pass-manager",
 "-Zthinlto",
 "-Zno-generate-arange-section",
-"-Zno-leak-check",
 "-Zdep-info-omit-d-target",
 "-Zborrowck=mir",
 "-Zpolonius",
 "-Ztrim-diagnostic-paths",
-"-Zpanic-abort-tests",
+"-Zoom=abort",
+"-Zthir-unsafeck",
+
 
 "-Aunused",
 "-Anonstandard_style",
