@@ -34,6 +34,7 @@ rustflags = [
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
 
+
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
 "-Zfunction-sections=no",
@@ -48,6 +49,7 @@ rustflags = [
 "-Zoom=abort",
 "-Zthir-unsafeck",
 "-Zshare-generics",
+"-Zplt",
 
 
 "-Aunused",
