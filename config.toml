@@ -33,7 +33,7 @@ rustflags = [
 "-Coverflow-checks=no",
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
-
+"-Cincremental=inc",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -50,7 +50,6 @@ rustflags = [
 "-Zthir-unsafeck",
 "-Zshare-generics",
 "-Zplt",
-
 
 "-Aunused",
 "-Anonstandard_style",
