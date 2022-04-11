@@ -33,7 +33,7 @@ rustflags = [
 "-Coverflow-checks=no",
 "-Cdebug-assertions=no",
 "-Clink-self-contained=no",
-"-Cincremental=inc",
+"-Cincremental=build",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
