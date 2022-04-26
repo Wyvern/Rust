@@ -50,6 +50,7 @@ rustflags = [
 "-Zthir-unsafeck",
 "-Zshare-generics",
 "-Zplt",
+"-Zgcc-ld=lld",
 
 "-Aunused",
 "-Anonstandard_style",
