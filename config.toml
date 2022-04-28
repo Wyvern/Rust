@@ -51,6 +51,7 @@ rustflags = [
 "-Zshare-generics",
 "-Zplt",
 "-Zgcc-ld=lld",
+"-Zmerge-functions=aliases",
 
 "-Aunused",
 "-Anonstandard_style",
