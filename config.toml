@@ -55,6 +55,8 @@ rustflags = [
 
 "-Aunused",
 "-Anonstandard_style",
+"-Frust_2018_compatibility",
+"-Frust_2018_idioms",
 
 #"-Clink-args=-Wl,-z=lazy -Wl,-znorelro",
 #"-Ctune-cpu=native",
