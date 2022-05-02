@@ -37,9 +37,7 @@ rustflags = [
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
-"-Zfunction-sections=no",
-"-Zno-unique-section-names",
-"-Znew-llvm-pass-manager",
+"-Znew-llvm-pass-manager=y",
 "-Zthinlto",
 "-Zno-generate-arange-section",
 "-Zdep-info-omit-d-target",
@@ -52,6 +50,7 @@ rustflags = [
 "-Zplt",
 "-Zgcc-ld=lld",
 "-Zmerge-functions=trampolines",
+"-Zmir-opt-level=4",
 
 "-Aunused",
 "-Anonstandard_style",
