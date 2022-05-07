@@ -51,11 +51,13 @@ rustflags = [
 "-Zgcc-ld=lld",
 "-Zmerge-functions=trampolines",
 "-Zmir-opt-level=4",
+"-Zfewer-names",
 
 "-Aunused",
 "-Anonstandard_style",
 "-Frust_2018_compatibility",
 "-Frust_2018_idioms",
+"-Fdeprecated",
 
 #"-Clink-args=-Wl,-z=lazy -Wl,-znorelro",
 #"-Ctune-cpu=native",
