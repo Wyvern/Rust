@@ -31,7 +31,6 @@ rustflags = [
 "-Crpath",
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
-"-Cdebug-assertions=no",
 "-Clink-self-contained=no",
 "-Cincremental=build",
 
