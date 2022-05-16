@@ -2,6 +2,7 @@
 rr = "run -r"
 br = "build -r"
 bl = "build --lib -r"
+tr = "test -r"
 
 [cargo-new]
 vcs = "none" 
@@ -51,6 +52,7 @@ rustflags = [
 "-Zmerge-functions=aliases",#trampolines
 "-Zmir-opt-level=4",
 "-Zfewer-names",
+"-Zpolymorphize",
 
 "-Aunused",
 "-Anonstandard_style",
