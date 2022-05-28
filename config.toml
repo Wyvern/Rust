@@ -20,7 +20,6 @@ avoid-dev-deps=true
 dual-proc-macros=true
 panic-abort-tests=true
 bindeps=true
-binary-dep-depinfo=true
 #build-std = ["core","alloc","std","macros","test","compiler_builtins","panic_abort"]
 #build-std-features = ["panic_immediate_abort","compiler-builtins-mem"]
 
@@ -33,7 +32,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-"-Cincremental=build",
+#"-Cincremental=build",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -53,6 +52,7 @@ rustflags = [
 "-Zmir-opt-level=4",
 "-Zfewer-names",
 "-Zpolymorphize",
+"-Zcombine-cgu",
 
 "-Aunused",
 "-Anonstandard_style",
