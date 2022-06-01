@@ -3,6 +3,7 @@ rr = "run -r"
 br = "build -r"
 bl = "build --lib -r"
 tr = "test -r"
+dr = "doc -r"
 
 [cargo-new]
 vcs = "none" 
@@ -27,7 +28,7 @@ multitarget=true
 
 [build]
 rustflags = [
-#"-Ctarget-feature=-crt-static",
+"-Ctarget-feature=-crt-static",
 "-Ctarget-cpu=native",
 "-Cprefer-dynamic",
 "-Crpath",
@@ -50,7 +51,6 @@ rustflags = [
 "-Zplt",
 "-Zgcc-ld=lld",
 "-Zmerge-functions=aliases",#trampolines
-"-Zmir-opt-level=4",
 "-Zfewer-names",
 "-Zpolymorphize",
 #"-Zcombine-cgu",
