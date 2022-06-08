@@ -10,13 +10,17 @@ vcs = "none"
 
 [profile.release]
 strip=true
+opt-level='s'
 #lto=true
+#panic="abort"
 
 [profile.release.build-override]
 strip=true
 overflow-checks=false
+opt-level='s'
 
 [unstable]
+#check-cfg=features,names,values,output
 avoid-dev-deps=true
 dual-proc-macros=true
 panic-abort-tests=true
@@ -42,7 +46,6 @@ rustflags = [
 "-Zthinlto",
 "-Zno-generate-arange-section",
 "-Zdep-info-omit-d-target",
-"-Zborrowck=mir",
 "-Zpolonius",
 "-Ztrim-diagnostic-paths",
 "-Zoom=abort",
@@ -53,6 +56,8 @@ rustflags = [
 "-Zmerge-functions=aliases",#trampolines
 "-Zfewer-names",
 "-Zpolymorphize",
+"-Zincremental-ignore-spans",
+"-Zincremental-relative-spans",
 #"-Zcombine-cgu",
 
 "-Aunused",
