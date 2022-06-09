@@ -13,6 +13,9 @@ strip=true
 opt-level='s'
 #lto=true
 
+[profile.dev]
+#opt-level='s'
+
 [profile.release.build-override]
 strip=true
 overflow-checks=false
@@ -64,7 +67,7 @@ rustflags = [
 "-Frust_2018_idioms",
 "-Fdeprecated",
 
-#"-Clink-args=-Wl,-z=lazy -Wl,-znorelro",
+"-Clink-args=-Wl,",
 #"-Zpanic-in-drop=abort",
 #"-Zbuild-std",
 ]
