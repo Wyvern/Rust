@@ -12,7 +12,6 @@ vcs = "none"
 strip=true
 opt-level='s'
 #lto=true
-#panic="abort"
 
 [profile.release.build-override]
 strip=true
@@ -20,7 +19,7 @@ overflow-checks=false
 opt-level='s'
 
 [unstable]
-#check-cfg=features,names,values,output
+#check-cfg="features,names,values,output"
 avoid-dev-deps=true
 dual-proc-macros=true
 panic-abort-tests=true
@@ -39,6 +38,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
+#"-Cpanic=abort",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -56,8 +56,6 @@ rustflags = [
 "-Zmerge-functions=aliases",#trampolines
 "-Zfewer-names",
 "-Zpolymorphize",
-"-Zincremental-ignore-spans",
-"-Zincremental-relative-spans",
 #"-Zcombine-cgu",
 
 "-Aunused",
@@ -67,8 +65,6 @@ rustflags = [
 "-Fdeprecated",
 
 #"-Clink-args=-Wl,-z=lazy -Wl,-znorelro",
-#"-Ctune-cpu=native",
-#"-Cpanic=abort",
 #"-Zpanic-in-drop=abort",
 #"-Zbuild-std",
 ]
