@@ -8,18 +8,36 @@ dr = "doc -r"
 [cargo-new]
 vcs = "none" 
 
+[profile.dev]
+
+[profile.dev.package."*"]
+opt-level='s'
+strip=true
+
+[profile.dev.build-override]
+strip=true
+opt-level='s'
+
+[profile.test.package."*"]
+opt-level='s'
+strip=true
+
+[profile.bench.package."*"]
+opt-level='s'
+strip=true
+
+[profile.release.build-override]
+strip=true
+opt-level='s'
+
+[profile.release.package."*"]
+strip=true
+opt-level='s'
+
 [profile.release]
 strip=true
 opt-level='s'
 #lto=true
-
-[profile.dev]
-#opt-level='s'
-
-[profile.release.build-override]
-strip=true
-overflow-checks=false
-opt-level='s'
 
 [unstable]
 #check-cfg="features,names,values,output"
@@ -67,7 +85,7 @@ rustflags = [
 "-Frust_2018_idioms",
 "-Fdeprecated",
 
-"-Clink-args=-Wl,",
+#"-Clink-args=-Wl,",
 #"-Zpanic-in-drop=abort",
 #"-Zbuild-std",
 ]
