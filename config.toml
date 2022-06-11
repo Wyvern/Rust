@@ -22,7 +22,19 @@ opt-level='s'
 opt-level='s'
 strip=true
 
+[profile.test.build-override]
+opt-level='s'
+strip=true
+
 [profile.bench.package."*"]
+opt-level='s'
+strip=true
+
+[profile.bench.build-override]
+opt-level='s'
+strip=true
+
+[profile.bench]
 opt-level='s'
 strip=true
 
