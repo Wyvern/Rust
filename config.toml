@@ -40,7 +40,7 @@ inherits = "release"
 inherits = "release"
 
 [profile.release]
-rustflags = ["-Zcombine-cgu"]
+rustflags = ["-Zmir-opt-level=5","-Zcombine-cgu"]
 opt-level='s'
 strip=true
 
@@ -49,6 +49,7 @@ inherits = "release"
 rustflags = ["-Zpanic-in-drop=abort"]
 panic = "abort"
 lto=true
+
 [profile.lto.build-override]
 inherits = "release"
 rustflags = ["-Cprefer-dynamic=n","-Crpath=n",]
