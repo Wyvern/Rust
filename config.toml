@@ -97,7 +97,7 @@ rustflags = [
 "-Zmerge-functions=aliases",#trampolines
 "-Zfewer-names",
 "-Zpolymorphize",
-"-Zincremental-verify-ich",
+"-Zinline-mir",
 #"-Zcombine-cgu",
 
 "-Aunused",
