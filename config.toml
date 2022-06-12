@@ -25,10 +25,10 @@ inherits = "release"
 inherits = "release"
 
 [profile.bench.package."*"]
-inherits = "release"
+inherits = "bench"
 
 [profile.bench.build-override]
-inherits = "release"
+inherits = "bench"
 
 [profile.bench]
 inherits = "release"
@@ -40,7 +40,7 @@ inherits = "release"
 inherits = "release"
 
 [profile.release]
-rustflags = ["-Zmir-opt-level=5","-Zcombine-cgu"]
+rustflags = ["-Zmir-opt-level=4","-Zcombine-cgu",]
 opt-level='s'
 strip=true
 
@@ -51,14 +51,15 @@ panic = "abort"
 lto=true
 
 [profile.lto.build-override]
-inherits = "release"
-rustflags = ["-Cprefer-dynamic=n","-Crpath=n",]
-
+inherits = "lto"
+[profile.lto.package."*"]
+inherits = "lto"
 
 [profile.std]
-rustflags = ["-Zbuild-std=core,alloc,std,macros,test,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 inherits = "release"
 panic = "abort"
+rustflags = ["-Zbuild-std=core,alloc,std,macros,test,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
+
 
 [unstable]
 #check-cfg="features,names,values,output"
