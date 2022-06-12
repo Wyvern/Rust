@@ -10,51 +10,52 @@ dr = "doc -r"
 [cargo-new]
 vcs = "none" 
 
+#dev
 [profile.dev]
-
+rustflags = ["-Cprefer-dynamic","-Crpath"]
 [profile.dev.package."*"]
 inherits = "release"
-
 [profile.dev.build-override]
 inherits = "release"
 
+#test
+[profile.test]
+inherits = "dev"
 [profile.test.package."*"]
 inherits = "release"
-
 [profile.test.build-override]
 inherits = "release"
 
+#bench
 [profile.bench.package."*"]
 inherits = "bench"
-
 [profile.bench.build-override]
 inherits = "bench"
-
 [profile.bench]
 inherits = "release"
 
+#release
 [profile.release.build-override]
 inherits = "release"
-
 [profile.release.package."*"]
 inherits = "release"
-
 [profile.release]
-rustflags = ["-Zmir-opt-level=4","-Zcombine-cgu",]
+rustflags = ["-Cprefer-dynamic","-Crpath","-Zmir-opt-level=4","-Zcombine-cgu"]
 opt-level='s'
 strip=true
 
+#lto
 [profile.lto]
 inherits = "release"
 rustflags = ["-Zpanic-in-drop=abort"]
 panic = "abort"
 lto=true
-
 [profile.lto.build-override]
 inherits = "lto"
 [profile.lto.package."*"]
 inherits = "lto"
 
+#std
 [profile.std]
 inherits = "release"
 panic = "abort"
@@ -74,11 +75,11 @@ multitarget=true
 rustflags = [
 "-Ctarget-feature=-crt-static",
 "-Ctarget-cpu=native",
-"-Cprefer-dynamic",
-"-Crpath",
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
+#"-Cprefer-dynamic",
+#"-Crpath",
 #"-Cpanic=abort",
 
 "-Ztune-cpu=native",
