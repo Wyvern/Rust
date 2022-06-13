@@ -100,7 +100,6 @@ rustflags = [
 "-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
-"-Zpanic-abort-tests",
 #"-Zcombine-cgu",
 
 "-Aunused",
