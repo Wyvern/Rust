@@ -12,7 +12,7 @@ vcs = "none"
 [profile.dev]
 rustflags = ["-Cprefer-dynamic","-Crpath",]
 [profile.dev.package."*"]
-inherits = "release"
+inherits = "release#"
 [profile.dev.build-override]
 inherits = "release"
 
@@ -45,8 +45,9 @@ strip=true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Cpanic=abort","-Zpanic-in-drop=abort"]
+rustflags = ["-Zpanic-in-drop=abort"]
 lto=true
+panic="abort"
 [profile.lto.build-override]
 inherits = "lto"
 [profile.lto.package."*"]
@@ -55,7 +56,8 @@ inherits = "lto"
 #std
 [profile.std]
 inherits = "release"
-rustflags = ["-Zbuild-std=core,alloc,std,macros,test,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort","-Cpanic=abort"]
+panic="abort"
+rustflags = ["-Zbuild-std=core,alloc,std,macros,test,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 #lto=true
 [profile.std.build-override]
 inherits = "std"
@@ -79,9 +81,6 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-#"-Cprefer-dynamic",
-#"-Crpath",
-#"-Cpanic=abort",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
