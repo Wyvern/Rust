@@ -73,6 +73,7 @@ panic-abort-tests=true
 bindeps=true
 binary-dep-depinfo=true
 multitarget=true
+config-include=true
 
 [build]
 rustflags = [
