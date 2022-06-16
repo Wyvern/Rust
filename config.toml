@@ -82,7 +82,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-"-Clink-args=-fno-ident -ffast-math -fwhole-program-vtables -fno-data-sections -fno-function-sections -fstrict-vtable-pointers -dead_strip -fno-crash-diagnostics -gz",
+"-Clink-args=-fno-ident -fasync-exceptions -fno-exceptions -fwhole-program-vtables -fno-data-sections -fno-function-sections -fno-crash-diagnostics -feliminate-unused-debug-symbols -feliminate-unused-debug-types -faggressive-function-elimination",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
