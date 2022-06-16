@@ -12,7 +12,7 @@ vcs = "none"
 [profile.dev]
 rustflags = ["-Cprefer-dynamic","-Crpath",]
 [profile.dev.package."*"]
-inherits = "release#"
+inherits = "release"
 [profile.dev.build-override]
 inherits = "release"
 
@@ -82,6 +82,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
+"-Clink-args=-fno-ident -ffast-math -fwhole-program-vtables -fno-data-sections -fno-function-sections -fstrict-vtable-pointers -dead_strip -fno-crash-diagnostics -gz",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -107,8 +108,6 @@ rustflags = [
 "-Frust_2018_compatibility",
 "-Frust_2018_idioms",
 "-Fdeprecated",
-
-#"-Clink-args=-Wl,",
 ]
 #target="x86_64-apple-darwin"
 
