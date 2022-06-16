@@ -81,7 +81,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-"-Zpre-link-args=-fno-ident -gno-embed-source -fno-exceptions -fwhole-program-vtables -fno-data-sections -fno-function-sections -fno-crash-diagnostics -feliminate-unused-debug-symbols -feliminate-unused-debug-types -faggressive-function-elimination",
+"-Zpre-link-args=-fno-ident -fomit-frame-pointer -fno-stack-size-section -gno-embed-source -fno-exceptions -fwhole-program-vtables -fno-data-sections -fno-function-sections -fno-crash-diagnostics -feliminate-unused-debug-symbols -feliminate-unused-debug-types -faggressive-function-elimination",
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
 "-Znew-llvm-pass-manager=y",
