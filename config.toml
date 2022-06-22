@@ -10,7 +10,8 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Crpath",]
+rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5","-Cllvm-args=--experimental-debug-variable-locations"]
+rpath=true
 [profile.dev.package."*"]
 inherits = "release"
 [profile.dev.build-override]
@@ -38,14 +39,17 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags=["-Cprefer-dynamic","-Crpath","-Zmir-opt-level=4","-Zcombine-cgu"]
+rustflags=["-Cprefer-dynamic","-Zmir-opt-level=4","-Zcombine-cgu"]
 opt-level='s'
 strip=true
+rpath=true
 
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zpanic-in-drop=abort"]
+rustflags = ["-Zpanic-in-drop=abort",
+#"-Zvirtual-function-elimination","-Clto",
+]
 lto=true
 panic="abort"
 [profile.lto.build-override]
@@ -67,12 +71,14 @@ inherits = "std"
 [unstable]
 unstable-options=true
 avoid-dev-deps=true
-dual-proc-macros=true
-panic-abort-tests=true
 bindeps=true
 binary-dep-depinfo=true
+dual-proc-macros=true
+panic-abort-tests=true
 multitarget=true
 config-include=true
+sparse-registry=true
+
 
 [build]
 rustflags = [
@@ -81,7 +87,8 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-"-Zpre-link-args=-fno-ident -gno-embed-source -fno-exceptions -fwhole-program-vtables -fno-data-sections -fno-function-sections -fno-crash-diagnostics -feliminate-unused-debug-symbols -feliminate-unused-debug-types -faggressive-function-elimination",
+"-Clink-args=-fno-ident -fno-exceptions",
+
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
 "-Znew-llvm-pass-manager=y",
@@ -104,12 +111,20 @@ rustflags = [
 
 "-Aunused",
 "-Anonstandard_style",
-"-Frust_2018_compatibility",
-"-Frust_2018_idioms",
-"-Fdeprecated",
+
 ]
 #target="x86_64-apple-darwin"
 
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = ["-Clink-arg=--ld-path=/usr/local/bin/mold"]
+
+[llvm]
+assertions = false
+optimize = true
+
+[test]
+rustflags = [
+]
+rustdocflags = [
+]
