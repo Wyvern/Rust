@@ -69,16 +69,14 @@ inherits = "std"
 inherits = "std"
 
 [unstable]
-unstable-options=true
 avoid-dev-deps=true
-bindeps=true
-binary-dep-depinfo=true
 dual-proc-macros=true
 panic-abort-tests=true
 multitarget=true
 config-include=true
 sparse-registry=true
-
+#bindeps=true
+#binary-dep-depinfo=true
 
 [build]
 rustflags = [
