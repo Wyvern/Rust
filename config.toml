@@ -10,7 +10,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5","-Cllvm-args=--experimental-debug-variable-locations"]
+rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5","-Zdebug-macros","-Cllvm-args=--experimental-debug-variable-locations"]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
@@ -75,8 +75,8 @@ panic-abort-tests=true
 multitarget=true
 config-include=true
 sparse-registry=true
-#bindeps=true
-#binary-dep-depinfo=true
+bindeps=true
+binary-dep-depinfo=true
 
 [build]
 rustflags = [
@@ -86,6 +86,7 @@ rustflags = [
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
 "-Clink-args=-fno-ident -fno-exceptions",
+"-Cno-redzone",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -116,13 +117,3 @@ rustflags = [
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = ["-Clink-arg=--ld-path=/usr/local/bin/mold"]
-
-[llvm]
-assertions = false
-optimize = true
-
-[test]
-rustflags = [
-]
-rustdocflags = [
-]
