@@ -105,13 +105,15 @@ rustflags = [
 "-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
-"-Zpanic-abort-tests",
 "-Zinline-in-all-cgus",
+"-Zpanic-abort-tests",
+"-Zno-leak-check",
 #"-Zchalk",
 
 "-Aunused",
 "-Anonstandard_style",
-
+"-Frust_2018_idioms",
+"-Frust_2018_compatibility",
 ]
 #target="x86_64-apple-darwin"
 
