@@ -61,7 +61,7 @@ inherits = "lto"
 [profile.std]
 inherits = "release"
 panic="abort"
-rustflags = ["-Zbuild-std=core,alloc,std,macros,test,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
+rustflags = ["-Zbuild-std=core,alloc,std,macros,test,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 #lto=true
 [profile.std.build-override]
 inherits = "std"
@@ -69,6 +69,7 @@ inherits = "std"
 inherits = "std"
 
 [unstable]
+check-cfg=["names","values","features","output"]
 avoid-dev-deps=true
 dual-proc-macros=true
 panic-abort-tests=true
