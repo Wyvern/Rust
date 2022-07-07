@@ -108,7 +108,6 @@ rustflags = [
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
 "-Zpanic-abort-tests",
-"-Zno-leak-check",
 #"-Zchalk",
 
 "-Aunused",
