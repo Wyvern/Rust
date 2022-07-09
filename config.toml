@@ -4,6 +4,7 @@ br = "build -r"
 bl = "build --lib -r"
 tr = "test -r"
 dr = "doc -r"
+ad = "add --optional --no-default-features"
 
 [cargo-new]
 vcs = "none" 
