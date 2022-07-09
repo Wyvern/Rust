@@ -10,7 +10,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5","-Cllvm-args=--experimental-debug-variable-locations"]
+rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5","-Cllvm-args=--experimental-debug-variable-locations",]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
@@ -96,8 +96,8 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
-"-Clink-args=-fno-ident -fno-exceptions",
 "-Cno-redzone",
+"-Clink-args=-fglobal-isel -fno-ident -fno-exceptions -fno-crash-diagnostics -fexperimental-new-constant-interpreter",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
