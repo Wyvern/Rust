@@ -98,7 +98,7 @@ rustflags = [
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
 "-Cno-redzone",
-"-Clink-args=-fglobal-isel -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter",
+"-Clink-args=-mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
