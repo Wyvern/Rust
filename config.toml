@@ -100,7 +100,7 @@ rustflags = [
 "-Cno-redzone",
 "-Cllvm-args=--experimental-debug-variable-locations --enable-name-compression --enable-cse-in-irtranslator --enable-cse-in-legalizer",
 
-"-Zpre-link-args=-mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter -feliminate-unused-debug-symbols -feliminate-unused-debug-types -fglobal-isel",
+"-Zpre-link-args=-mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter -feliminate-unused-debug-symbols -feliminate-unused-debug-types -fglobal-isel -gdwarf-5",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -123,7 +123,6 @@ rustflags = [
 "-Zpanic-abort-tests",
 "-Zno-leak-check",
 "-Zunsound-mir-opts",
-"-Zdwarf-version=5",
 #"-Zchalk",
 
 "-Aunused",
