@@ -11,7 +11,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Clink-args=-gdwarf-5 -feliminate-unused-debug-symbols -feliminate-unused-debug-types","-Cllvm-args=--experimental-debug-variable-locations",]
+rustflags = ["-Cprefer-dynamic","-Zpre-link-args=-gdwarf-5 -feliminate-unused-debug-symbols -feliminate-unused-debug-types","-Cllvm-args=--experimental-debug-variable-locations",]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
