@@ -11,7 +11,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Zpre-link-args=-gdwarf-5 -feliminate-unused-debug-symbols -feliminate-unused-debug-types","-Cllvm-args=--experimental-debug-variable-locations",]
+rustflags = ["-Cprefer-dynamic","-Zdwarf-version=4","-Zpre-link-args=-gdwarf-5 -feliminate-unused-debug-symbols -feliminate-unused-debug-types","-Cllvm-args=--experimental-debug-variable-locations",]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
@@ -28,11 +28,11 @@ inherits = "release"
 
 #bench
 [profile.bench.package."*"]
-inherits = "bench"
-[profile.bench.build-override]
-inherits = "bench"
-[profile.bench]
 inherits = "release"
+[profile.bench.build-override]
+inherits = "release"
+[profile.bench]
+inherits = "dev"
 
 #release
 [profile.release.build-override]
