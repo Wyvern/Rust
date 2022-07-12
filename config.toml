@@ -80,6 +80,7 @@ rustflags=["-Zno-analysis","-Zno-codegen","-Zno-link"]
 
 
 [unstable]
+unstable-options=true
 check-cfg=["names","values","features","output"]
 avoid-dev-deps=true
 dual-proc-macros=true
