@@ -78,7 +78,6 @@ inherits = "no"
 inherits = "release"
 rustflags=["-Zno-analysis","-Zno-codegen","-Zno-link"]
 
-
 [unstable]
 unstable-options=true
 check-cfg=["names","values","features","output"]
@@ -101,7 +100,7 @@ rustflags = [
 "-Cno-redzone",
 "-Cllvm-args=--enable-name-compression --enable-cse-in-legalizer --enable-cse-in-irtranslator",
 
-"-Zpre-link-args=-mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter -fglobal-isel",
+"-Zpre-link-args=-fglobal-isel -mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -114,7 +113,7 @@ rustflags = [
 "-Zoom=abort",
 "-Zthir-unsafeck",
 "-Zshare-generics",
-"-Zplt",
+"-Zplt",#Linux ELF only
 "-Zgcc-ld=lld",
 "-Zmerge-functions=aliases",#trampolines
 "-Zfewer-names",
