@@ -11,7 +11,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Zdwarf-version=4","-Zpre-link-args=-gdwarf-5 -feliminate-unused-debug-symbols -feliminate-unused-debug-types","-Cllvm-args=--experimental-debug-variable-locations",]
+rustflags = ["-Cprefer-dynamic","-Cdebug_assertions","-Zdwarf-version=4","-Cllvm-args=--experimental-debug-variable-locations",]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
@@ -40,8 +40,7 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags=["-Cprefer-dynamic","-Zmir-opt-level=4","-Zcombine-cgu"]
-opt-level='s'
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 strip=true
 rpath=true
 
@@ -97,6 +96,7 @@ rustflags = [
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
 "-Clink-self-contained=no",
+"-Copt-level=s",
 "-Cno-redzone",
 "-Cllvm-args=--enable-name-compression --enable-cse-in-legalizer --enable-cse-in-irtranslator",
 
@@ -120,9 +120,9 @@ rustflags = [
 "-Zpolymorphize",
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
-"-Zpanic-abort-tests",
-"-Zno-leak-check",
+"-Zmir-opt-level=4",
 "-Zunsound-mir-opts",
+"-Zno-leak-check",
 #"-Zchalk",
 
 "-Aunused",
