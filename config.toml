@@ -115,7 +115,7 @@ rustflags = [
 "-Zshare-generics",
 "-Zplt",# Linux ELF only
 "-Zgcc-ld=lld",
-"-Zmerge-functions=trampolines",# trampolines,aliases
+"-Zmerge-functions=aliases",# trampolines
 "-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
