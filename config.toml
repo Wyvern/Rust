@@ -100,7 +100,7 @@ rustflags = [
 "-Cno-redzone",
 "-Cllvm-args=--enable-name-compression --enable-cse-in-legalizer --enable-cse-in-irtranslator",
 
-"-Zpre-link-args=-fglobal-isel -mglobal-merge -fmerge-all-constants -fno-ident -fno-exceptions -faggressive-function-elimination -fno-crash-diagnostics -fexperimental-new-constant-interpreter",
+"-Zpre-link-args=-fno-ident -fno-exceptions ",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -113,9 +113,9 @@ rustflags = [
 "-Zoom=abort",
 "-Zthir-unsafeck",
 "-Zshare-generics",
-"-Zplt",#Linux ELF only
+"-Zplt",# Linux ELF only
 "-Zgcc-ld=lld",
-"-Zmerge-functions=aliases",#trampolines
+"-Zmerge-functions=trampolines",# trampolines,aliases
 "-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
@@ -130,6 +130,7 @@ rustflags = [
 "-Frust_2018_idioms",
 "-Frust_2018_compatibility",
 ]
+#target="x86_64-apple-darwin"
 
 [package.metadata.docs.rs]
 all-features = true
