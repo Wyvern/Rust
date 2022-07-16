@@ -75,7 +75,7 @@ inherits = "no"
 inherits = "no"
 [profile.no]
 inherits = "release"
-rustflags=["-Zno-analysis","-Zno-codegen","-Zno-link"]
+rustflags=["-Zparse-only","-Zno-analysis","-Zno-link","-Zno-codegen"]
 
 [unstable]
 unstable-options=true
@@ -121,6 +121,7 @@ rustflags = [
 "-Zinline-in-all-cgus",
 "-Zmir-opt-level=4",
 "-Zno-leak-check",
+"-Zunsound-mir-opts",
 #"-Zchalk",
 
 "-Aunused",
