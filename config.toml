@@ -98,9 +98,8 @@ rustflags = [
 "-Clink-self-contained=no",
 "-Copt-level=s",
 "-Cno-redzone",
-"-Cllvm-args=--enable-name-compression --enable-cse-in-legalizer --enable-cse-in-irtranslator",
-
-"-Zpre-link-args=-fno-ident -fno-exceptions ",
+"-Cllvm-args=--enable-name-compression",
+"-Clink-args=-fno-ident -fno-exceptions -fno-backtrace",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -121,7 +120,6 @@ rustflags = [
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
 "-Zmir-opt-level=4",
-"-Zunsound-mir-opts",
 "-Zno-leak-check",
 #"-Zchalk",
 
