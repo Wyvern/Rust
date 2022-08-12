@@ -1,7 +1,7 @@
 [alias]
 rr = "run -r"
 br = "build -r"
-st = "build --profile stats"
+ss = "build --profile stats"
 lto= "build --profile lto"
 src= "build --profile src"
 no = "build --profile no"
