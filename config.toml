@@ -47,6 +47,7 @@ inherits = "release"
 rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 strip=true
 rpath=true
+#codegen-units = 1
 
 #lto
 [profile.lto]
@@ -103,6 +104,12 @@ bindeps=true
 binary-dep-depinfo=true
 doctest-in-workspace=true
 
+[stable]
+message-format="json"
+print-format="json"
+format-version=2
+
+
 [build]
 rustflags = [
 "-Ctarget-feature=-crt-static",
@@ -113,7 +120,7 @@ rustflags = [
 "-Copt-level=s",
 "-Cno-redzone",
 "-Cllvm-args=--enable-name-compression",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz",
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
