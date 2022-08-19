@@ -120,7 +120,7 @@ rustflags = [
 "-Copt-level=s",
 "-Cno-redzone",
 "-Cllvm-args=--enable-name-compression",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup",
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -undefined dynamic-lookup",
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
