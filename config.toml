@@ -52,15 +52,15 @@ rpath=true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zpanic-in-drop=abort",
+rustflags = [#"-Zpanic-in-drop=abort",
 #"-Zvirtual-function-elimination","-Clto",
 ]
 lto=true
 panic="abort"
 [profile.lto.build-override]
-inherits = "lto"
+inherits = "release"
 [profile.lto.package."*"]
-inherits = "lto"
+inherits = "release"
 
 #std
 [profile.src]
@@ -69,15 +69,15 @@ panic="abort"
 rustflags = ["-Zbuild-std=core,alloc,std,macros,test,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 #lto=true
 [profile.std.build-override]
-inherits = "src"
+inherits = "release"
 [profile.std.package."*"]
-inherits = "src"
+inherits = "release"
 
 #stats
 [profile.stats.build-override]
-inherits = "stats"
+inherits = "release"
 [profile.stats.package."*"]
-inherits = "stats"
+inherits = "release"
 [profile.stats]
 inherits = "release"
 rustflags=["-Zperf-stats","-Zmeta-stats"]
