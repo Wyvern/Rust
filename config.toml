@@ -133,7 +133,6 @@ rustflags = [
 "-Zoom=abort",
 "-Zthir-unsafeck",
 "-Zshare-generics",
-"-Zplt",# Linux ELF only
 "-Zgcc-ld=lld",
 "-Zmerge-functions=aliases",# trampolines
 "-Zfewer-names",
@@ -160,4 +159,4 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
-rustflags = ["-Clink-arg=--ld-path=/usr/local/bin/mold"]
+rustflags = ["-Zplt","-Clink-arg=--ld-path=/usr/local/bin/mold"]
