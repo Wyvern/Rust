@@ -13,9 +13,22 @@ ad = "add --optional --no-default-features"
 [cargo-new]
 vcs = "none" 
 
+[http]
+ssl-version = "tlsv1.3"
+multiplexing = true 
+
+[net]
+#offline = true  
+
+[term]
+#progress.when= 'always'
+#progress.width= 60
+#quiet = false        
+#verbose = false     
+
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic","-Cdebug_assertions","-Zdwarf-version=4"]
+rustflags = ["-Cdebug_assertions","-Zdwarf-version=4"]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
@@ -44,7 +57,7 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
+rustflags=["-Zcombine-cgu"]
 strip=true
 rpath=true
 #codegen-units = 1
@@ -52,8 +65,9 @@ rpath=true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = [#"-Zpanic-in-drop=abort",
-#"-Zvirtual-function-elimination","-Clto",
+rustflags = [
+#"-Zpanic-in-drop=abort",
+"-Zvirtual-function-elimination","-Clto"
 ]
 lto=true
 panic="abort"
@@ -62,7 +76,7 @@ inherits = "release"
 [profile.lto.package."*"]
 inherits = "release"
 
-#std
+#src
 [profile.src]
 inherits = "release"
 panic="abort"
@@ -80,7 +94,7 @@ inherits = "release"
 inherits = "release"
 [profile.stats]
 inherits = "release"
-rustflags=["-Zperf-stats","-Zmeta-stats"]
+rustflags=["-Zperf-stats","-Zmeta-stats","-Zcombine-cgu"]
 
 #no
 [profile.no.build-override]
@@ -119,12 +133,13 @@ rustflags = [
 "-Clink-self-contained=no",
 "-Copt-level=s",
 "-Cno-redzone",
+"-Cprefer-dynamic",
+#"-Clinker-flavor=gcc:lld",
 "-Cllvm-args=--enable-name-compression",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -undefined dynamic-lookup",
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup", #-fuse-ld=lld 
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
-"-Znew-llvm-pass-manager=y",
 "-Zthinlto",
 "-Zno-generate-arange-section",
 "-Zdep-info-omit-d-target",
@@ -134,13 +149,14 @@ rustflags = [
 "-Zthir-unsafeck",
 "-Zshare-generics",
 "-Zgcc-ld=lld",
-"-Zmerge-functions=aliases",# trampolines
+"-Zmerge-functions=aliases", # trampolines
 "-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
 "-Zmir-opt-level=4",
 "-Zunsound-mir-opts",
+"-Zpacked-bundled-libs",
 #"-Zchalk",
 
 "-Aunused",
