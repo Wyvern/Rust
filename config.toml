@@ -29,7 +29,6 @@ multiplexing = true
 #dev
 [profile.dev]
 rustflags = ["-Cdebug_assertions","-Zdwarf-version=4"]
-rpath=true
 [profile.dev.package."*"]
 inherits = "release"
 [profile.dev.build-override]
@@ -59,7 +58,6 @@ inherits = "release"
 [profile.release]
 rustflags=["-Zcombine-cgu"]
 strip=true
-rpath=true
 #codegen-units = 1
 
 #lto
@@ -134,7 +132,9 @@ rustflags = [
 "-Copt-level=s",
 "-Cno-redzone",
 "-Cprefer-dynamic",
+"-Crpath",
 #"-Clinker-flavor=gcc:lld",
+
 "-Cllvm-args=--enable-name-compression",
 "-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup", #-fuse-ld=lld 
 
