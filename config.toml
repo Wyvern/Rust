@@ -109,7 +109,6 @@ check-cfg=["names","values","features","output"]
 avoid-dev-deps=true
 dual-proc-macros=true
 panic-abort-tests=true
-multitarget=true
 config-include=true
 sparse-registry=true
 bindeps=true
@@ -135,8 +134,8 @@ rustflags = [
 "-Crpath",
 #"-Clinker-flavor=gcc:lld",
 
-"-Cllvm-args=--enable-name-compression",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup", #-fuse-ld=lld 
+"-Cllvm-args=--enable-name-compression --debugify-quiet",
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer", #-fuse-ld=lld 
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
