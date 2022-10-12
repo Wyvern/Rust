@@ -28,7 +28,8 @@ multiplexing = true
 
 #dev
 [profile.dev]
-rustflags = ["-Cdebug_assertions","-Zdwarf-version=4"]
+rustflags = ["-Cprefer-dynamic","-Cdebug_assertions","-Zdwarf-version=4"]
+rpath=true
 [profile.dev.package."*"]
 inherits = "release"
 [profile.dev.build-override]
@@ -56,7 +57,8 @@ inherits = "release"
 [profile.release.package."*"]
 inherits = "release"
 [profile.release]
-rustflags=["-Zcombine-cgu"]
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
+rpath=true
 strip=true
 #codegen-units = 1
 
@@ -130,8 +132,6 @@ rustflags = [
 "-Clink-self-contained=no",
 "-Copt-level=s",
 "-Cno-redzone",
-"-Cprefer-dynamic",
-"-Crpath",
 #"-Clinker-flavor=gcc:lld",
 
 "-Cllvm-args=--enable-name-compression --debugify-quiet",
