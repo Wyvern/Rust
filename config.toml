@@ -3,7 +3,7 @@ rr = "run -r"
 br = "build -r"
 ss = "build --profile stats"
 lto= "build --profile lto"
-src= "build --profile src"
+src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,test,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target x86_64-apple-darwin "
 no = "build --profile no"
 bl = "build --lib -r"
 tr = "test -r"
@@ -80,7 +80,7 @@ inherits = "release"
 [profile.src]
 inherits = "release"
 panic="abort"
-rustflags = ["-Zbuild-std=core,alloc,std,macros,test,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
+#rustflags = ["-Zbuild-std=core,alloc,std,macros,test,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 #lto=true
 [profile.std.build-override]
 inherits = "release"
@@ -115,12 +115,7 @@ config-include=true
 sparse-registry=true
 bindeps=true
 binary-dep-depinfo=true
-doctest-in-workspace=true
-
-[stable]
-message-format="json"
-print-format="json"
-format-version=2
+#doctest-in-workspace=true
 
 
 [build]
@@ -154,8 +149,8 @@ rustflags = [
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
 "-Zmir-opt-level=4",
-"-Zunsound-mir-opts",
 "-Zpacked-bundled-libs",
+"-Zteach",
 #"-Zchalk",
 
 "-Aunused",
