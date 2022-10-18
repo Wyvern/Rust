@@ -8,8 +8,8 @@ bl = "build --lib -r"
 tr = "test -r"
 dr = "doc -r"
 ad = "add --optional --no-default-features"
-ls= "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,test,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target x86_64-apple-darwin "
-src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,test,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target x86_64-apple-darwin "
+ls= "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target x86_64-apple-darwin "
+src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target x86_64-apple-darwin "
 
 [cargo-new]
 vcs = "none" 
