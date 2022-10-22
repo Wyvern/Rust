@@ -6,7 +6,7 @@ export MACOSX_DEPLOYMENT_TARGET=12.0
 
 alias gt='git clone --filter=tree:0 --depth=1 --single-branch'
 alias daily='bun upgrade; rustup update; omz update --unattended; brew upgrade; brew cleanup; rdf;'
-alias rdf='echo Comparing rustc -Z New vs Old: ; rustc -Z help|diff - ~/Desktop/rz.txt; echo Comparing rustc -C New vs Old: ; rustc -C help|diff - ~/Desktop/rc.txt; echo Comparing cargo -Z New vs Old: ; cargo -Z help|diff - ~/Desktop/cargo.txt'
+alias rdf='echo Comparing rustc -Z \<New vs Old\>: ; rustc -Z help|diff - ~/Desktop/rz.txt; echo Comparing rustc -C \<New vs Old\>: ; rustc -C help|diff - ~/Desktop/rc.txt; echo Comparing cargo -Z \<New vs Old\>: ; cargo -Z help|diff - ~/Desktop/cargo.txt'
 alias rt='cargo clean && cargo br'
 alias rla='rustc -Cllvm-args=--help|grep -i'
 alias rdd='rm -rf ~/Library/Developer/Xcode/DerivedData'
