@@ -81,7 +81,7 @@ inherits = "release"
 [profile.src]
 inherits = "release"
 panic="abort"
-#rustflags = ["-Zbuild-std=core,alloc,std,macros,test,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
+#rustflags = ["-Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
 [profile.std.build-override]
 inherits = "release"
 [profile.std.package."*"]
