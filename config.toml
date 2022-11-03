@@ -3,6 +3,7 @@ rr = "run -r"
 br = "build -r"
 ss = "build --profile stats"
 lto= "build --profile lto"
+dlt= "build --profile dlt"
 no = "build --profile no"
 bl = "build --lib -r"
 tr = "test -r"
@@ -77,14 +78,28 @@ inherits = "release"
 [profile.lto.package."*"]
 inherits = "release"
 
+#dlt
+[profile.dlt]
+inherits = "release"
+rustflags = ["-Cprefer-dynamic","-Zcombine-cgu",
+#"-Zpanic-in-drop=abort",
+#"-Zvirtual-function-elimination","-Clto"
+]
+lto=true
+[profile.dlt.build-override]
+inherits = "release"
+[profile.dlt.package."*"]
+inherits = "release"
+
 #src
 [profile.src]
 inherits = "release"
-panic="abort"
 #rustflags = ["-Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
-[profile.std.build-override]
+lto=true
+panic="abort"
+[profile.src.build-override]
 inherits = "release"
-[profile.std.package."*"]
+[profile.src.package."*"]
 inherits = "release"
 
 #stats
@@ -131,7 +146,7 @@ rustflags = [
 #"-Clinker-flavor=gcc:lld",
 
 "-Cllvm-args=--enable-name-compression --debugify-quiet",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer", #-fuse-ld=lld 
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer -nostartfiles -nostdlib -nostdlib++ -nolibc -nodefaultlibs", #-fuse-ld=lld 
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
