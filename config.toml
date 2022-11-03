@@ -34,8 +34,10 @@ rustflags = ["-Cprefer-dynamic","-Cdebug_assertions","-Zdwarf-version=4"]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 [profile.dev.build-override]
 inherits = "release"
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 
 #test
 [profile.test]
@@ -81,7 +83,7 @@ inherits = "release"
 #dlt
 [profile.dlt]
 inherits = "release"
-rustflags = ["-Cprefer-dynamic","-Zcombine-cgu",
+rustflags = ["-Zdylib-lto","-Cprefer-dynamic","-Zcombine-cgu",
 #"-Zpanic-in-drop=abort",
 #"-Zvirtual-function-elimination","-Clto"
 ]
@@ -167,7 +169,6 @@ rustflags = [
 "-Zmir-opt-level=4",
 "-Zpacked-bundled-libs",
 "-Zteach",
-"-Zdylib-lto",
 #"-Zchalk",
 
 "-Aunused",
