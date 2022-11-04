@@ -2,7 +2,7 @@
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
 
-export MACOSX_DEPLOYMENT_TARGET=12.0 
+export MACOSX_DEPLOYMENT_TARGET=13.0
 
 alias gt='git clone --filter=tree:0 --depth=1 --single-branch'
 alias daily='bun upgrade; rustup update; omz update --unattended; brew upgrade; brew cleanup; rdf;'
