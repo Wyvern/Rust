@@ -14,5 +14,6 @@ alias rz='rustc -Z help|grep -i'
 alias rc='rustc -C help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
+alias pn='ps -alxmr|gi'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
