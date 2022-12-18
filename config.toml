@@ -15,18 +15,8 @@ src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_bu
 [cargo-new]
 vcs = "none" 
 
-[http]
-ssl-version = "tlsv1.3"
-multiplexing = true 
-
 [net]
-#offline = true  
-
-[term]
-#progress.when= 'always'
-#progress.width= 60
-#quiet = false        
-#verbose = false     
+#offline = true     
 
 #dev
 [profile.dev]
@@ -142,13 +132,12 @@ rustflags = [
 "-Ctarget-cpu=native",
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
-"-Clink-self-contained=no",
 "-Copt-level=s",
 "-Cno-redzone",
 #"-Clinker-flavor=gcc:lld",
 
 "-Cllvm-args=--enable-name-compression --debugify-quiet",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer -nostartfiles -nostdlib -nostdlib++ -nolibc -nodefaultlibs", #-fuse-ld=lld 
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer", #-fuse-ld=lld 
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -169,6 +158,7 @@ rustflags = [
 "-Zmir-opt-level=4",
 "-Zpacked-bundled-libs",
 "-Zteach",
+"-Zmaximal-hir-to-mir-coverage=y",
 #"-Zchalk",
 
 "-Aunused",
@@ -183,7 +173,6 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [target.x86_64-apple-darwin]
-
 
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
