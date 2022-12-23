@@ -1,14 +1,14 @@
 [alias]
 rr = "run -r"
 br = "build -r"
+a = "build -r --all-features"
+ar = "run -r --all-features"
 ss = "build --profile stats"
 lto= "build --profile lto"
-dlt= "build --profile dlt"
 no = "build --profile no"
 bl = "build --lib -r"
 tr = "test -r"
 dr = "doc -r"
-ad = "add --optional --no-default-features"
 ls= "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
@@ -70,19 +70,6 @@ inherits = "release"
 [profile.lto.package."*"]
 inherits = "release"
 
-#dlt
-[profile.dlt]
-inherits = "release"
-rustflags = ["-Zdylib-lto","-Cprefer-dynamic","-Zcombine-cgu",
-#"-Zpanic-in-drop=abort",
-#"-Zvirtual-function-elimination","-Clto"
-]
-lto=true
-[profile.dlt.build-override]
-inherits = "release"
-[profile.dlt.package."*"]
-inherits = "release"
-
 #src
 [profile.src]
 inherits = "release"
@@ -128,7 +115,7 @@ doctest-xcompile=true
 
 [build]
 rustflags = [
-"-Ctarget-feature=-crt-static",
+#"-Ctarget-feature=-crt-static",
 "-Ctarget-cpu=native",
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
@@ -142,6 +129,7 @@ rustflags = [
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
 "-Zthinlto",
+"-Zdylib-lto",
 "-Zno-generate-arange-section",
 "-Zdep-info-omit-d-target",
 "-Zpolonius",
@@ -151,7 +139,6 @@ rustflags = [
 "-Zshare-generics",
 "-Zgcc-ld=lld",
 "-Zmerge-functions=aliases", # trampolines
-"-Zfewer-names",
 "-Zpolymorphize",
 "-Zinline-mir",
 "-Zinline-in-all-cgus",
@@ -159,6 +146,7 @@ rustflags = [
 "-Zpacked-bundled-libs",
 "-Zteach",
 "-Zmaximal-hir-to-mir-coverage=y",
+"-Zno-jump-tables",
 #"-Zchalk",
 
 "-Aunused",
@@ -173,6 +161,10 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [target.x86_64-apple-darwin]
+
+[target.debug]
+
+[target.release]
 
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
