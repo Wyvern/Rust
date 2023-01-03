@@ -1,7 +1,9 @@
 [alias]
 rr = "run -r"
 br = "build -r"
-a = "build -r --all-features"
+cf = "clippy --fix --allow-no-vcs"
+ndf= "run -r --no-default-features"
+a  = "build -r --all-features"
 ar = "run -r --all-features"
 ss = "build --profile stats"
 lto= "build --profile lto"
@@ -9,7 +11,7 @@ no = "build --profile no"
 bl = "build --lib -r"
 tr = "test -r"
 dr = "doc -r"
-ls= "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+ls = "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 src= "build --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
@@ -24,10 +26,8 @@ rustflags = ["-Cprefer-dynamic","-Cdebug_assertions","-Zdwarf-version=4"]
 rpath=true
 [profile.dev.package."*"]
 inherits = "release"
-rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 [profile.dev.build-override]
 inherits = "release"
-rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 
 #test
 [profile.test]
@@ -48,8 +48,10 @@ inherits = "dev"
 #release
 [profile.release.build-override]
 inherits = "release"
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 [profile.release.package."*"]
 inherits = "release"
+rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 [profile.release]
 rustflags=["-Cprefer-dynamic","-Zcombine-cgu"]
 rpath=true
@@ -129,6 +131,7 @@ rustflags = [
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
 "-Zthinlto",
+"-Zplt=y",
 "-Zdylib-lto",
 "-Zno-generate-arange-section",
 "-Zdep-info-omit-d-target",
