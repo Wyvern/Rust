@@ -1,7 +1,7 @@
 [alias]
 rr = "run -r"
 br = "build -r"
-cf = "clippy --fix --allow-no-vcs"
+cf = "clippy --fix --allow-no-vcs -r"
 ndf= "run -r --no-default-features"
 a  = "build -r --all-features"
 ar = "run -r --all-features"
@@ -117,7 +117,7 @@ doctest-xcompile=true
 
 [build]
 rustflags = [
-#"-Ctarget-feature=-crt-static",
+"-Ctarget-feature=-crt-static",
 "-Ctarget-cpu=native",
 "-Csymbol-mangling-version=v0",
 "-Coverflow-checks=no",
@@ -126,7 +126,7 @@ rustflags = [
 #"-Clinker-flavor=gcc:lld",
 
 "-Cllvm-args=--enable-name-compression --debugify-quiet",
-"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer", #-fuse-ld=lld 
+"-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-backtrace -gz -undefined -dynamic-lookup -fomit-frame-pointer", #-fuse-ld=lld 
 
 "-Ztune-cpu=native",
 "-Zno-profiler-runtime",
@@ -150,7 +150,7 @@ rustflags = [
 "-Zteach",
 "-Zmaximal-hir-to-mir-coverage=y",
 "-Zno-jump-tables",
-#"-Zchalk",
+#"-Ztrait-solver=chalk|next",
 
 "-Aunused",
 "-Anonstandard_style",
