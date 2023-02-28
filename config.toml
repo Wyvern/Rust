@@ -1,7 +1,7 @@
 [alias]
 rr = "run -r"
 br = "build -r"
-cf = "clippy --fix --allow-no-vcs -r"
+cf = "clippy -r --fix --allow-no-vcs"
 ndf = "run -r --no-default-features"
 a = "build -r --all-features"
 ar = "run -r --all-features"
@@ -60,7 +60,7 @@ strip = true
 [profile.lto]
 inherits = "release"
 rustflags = [
-    #"-Zpanic-in-drop=abort",
+    "-Cprefer-dynamic=n",
     #"-Zvirtual-function-elimination","-Clto"
 ]
 lto = true
@@ -72,14 +72,12 @@ inherits = "release"
 
 #src
 [profile.src]
-inherits = "release"
-#rustflags = ["-Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort","-Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem","-Zpanic-in-drop=abort"]
-lto = true
-panic = "abort"
+inherits = "lto"
+rustflags = ["-Zpanic-in-drop=abort"]
 [profile.src.build-override]
-inherits = "release"
+inherits = "src"
 [profile.src.package."*"]
-inherits = "release"
+inherits = "src"
 
 #stats
 [profile.stats.build-override]
@@ -100,7 +98,13 @@ inherits = "release"
 rustflags = ["-Zparse-only", "-Zno-analysis", "-Zno-link", "-Zno-codegen"]
 
 [unstable]
-check-cfg = ["names", "values", "features", "output"]
+check-cfg = [
+    "names",
+    "values",
+    "features",
+    "output",
+    #"cfgs"
+]
 avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
@@ -122,7 +126,7 @@ rustflags = [
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
-    #"-Clinker-flavor=gcc:lld",
+    #"-Clinker-flavor=lld-link",
 
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fglobal-isel -fno-exceptions -fno-async-exceptions -fno-backtrace -gz -undefined -dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
@@ -130,7 +134,7 @@ rustflags = [
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
     "-Zthinlto",
-    "-Zplt=y",
+    "-Zplt",
     "-Zdylib-lto",
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
@@ -140,15 +144,17 @@ rustflags = [
     "-Zthir-unsafeck",
     "-Zshare-generics",
     "-Zgcc-ld=lld",
-    "-Zmerge-functions=aliases",       # trampolines
+    "-Zmerge-functions=trampolines",
     "-Zpolymorphize",
     "-Zinline-mir",
     "-Zinline-in-all-cgus",
     "-Zmir-opt-level=4",
     "-Zpacked-bundled-libs",
     "-Zteach",
-    "-Zmaximal-hir-to-mir-coverage=y",
+    "-Zmaximal-hir-to-mir-coverage",
     "-Zno-jump-tables",
+    "-Zterminal-urls",
+    "-Zthreads=0",
     #"-Ztrait-solver=chalk|next",
 
     "-Aunused",
@@ -156,7 +162,6 @@ rustflags = [
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
-#target="x86_64-apple-darwin"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -167,7 +172,3 @@ rustdoc-args = ["--cfg", "docsrs"]
 [target.debug]
 
 [target.release]
-
-[target.x86_64-unknown-linux-gnu]
-linker = "clang"
-rustflags = ["-Zplt", "-Clink-arg=--ld-path=/usr/local/bin/mold"]
