@@ -1,18 +1,18 @@
 [alias]
-rr = "run -r"
-br = "build -r"
+rr = "r -r"
+br = "b -r"
 cf = "clippy -r --fix --allow-no-vcs"
-ndf = "run -r --no-default-features"
-a = "build -r --all-features"
-ar = "run -r --all-features"
-ss = "build --profile stats"
-lto = "build --profile lto"
-no = "build --profile no"
-bl = "build --lib -r"
-tr = "test -r"
-dr = "doc -r"
-ls = "build --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "build --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+ndf = "r -r --no-default-features"
+a = "b -r --all-features"
+ar = "r -r --all-features"
+ss = "b --profile stats"
+lto = "b --profile lto"
+no = "b --profile no"
+bl = "b --lib -r"
+tr = "t -r"
+dr = "d -r"
+ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
@@ -26,22 +26,28 @@ rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions", "-Zdwarf-version=4"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
+debug=false
 [profile.dev.build-override]
 inherits = "release"
+debug=false
 
 #test
 [profile.test]
 inherits = "dev"
 [profile.test.package."*"]
 inherits = "release"
+debug=false
 [profile.test.build-override]
 inherits = "release"
+debug=false
 
 #bench
 [profile.bench.package."*"]
 inherits = "release"
+debug=false
 [profile.bench.build-override]
 inherits = "release"
+debug=false
 [profile.bench]
 inherits = "dev"
 
@@ -73,7 +79,10 @@ inherits = "release"
 #src
 [profile.src]
 inherits = "lto"
-rustflags = ["-Zpanic-in-drop=abort"]
+rustflags = [
+    "-Zforce-unstable-if-unmarked",
+    #"-Zpanic-in-drop=abort"
+]
 [profile.src.build-override]
 inherits = "src"
 [profile.src.package."*"]
