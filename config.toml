@@ -12,7 +12,7 @@ bl = "b --lib -r"
 tr = "t -r"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target-dir src --target "
 
 [cargo-new]
 vcs = "none"
@@ -128,11 +128,11 @@ avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
 config-include = true
-sparse-registry = true
 bindeps = true
 binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
+gitoxide = { checkout = true, fetch = true, shallow_index = true, shallow_deps = true, internal_use_git2 = true }
 #doctest-in-workspace=true
 #doctest-xcompile=true
 
@@ -174,6 +174,7 @@ rustflags = [
     "-Zno-jump-tables",
     "-Zterminal-urls",
     "-Zthreads=0",
+    "-Zlower-impl-trait-in-trait-to-assoc-ty",
     #"-Ztrait-solver=chalk|next",
 
     "-Aunused",
