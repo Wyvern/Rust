@@ -2,6 +2,7 @@
 rr = "r -r"
 br = "b -r"
 cf = "clippy -r --fix --allow-no-vcs"
+fx = "fix -r --allow-no-vcs"
 ndf = "r -r --no-default-features"
 a = "b -r --all-features"
 ar = "r -r --all-features"
@@ -12,7 +13,7 @@ bl = "b --lib -r"
 tr = "t -r"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target-dir src --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
@@ -22,32 +23,44 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug_assertions", "-Zdwarf-version=4"]
+rustflags = ["-Cprefer-dynamic", "-Zdwarf-version=4"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 [profile.dev.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 
 #test
 [profile.test]
 inherits = "dev"
 [profile.test.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 [profile.test.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 
 #bench
 [profile.bench.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 [profile.bench.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 [profile.bench]
 inherits = "dev"
 
@@ -73,12 +86,17 @@ rustflags = [
 lto = true
 panic = "abort"
 debug = false
+strip = true
 [profile.lto.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 [profile.lto.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
+strip = true
 
 #src
 [profile.src]
@@ -87,20 +105,29 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     #"-Zpanic-in-drop=abort"
 ]
+debug-assertions = false
+debug = false
+strip = true
 [profile.src.build-override]
 inherits = "src"
+debug-assertions = false
 debug = false
+strip = true
 [profile.src.package."*"]
 inherits = "src"
+debug-assertions = false
 debug = false
+strip = true
 
 #stats
 [profile.stats.build-override]
 inherits = "release"
 debug = false
+strip = true
 [profile.stats.package."*"]
 inherits = "release"
 debug = false
+strip = true
 [profile.stats]
 inherits = "release"
 rustflags = ["-Zperf-stats", "-Zmeta-stats"]
@@ -109,21 +136,30 @@ rustflags = ["-Zperf-stats", "-Zmeta-stats"]
 [profile.no.build-override]
 inherits = "no"
 debug = false
+strip = true
 [profile.no.package."*"]
 inherits = "no"
 debug = false
+strip = true
 [profile.no]
 inherits = "release"
 rustflags = ["-Zparse-only", "-Zno-analysis", "-Zno-link", "-Zno-codegen"]
 
+#no-opt
+[profile.no-opt.build-override]
+inherits = "no"
+debug = false
+strip = true
+[profile.no-opt.package."*"]
+inherits = "no"
+debug = false
+strip = true
+[profile.no-opt]
+inherits = "release"
+rustflags = ["-Cno-prepopulate-passes", "-Copt-level=0", "-Zmir-opt-level=0"]
+
 [unstable]
-check-cfg = [
-    "names",
-    "values",
-    "features",
-    "output",
-    #"cfgs"
-]
+check-cfg = ["names", "values", "features", "output"]
 avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
@@ -132,10 +168,13 @@ bindeps = true
 binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
-gitoxide = { checkout = true, fetch = true, shallow_index = true, shallow_deps = true, internal_use_git2 = true }
-#doctest-in-workspace=true
-#doctest-xcompile=true
 
+[unstable.gitoxide]
+checkout = true
+fetch = true
+shallow_index = true
+shallow_deps = true
+internal_use_git2 = true
 
 [build]
 rustflags = [
@@ -164,7 +203,6 @@ rustflags = [
     "-Zshare-generics",
     "-Zgcc-ld=lld",
     "-Zmerge-functions=trampolines",
-    "-Zpolymorphize",
     "-Zinline-mir",
     "-Zinline-in-all-cgus",
     "-Zmir-opt-level=4",
