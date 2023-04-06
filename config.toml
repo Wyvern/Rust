@@ -81,10 +81,12 @@ strip = true
 inherits = "release"
 rustflags = [
     "-Cprefer-dynamic=n",
-    #"-Zvirtual-function-elimination","-Clto"
+    #"-Zvirtual-function-elimination",
+    #"-Clto"
 ]
 lto = true
 panic = "abort"
+debug-assertions = false
 debug = false
 strip = true
 [profile.lto.build-override]
@@ -105,9 +107,6 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     #"-Zpanic-in-drop=abort"
 ]
-debug-assertions = false
-debug = false
-strip = true
 [profile.src.build-override]
 inherits = "src"
 debug-assertions = false
