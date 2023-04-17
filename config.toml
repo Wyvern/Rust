@@ -13,7 +13,7 @@ bl = "b --lib -r"
 tr = "t -r"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort,rustc_std_workspace_core -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
@@ -23,16 +23,14 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Zdwarf-version=4"]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 [profile.dev.build-override]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 
@@ -41,24 +39,20 @@ strip = true
 inherits = "dev"
 [profile.test.package."*"]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 [profile.test.build-override]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 
 #bench
 [profile.bench.package."*"]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 [profile.bench.build-override]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 [profile.bench]
@@ -86,17 +80,14 @@ rustflags = [
 ]
 lto = true
 panic = "abort"
-debug-assertions = false
 debug = false
 strip = true
 [profile.lto.build-override]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 [profile.lto.package."*"]
 inherits = "release"
-debug-assertions = false
 debug = false
 strip = true
 
@@ -109,12 +100,10 @@ rustflags = [
 ]
 [profile.src.build-override]
 inherits = "src"
-debug-assertions = false
 debug = false
 strip = true
 [profile.src.package."*"]
 inherits = "src"
-debug-assertions = false
 debug = false
 strip = true
 
@@ -212,7 +201,7 @@ rustflags = [
     "-Zterminal-urls",
     "-Zthreads=0",
     "-Zlower-impl-trait-in-trait-to-assoc-ty",
-    #"-Ztrait-solver=chalk|next",
+    #"-Ztrait-solver=next",
 
     "-Aunused",
     "-Anonstandard_style",
