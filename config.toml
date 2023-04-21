@@ -13,7 +13,7 @@ bl = "b --lib -r"
 tr = "t -r"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort,rustc_std_workspace_core -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
@@ -94,10 +94,7 @@ strip = true
 #src
 [profile.src]
 inherits = "lto"
-rustflags = [
-    "-Zforce-unstable-if-unmarked",
-    #"-Zpanic-in-drop=abort"
-]
+rustflags = ["-Zforce-unstable-if-unmarked", "-Zpanic-in-drop=abort"]
 [profile.src.build-override]
 inherits = "src"
 debug = false
@@ -213,8 +210,6 @@ rustflags = [
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
-
-[target.x86_64-apple-darwin]
 
 [target.debug]
 
