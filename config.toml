@@ -27,10 +27,12 @@ rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4"]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
 strip = true
 [profile.dev.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
 strip = true
 
