@@ -134,11 +134,11 @@ rustflags = ["-Zparse-only", "-Zno-analysis", "-Zno-link", "-Zno-codegen"]
 
 #no-opt
 [profile.no-opt.build-override]
-inherits = "no"
+inherits = "no-opt"
 debug = false
 strip = true
 [profile.no-opt.package."*"]
-inherits = "no"
+inherits = "no-opt"
 debug = false
 strip = true
 [profile.no-opt]
