@@ -77,8 +77,7 @@ strip = true
 inherits = "release"
 rustflags = [
     "-Cprefer-dynamic=n",
-    #"-Zvirtual-function-elimination",
-    #"-Clto"
+    #"-Zsplit-lto-unit",
 ]
 lto = true
 panic = "abort"
@@ -200,6 +199,8 @@ rustflags = [
     "-Zterminal-urls",
     "-Zthreads=0",
     "-Zlower-impl-trait-in-trait-to-assoc-ty",
+    "-Zstaticlib-allow-rdylib-deps",
+    "-Zstaticlib-prefer-dynamic",
     #"-Ztrait-solver=next",
 
     "-Aunused",
@@ -250,6 +251,8 @@ rustflags = [
     "-Zterminal-urls",
     "-Zthreads=0",
     "-Zlower-impl-trait-in-trait-to-assoc-ty",
+    "-Zstaticlib-allow-rdylib-deps",
+    "-Zstaticlib-prefer-dynamic",
     #"-Ztrait-solver=next",
 
     "-Aunused",
