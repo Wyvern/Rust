@@ -13,7 +13,7 @@ bl = "b --lib -r"
 tr = "t -r"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
-src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,cc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
@@ -154,6 +154,7 @@ bindeps = true
 binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
+target-applies-to-host = true
 
 [unstable.gitoxide]
 checkout = true
