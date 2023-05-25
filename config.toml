@@ -24,13 +24,14 @@ vcs = "none"
 #dev
 [profile.dev]
 rustflags = ["-Cdebug-assertions=y", "-Zdwarf-version=4"]
-rpath = true
 [profile.dev.package."*"]
 inherits = "release"
+debug-assertions = false
 debug = false
 strip = true
 [profile.dev.build-override]
 inherits = "release"
+debug-assertions = false
 debug = false
 strip = true
 
@@ -66,7 +67,6 @@ inherits = "release"
 inherits = "release"
 [profile.release]
 rustflags = ["-Zcombine-cgu"]
-rpath = true
 strip = true
 #codegen-units = 1
 
@@ -79,6 +79,7 @@ rustflags = [
 ]
 lto = true
 panic = "abort"
+rpath = false
 debug = false
 strip = true
 [profile.lto.build-override]
@@ -164,11 +165,11 @@ internal_use_git2 = true
 [build]
 rustflags = [
     "-Cprefer-dynamic",
+    "-Crpath",
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=v0",
     "-Coverflow-checks=no",
-    "-Cdebug-assertions=n",
     "-Copt-level=s",
     "-Cno-redzone",
     #"-Clinker-flavor=lld-link",
@@ -218,11 +219,11 @@ rustdoc-args = ["--cfg", "docsrs"]
 [target.aarch64-apple-darwin]
 rustflags = [
     "-Cprefer-dynamic",
+    "-Crpath",
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=apple-m1",
     "-Csymbol-mangling-version=v0",
     "-Coverflow-checks=no",
-    "-Cdebug-assertions=n",
     "-Copt-level=s",
     "-Cno-redzone",
     #"-Clinker-flavor=lld-link",
