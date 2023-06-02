@@ -144,7 +144,7 @@ inherits = "release"
 rustflags = ["-Cno-prepopulate-passes", "-Copt-level=0", "-Zmir-opt-level=0"]
 
 [unstable]
-check-cfg = ["names", "values", "features", "output"]
+check-cfg = ["names", "values", "features", "output",]
 avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
@@ -154,6 +154,7 @@ binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
 target-applies-to-host = true
+host-config=true
 
 [unstable.gitoxide]
 checkout = true
@@ -217,51 +218,4 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [target.aarch64-apple-darwin]
-rustflags = [
-    "-Cprefer-dynamic",
-    "-Crpath",
-    "-Ctarget-feature=-crt-static",
-    "-Ctarget-cpu=apple-m1",
-    "-Csymbol-mangling-version=v0",
-    "-Coverflow-checks=no",
-    "-Copt-level=s",
-    "-Cno-redzone",
-    #"-Clinker-flavor=lld-link",
-
-    "-Cllvm-args=--enable-name-compression --debugify-quiet",
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz -dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
-
-    "-Ztune-cpu=apple-m1",
-    "-Zno-profiler-runtime",
-    "-Zthinlto",
-    "-Zplt",
-    "-Zdylib-lto",
-    "-Zno-generate-arange-section",
-    "-Zdep-info-omit-d-target",
-    "-Zpolonius",
-    "-Ztrim-diagnostic-paths",
-    "-Zoom=abort",
-    "-Zthir-unsafeck",
-    "-Zshare-generics",
-    "-Zgcc-ld=lld",
-    "-Zmerge-functions=trampolines",
-    "-Zinline-mir",
-    "-Zinline-in-all-cgus",
-    "-Zmir-opt-level=4",
-    "-Zpacked-bundled-libs",
-    "-Zteach",
-    "-Zmaximal-hir-to-mir-coverage",
-    "-Zno-jump-tables",
-    "-Zterminal-urls",
-    "-Zthreads=0",
-    "-Zlower-impl-trait-in-trait-to-assoc-ty",
-    "-Zstaticlib-allow-rdylib-deps",
-    "-Zstaticlib-prefer-dynamic",
-    #"-Ztrait-solver=next",
-
-    "-Aunused",
-    "-Anonstandard_style",
-    "-Aunexpected_cfgs",
-    "-Frust_2018_idioms",
-    "-Frust_2018_compatibility",
-]
+rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
