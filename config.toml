@@ -154,16 +154,9 @@ binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
 target-applies-to-host = true
+host-config=true
 
-
-[unstable.gitoxide]
-checkout = true
-fetch = true
-shallow_index = true
-shallow_deps = true
-internal_use_git2 = true
-
-[build]
+[host]
 rustflags = [
     "-Cprefer-dynamic",
     "-Crpath",
@@ -212,6 +205,16 @@ rustflags = [
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
+
+[unstable.gitoxide]
+checkout = true
+fetch = true
+shallow_index = true
+shallow_deps = true
+internal_use_git2 = true
+
+[build]
+
 
 [package.metadata.docs.rs]
 all-features = true
