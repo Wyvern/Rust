@@ -154,7 +154,7 @@ binary-dep-depinfo = true
 profile-rustflags = true
 codegen-backend = true
 target-applies-to-host = true
-host-config=true
+
 
 [unstable.gitoxide]
 checkout = true
