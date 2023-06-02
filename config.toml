@@ -214,7 +214,7 @@ shallow_deps = true
 internal_use_git2 = true
 
 [build]
-
+rustflags=[]
 
 [package.metadata.docs.rs]
 all-features = true
