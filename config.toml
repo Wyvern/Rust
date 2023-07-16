@@ -73,12 +73,9 @@ strip = true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = [
-    "-Cprefer-dynamic=n",
-    #"-Zsplit-lto-unit",
-]
+rustflags = ["-Cprefer-dynamic=n"]
 lto = true
-panic = "abort"
+#panic = "abort"
 rpath = false
 debug = false
 strip = true
@@ -95,6 +92,7 @@ strip = true
 [profile.src]
 inherits = "lto"
 rustflags = ["-Zforce-unstable-if-unmarked"]
+panic = "abort"
 [profile.src.build-override]
 inherits = "src"
 debug = false
@@ -155,6 +153,7 @@ profile-rustflags = true
 codegen-backend = true
 target-applies-to-host = true
 host-config = true
+script = true
 
 [host]
 rustflags = [
@@ -194,7 +193,6 @@ rustflags = [
     "-Zno-jump-tables",
     "-Zterminal-urls",
     "-Zthreads=0",
-    "-Zlower-impl-trait-in-trait-to-assoc-ty",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     #"-Ztrait-solver=next",
@@ -226,6 +224,9 @@ rustflags = [
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
+
+[package.metadata.package]
+resolver = "2"
 
 [target.aarch64-apple-darwin]
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
