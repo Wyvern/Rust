@@ -227,6 +227,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [package.metadata.package]
 resolver = "2"
+workspace = true
 
 [target.aarch64-apple-darwin]
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
