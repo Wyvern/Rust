@@ -195,7 +195,6 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Zdual-proc-macros",
     #"-Ztrait-solver=next",
 
     "-Aunused",
