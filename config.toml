@@ -195,6 +195,7 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
+    "-Zdual-proc-macros",
     #"-Ztrait-solver=next",
 
     "-Aunused",
@@ -214,6 +215,7 @@ internal_use_git2 = true
 [build]
 rustflags = [
     "-Zpanic-in-drop=abort",
+    
     "-Aunused",
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
