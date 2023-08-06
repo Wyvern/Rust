@@ -23,7 +23,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cdebug-assertions=y", "-Zdwarf-version=4"]
+rustflags = ["-Cdebug-assertions", "-Zdwarf-version=4"]
 [profile.dev.package."*"]
 inherits = "release"
 debug-assertions = false
@@ -92,7 +92,8 @@ strip = true
 [profile.src]
 inherits = "lto"
 rustflags = ["-Zforce-unstable-if-unmarked"]
-panic = "abort"
+debug = false
+strip = true
 [profile.src.build-override]
 inherits = "src"
 debug = false
