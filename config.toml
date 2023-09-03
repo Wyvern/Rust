@@ -23,7 +23,8 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cdebug-assertions", "-Zdwarf-version=4"]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4"]
+rpath = true
 [profile.dev.package."*"]
 inherits = "release"
 debug-assertions = false
@@ -52,14 +53,16 @@ inherits = "release"
 inherits = "release"
 
 #release
-[profile.release]
-rustflags = ["-Zcombine-cgu"]
-strip = true
-#codegen-units = 1
 [profile.release.package."*"]
 inherits = "release"
 [profile.release.build-override]
 inherits = "release"
+[profile.release]
+rustflags = ["-Cprefer-dynamic", "-Zcombine-cgu"]
+strip = true
+lto = true
+rpath = true
+#codegen-units = 1
 
 #lto
 [profile.lto]
@@ -122,6 +125,8 @@ codegen-backend = true
 target-applies-to-host = true
 host-config = true
 script = true
+asymmetric-token = true
+registry-auth = true
 
 [unstable.gitoxide]
 checkout = true
@@ -132,8 +137,8 @@ internal_use_git2 = true
 
 [host]
 rustflags = [
-    "-Cprefer-dynamic",
-    "-Crpath",
+    #"-Cprefer-dynamic",
+    #"-Crpath",
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=v0",
@@ -170,7 +175,7 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Zdrop-tracking-mir",
+    "-Zno-trait-vptr",
     #"-Ztrait-solver=next",
 
     "-Aunused",
@@ -181,15 +186,8 @@ rustflags = [
 ]
 
 [build]
-rustflags = [
-    "-Zpanic-in-drop=abort",
-
-    "-Aunused",
-    "-Anonstandard_style",
-    "-Aunexpected_cfgs",
-    "-Frust_2018_idioms",
-    "-Frust_2018_compatibility",
-]
+rustflags = ["-Zpanic-in-drop=abort"]
+rustdocflags = []
 
 [package.metadata.docs.rs]
 all-features = true
