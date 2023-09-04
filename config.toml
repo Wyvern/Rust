@@ -24,7 +24,6 @@ vcs = "none"
 #dev
 [profile.dev]
 rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4"]
-rpath = true
 [profile.dev.package."*"]
 inherits = "release"
 debug-assertions = false
@@ -61,16 +60,13 @@ inherits = "release"
 rustflags = ["-Cprefer-dynamic", "-Zcombine-cgu"]
 strip = true
 lto = true
-rpath = true
 #codegen-units = 1
 
 #lto
 [profile.lto]
 inherits = "release"
 rustflags = ["-Cprefer-dynamic=n"]
-lto = true
 panic = "abort"
-rpath = false
 [profile.lto.build-override]
 inherits = "release"
 [profile.lto.package."*"]
@@ -138,7 +134,7 @@ internal_use_git2 = true
 [host]
 rustflags = [
     #"-Cprefer-dynamic",
-    #"-Crpath",
+    "-Crpath",
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=v0",
@@ -176,7 +172,7 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Zno-trait-vptr",
-    #"-Ztrait-solver=next",
+    "-Ztrait-solver=next-coherence",
 
     "-Aunused",
     "-Anonstandard_style",
