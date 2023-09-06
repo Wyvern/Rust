@@ -1,11 +1,11 @@
 [alias]
+ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 cf = "clippy -r --fix --allow-no-vcs"
 fx = "fix -r --allow-no-vcs"
 ndf = "r -r --no-default-features"
-a = "b -r --all-features"
-ar = "r -r --all-features"
+all = "r -r --all-features"
 ss = "b --profile stats"
 lto = "b --profile lto"
 no = "b --profile no"
