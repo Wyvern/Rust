@@ -2,7 +2,7 @@
 ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
-rs = "rustc --"
+z = "rustc -- -Z"
 cf = "clippy -r --fix --allow-no-vcs"
 fx = "fix -r --allow-no-vcs"
 ndf = "r -r --no-default-features"
