@@ -11,7 +11,7 @@ s = "b --profile stats"
 lto = "b --profile lto"
 no = "b --profile no"
 bl = "b --lib -r"
-tr = "t -r"
+ti = "t -- --nocapture"
 dr = "d -r"
 ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
@@ -145,7 +145,7 @@ rustflags = [
     #"-Clinker-flavor=lld-link",
 
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined -dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
@@ -173,11 +173,13 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Zno-trait-vptr",
+    "-Zdebuginfo-compression=zlib",
     "-Ztrait-solver=next-coherence",
 
     "-Aunused",
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
+    "-Funused_crate_dependencies",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
