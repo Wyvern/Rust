@@ -66,12 +66,17 @@ lto = true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Cprefer-dynamic=n"]
+rustflags = [
+    "-Clto",
+    "-Cprefer-dynamic=n",
+    "-Zsplit-lto-unit",
+    "-Zvirtual-function-elimination",
+]
 panic = "abort"
 [profile.lto.build-override]
-inherits = "release"
+inherits = "lto"
 [profile.lto.package."*"]
-inherits = "release"
+inherits = "lto"
 
 #src
 [profile.src]
@@ -110,7 +115,6 @@ inherits = "release"
 rustflags = ["-Cno-prepopulate-passes", "-Copt-level=0", "-Zmir-opt-level=0"]
 
 [unstable]
-unstable-options = true
 check-cfg = ["names", "values", "features", "output"]
 avoid-dev-deps = true
 dual-proc-macros = true
@@ -148,11 +152,10 @@ rustflags = [
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
-    "-Zunstable-options",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
-    "-Zthinlto",
     "-Zplt",
+    "-Zthinlto",
     "-Zdylib-lto",
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
@@ -168,16 +171,16 @@ rustflags = [
     "-Zmir-opt-level=4",
     "-Zpacked-bundled-libs",
     "-Zteach",
+    "-Zui-testing",
     "-Zmaximal-hir-to-mir-coverage",
     "-Zno-jump-tables",
+    "-Zno-trait-vptr",
     "-Zterminal-urls",
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Zno-trait-vptr",
     "-Zdebuginfo-compression=zlib",
     "-Ztrait-solver=next-coherence",
-    "-Zui-testing",
 
     "-Aunused",
     "-Anonstandard_style",
