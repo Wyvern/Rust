@@ -24,7 +24,12 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Cdebug-assertions",
+    "-Zdebuginfo-compression=zstd",
+    "-Zdwarf-version=4",
+]
 [profile.dev.package."*"]
 inherits = "release"
 debug-assertions = false
@@ -67,7 +72,8 @@ lto = true
 [profile.lto]
 inherits = "release"
 rustflags = [
-    "-Clto",
+    "-Clto=fat",
+    "-Cembed-bitcode=y",
     "-Cprefer-dynamic=n",
     "-Zsplit-lto-unit",
     "-Zvirtual-function-elimination",
@@ -179,7 +185,6 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Zdebuginfo-compression=zlib",
     "-Ztrait-solver=next-coherence",
 
     "-Aunused",
