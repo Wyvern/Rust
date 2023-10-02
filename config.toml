@@ -27,7 +27,7 @@ vcs = "none"
 rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
-    "-Zdebuginfo-compression=zstd",
+    "-Zdebuginfo-compression=zlib",
     "-Zdwarf-version=4",
 ]
 [profile.dev.package."*"]
