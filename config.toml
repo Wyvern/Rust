@@ -3,7 +3,7 @@ ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 z = "rustc -- -Z"
-cf = "clippy --fix -r --allow-no-vcs --no-deps"
+cf = "clippy -r --fix --allow-no-vcs --no-deps"
 fx = "fix -r --allow-no-vcs"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
@@ -13,7 +13,7 @@ no = "b --profile no"
 bl = "b --lib -r"
 ti = "t -- --nocapture"
 dr = "d -r"
-ls = "b --profile lto -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+h = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
 src = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
@@ -190,6 +190,7 @@ rustflags = [
     "-Aunused",
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
+    "-Aclippy::tabs_in_doc_comments",
     "-Funused_crate_dependencies",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
@@ -198,6 +199,7 @@ rustflags = [
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
 rustdocflags = []
+# target = "x86_64h-apple-darwin"
 
 [package.metadata.docs.rs]
 all-features = true
