@@ -210,5 +210,36 @@ rustdoc-args = ["--cfg", "docsrs"]
 resolver = "2"
 workspace = true
 
-[target.'cfg(target_arch="aarch64")']
-rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
+[target.'cfg(target_vendor="apple"))']
+rustflags = ["-Clinker-flavor=darwin-lld-cc", "-Zpanic-in-drop=abort"]
+
+[target.'cfg(all(target_arch="aarch64",target_vendor="apple")))']
+rustflags = [
+    "-Clinker-flavor=darwin-lld-cc",
+    "-Ctarget-cpu=apple-m1",
+    "-Ztune-cpu=apple-m1",
+    "-Zpanic-in-drop=abort",
+]
+
+[target.'cfg(target_family="windows")']
+rustflags = ["-Clinker-flavor=msvc-lld", "-Zpanic-in-drop=abort"]
+
+[target.'cfg(all(target_arch="aarch64",target_os="windows"))']
+rustflags = [
+    "-Clinker-flavor=msvc-lld",
+    "-Ctarget-cpu=apple-m1",
+    "-Ztune-cpu=apple-m1",
+    "-Zpanic-in-drop=abort",
+]
+
+[target.'cfg(all(target_arch="aarch64",target_os="linux"))']
+linker = "aarch64-linux-gnu-gcc"
+rustflags = [
+    "-Clinker-flavor=gnu-lld-cc",
+    "-Ctarget-cpu=apple-m1",
+    "-Ztune-cpu=apple-m1",
+    "-Zpanic-in-drop=abort",
+]
+
+[target.'cfg(target_env="gnu")']
+rustflags = ["-Clinker-flavor=gnu-lld-cc", "-Zpanic-in-drop=abort"]
