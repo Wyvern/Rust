@@ -30,6 +30,7 @@ rustflags = [
     "-Zdebuginfo-compression=zlib",
     "-Zdwarf-version=4",
 ]
+rpath = true
 [profile.dev.package."*"]
 inherits = "release"
 debug-assertions = false
@@ -66,6 +67,7 @@ inherits = "release"
 rustflags = ["-Cprefer-dynamic", "-Zcombine-cgu"]
 strip = true
 lto = true
+rpath = true
 #codegen-units = 1
 
 #lto
@@ -145,8 +147,6 @@ internal_use_git2 = true
 
 [host]
 rustflags = [
-    #"-Cprefer-dynamic",
-    "-Crpath",
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=v0",
@@ -210,36 +210,85 @@ rustdoc-args = ["--cfg", "docsrs"]
 resolver = "2"
 workspace = true
 
+[target.'cfg(all())']
+rustflags = [
+    "-Ctarget-feature=-crt-static",
+    "-Ctarget-cpu=native",
+    "-Csymbol-mangling-version=v0",
+    "-Coverflow-checks=no",
+    "-Copt-level=s",
+    "-Cno-redzone",
+    "-Clink-self-contained=+linker",
+
+    "-Cllvm-args=--enable-name-compression --debugify-quiet",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
+
+    "-Zunstable-options",
+    "-Ztune-cpu=native",
+    "-Zno-profiler-runtime",
+    "-Zplt",
+    "-Zthinlto",
+    "-Zdylib-lto",
+    "-Zno-generate-arange-section",
+    "-Zdep-info-omit-d-target",
+    "-Zpolonius",
+    "-Ztrim-diagnostic-paths",
+    "-Zoom=abort",
+    "-Zthir-unsafeck",
+    "-Zshare-generics",
+    "-Zmerge-functions=trampolines",
+    "-Zinline-mir",
+    "-Zinline-in-all-cgus",
+    "-Zmir-opt-level=4",
+    "-Zpacked-bundled-libs",
+    "-Zteach",
+    "-Zui-testing",
+    "-Zmaximal-hir-to-mir-coverage",
+    "-Zno-jump-tables",
+    "-Zno-trait-vptr",
+    "-Zterminal-urls",
+    "-Zthreads=0",
+    "-Zstaticlib-allow-rdylib-deps",
+    "-Zstaticlib-prefer-dynamic",
+    "-Ztrait-solver=next-coherence",
+    "-Zpanic-in-drop=abort",
+
+    "-Aunused",
+    "-Anonstandard_style",
+    "-Aunexpected_cfgs",
+    "-Frust_2018_idioms",
+    "-Frust_2018_compatibility",
+]
+
 [target.'cfg(target_vendor="apple"))']
-rustflags = ["-Clinker-flavor=darwin-lld-cc", "-Zpanic-in-drop=abort"]
+rustflags = ["-Clinker-flavor=darwin-lld-cc"]
 
 [target.'cfg(all(target_arch="aarch64",target_vendor="apple")))']
 rustflags = [
     "-Clinker-flavor=darwin-lld-cc",
     "-Ctarget-cpu=apple-m1",
     "-Ztune-cpu=apple-m1",
-    "-Zpanic-in-drop=abort",
 ]
 
-[target.'cfg(target_family="windows")']
-rustflags = ["-Clinker-flavor=msvc-lld", "-Zpanic-in-drop=abort"]
+[target.'cfg(target_env="msvc")']
+rustflags = ["-Clinker-flavor=msvc-lld"]
 
-[target.'cfg(all(target_arch="aarch64",target_os="windows"))']
+[target.'cfg(all(target_arch="aarch64",target_env="msvc"))']
 rustflags = [
     "-Clinker-flavor=msvc-lld",
     "-Ctarget-cpu=apple-m1",
     "-Ztune-cpu=apple-m1",
-    "-Zpanic-in-drop=abort",
 ]
 
+[target.'cfg(all(target_env="gnu",target_family="unix"))']
+rustflags = ["-Clinker-flavor=gnu-lld-cc"]
+
 [target.'cfg(all(target_arch="aarch64",target_os="linux"))']
-linker = "aarch64-linux-gnu-gcc"
 rustflags = [
     "-Clinker-flavor=gnu-lld-cc",
     "-Ctarget-cpu=apple-m1",
     "-Ztune-cpu=apple-m1",
-    "-Zpanic-in-drop=abort",
 ]
 
-[target.'cfg(target_env="gnu")']
-rustflags = ["-Clinker-flavor=gnu-lld-cc", "-Zpanic-in-drop=abort"]
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-linux-gnu-gcc"
