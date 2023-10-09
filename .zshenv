@@ -3,9 +3,9 @@ export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
 
 alias gt='git clone --filter=tree:0 --depth=1'
-alias diff='diff -y --color=always'
+alias diff='diff --color=always'
 alias daily='bun upgrade; rustup update; omz update --unattended; brew upgrade; brew autoremove; brew cleanup; rdf;'
-alias rdf='echo --- "\x1b[4m" rustc -Z "\x1b[0m" ---:"\n" ; rustc -Z help|diff - ~/Desktop/rz.txt; echo --- "\x1b[4m" rustc -C "\x1b[0m" ---:"\n" ; rustc -C help|diff - ~/Desktop/rc.txt; echo --- "\x1b[4m" cargo -Z "\x1b[0m" ---:"\n" ; cargo -Z help|diff - ~/Desktop/cargo.txt'
+alias rdf='echo --- "\x1b[4m" rustc -Z "\x1b[0m" ---"\n" ; rustc -Z help|diff ~/Desktop/rz.txt -; echo --- "\x1b[4m" rustc -C "\x1b[0m" ---"\n" ; rustc -C help|diff ~/Desktop/rc.txt -; echo --- "\x1b[4m" cargo -Z "\x1b[0m" ---"\n" ; cargo -Z help|diff ~/Desktop/cargo.txt -'
 alias rt='cargo clean && cargo br'
 alias rla='rustc -Cllvm-args=--help|grep -i'
 alias rdd='rm -rf ~/Library/Developer/Xcode/DerivedData'
