@@ -155,7 +155,7 @@ rustflags = [
     "-Cno-redzone",
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
-
+    # gnu gnu-lld gnu-cc gnu-lld-cc darwin darwin-lld darwin-cc darwin-lld-cc wasm-lld wasm-lld-cc unix unix-cc msvc-lld msvc em-cc bpf ptx gcc ld ld.lld ld64.lld lld-link wasm-ld
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
