@@ -145,6 +145,11 @@ shallow_index = true
 shallow_deps = true
 internal_use_git2 = true
 
+[build]
+rustflags = ["-Zpanic-in-drop=abort"]
+rustdocflags = []
+# target = "x86_64h-apple-darwin"
+
 [host]
 rustflags = [
     "-Ctarget-feature=-crt-static",
@@ -155,7 +160,7 @@ rustflags = [
     "-Cno-redzone",
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
-    # gnu gnu-lld gnu-cc gnu-lld-cc darwin darwin-lld darwin-cc darwin-lld-cc wasm-lld wasm-lld-cc unix unix-cc msvc-lld msvc em-cc bpf ptx gcc ld ld.lld ld64.lld lld-link wasm-ld
+
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
@@ -196,11 +201,6 @@ rustflags = [
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
-
-[build]
-rustflags = ["-Zpanic-in-drop=abort"]
-rustdocflags = []
-# target = "x86_64h-apple-darwin"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -266,11 +266,16 @@ rustflags = ["-Clinker-flavor=darwin-lld-cc"]
 [target.'cfg(target_env="msvc")']
 rustflags = ["-Clinker-flavor=msvc-lld"]
 
-[target.'cfg(any(target_os="linux"))']
+[target.'cfg(any(target_os="linux",target_os="android",target_os="freebsd"))']
 rustflags = ["-Clinker-flavor=gnu-lld-cc"]
+
+[target.'cfg(target_family="wasm")']
+rustflags = ["-Clinker-flavor=wasm-lld-cc"]
 
 [target.'cfg(target_arch="aarch64")']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 
 [target.aarch64-unknown-linux-gnu]
 linker = "aarch64-linux-gnu-gcc"
+
+# gnu gnu-lld gnu-cc gnu-lld-cc darwin darwin-lld darwin-cc darwin-lld-cc wasm-lld wasm-lld-cc unix unix-cc msvc-lld msvc em-cc bpf ptx gcc ld ld.lld ld64.lld lld-link wasm-ld
