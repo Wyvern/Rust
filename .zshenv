@@ -1,6 +1,7 @@
 . "/opt/Rust/.cargo/env"
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
+export HOMEBREW_NO_ANALYTICS=1
 
 alias gt='git clone --filter=tree:0 --depth=1'
 alias diff='diff --color=always'
