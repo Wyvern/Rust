@@ -145,9 +145,15 @@ shallow_index = true
 shallow_deps = true
 internal_use_git2 = true
 
+[term]
+color = "always"
+# progress.when = "auto"
+# quiet=true
+
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
 rustdocflags = []
+incremental = true
 # target = "x86_64h-apple-darwin"
 
 [host]
@@ -158,9 +164,9 @@ rustflags = [
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
-    "-Clink-self-contained=+linker,-crto,-unwind",
+    "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
-
+    # "-Clinker-plugin-lto",
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
