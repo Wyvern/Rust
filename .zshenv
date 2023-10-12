@@ -16,5 +16,6 @@ alias cz='cargo -Z help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
 alias pn='ps -alxmrh|gi'
+alias curl='curl -fsSL'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
