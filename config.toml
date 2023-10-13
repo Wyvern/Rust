@@ -154,7 +154,8 @@ color = "always"
 rustflags = ["-Zpanic-in-drop=abort"]
 rustdocflags = []
 incremental = true
-# target = "x86_64h-apple-darwin"
+rustc-wrapper = "sccache"
+# rustc-workspace-wrapper = "sccache"
 
 [host]
 rustflags = [
