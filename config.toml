@@ -24,12 +24,7 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = [
-    "-Cprefer-dynamic",
-    "-Cdebug-assertions",
-    "-Zdebuginfo-compression=zlib",
-    "-Zdwarf-version=4",
-]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4","-Zdebuginfo-compression=zlib",]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
@@ -169,7 +164,7 @@ rustflags = [
     "-Clinker-flavor=darwin-lld-cc",
     # "-Clinker-plugin-lto",
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
     "-Zunstable-options",
     "-Ztune-cpu=native",
@@ -180,6 +175,7 @@ rustflags = [
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
     "-Zpolonius",
+    "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
     "-Zthir-unsafeck",
@@ -228,7 +224,7 @@ rustflags = [
     "-Clink-self-contained=+linker",
 
     "-Cllvm-args=--enable-name-compression --debugify-quiet",
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -gz=zstd -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
 
     "-Zunstable-options",
     "-Ztune-cpu=native",
@@ -239,6 +235,7 @@ rustflags = [
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
     "-Zpolonius",
+    "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
     "-Zthir-unsafeck",
