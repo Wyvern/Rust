@@ -3,7 +3,7 @@ ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 z = "rustc -- -Z"
-cf = "clippy --fix --allow-no-vcs --no-deps"
+cf = "clippy --fix --allow-no-vcs --no-deps -- -Funused_crate_dependencies"
 fx = "fix --allow-no-vcs"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
@@ -200,7 +200,6 @@ rustflags = [
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
     "-Aclippy::tabs_in_doc_comments",
-    "-Funused_crate_dependencies",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
