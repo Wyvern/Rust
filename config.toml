@@ -3,12 +3,13 @@ ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 z = "rustc -- -Z"
-cf = "clippy --fix --allow-no-vcs --no-deps" #-Funused_crate_dependencies
+cf = "clippy --fix --allow-no-vcs --no-deps"                                                                                                                               #-Funused_crate_dependencies
 fx = "fix --allow-no-vcs"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
 s = "b --profile stats"
 l = "b --profile lto"
+tn = "tree -e normal"
 no = "b --profile no"
 bl = "b --lib -r"
 ti = "t -- --nocapture"
@@ -24,7 +25,12 @@ vcs = "none"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zdwarf-version=4","-Zdebuginfo-compression=zlib",]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Cdebug-assertions",
+    "-Zdwarf-version=4",
+    "-Zdebuginfo-compression=zlib",
+]
 rpath = true
 [profile.dev.package."*"]
 inherits = "release"
@@ -119,7 +125,7 @@ rustflags = ["-Cno-prepopulate-passes", "-Copt-level=0", "-Zmir-opt-level=0"]
 
 [unstable]
 unstable-options = true
-check-cfg = ["names", "values", "features", "output"]
+check-cfg = true
 avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
