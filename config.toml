@@ -138,6 +138,7 @@ target-applies-to-host = true
 host-config = true
 script = true
 asymmetric-token = true
+trim-paths = true
 
 [unstable.gitoxide]
 checkout = true
