@@ -3,8 +3,8 @@ ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 z = "rustc -- -Z"
-cf = "clippy --fix --allow-no-vcs --no-deps"
-fx = "fix --allow-no-vcs"
+cf = "clippy --fix --allow-no-vcs --no-deps --all-targets"
+fx = "fix --allow-no-vcs --all-targets"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
 s = "b --profile stats"
@@ -86,6 +86,16 @@ panic = "abort"
 inherits = "lto"
 [profile.lto.package."*"]
 inherits = "lto"
+
+#cranelift
+[profile.cranelift.package."*"]
+inherits = "cranelift"
+[profile.cranelift.build-override]
+inherits = "cranelift"
+[profile.cranelift]
+inherits = "release"
+rustflags = ["-Zcodegen-backend=cranelift", "-Cprefer-dynamic", "-Zcombine-cgu"]
+lto = false
 
 #src
 [profile.src]
