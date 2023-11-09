@@ -3,8 +3,8 @@ ad = "add --no-default-features --optional"
 rr = "r -r"
 br = "b -r"
 z = "rustc -- -Z"
-cf = "clippy --fix --allow-no-vcs --no-deps --all-targets"
-fx = "fix --allow-no-vcs --all-targets"
+cf = "clippy --fix --allow-no-vcs --no-deps"
+fx = "fix --allow-no-vcs"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
 s = "b --profile stats"
@@ -162,12 +162,16 @@ color = "always"
 # progress.when = "auto"
 # quiet=true
 
+[env]
+# SCCACHE_DIRECT = "true"
+# SCCACHE_RECACHE = "true"
+
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
 rustdocflags = []
 incremental = true
 # rustc-wrapper = "sccache"
-rustc-workspace-wrapper = "sccache"
+# rustc-workspace-wrapper = "sccache"
 
 [host]
 rustflags = [
@@ -212,6 +216,7 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Ztrait-solver=next-coherence",
+    "-Zcross-crate-inline-threshold=yes",
 
     "-Aunused",
     "-Anonstandard_style",
