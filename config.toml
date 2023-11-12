@@ -65,7 +65,11 @@ inherits = "release"
 [profile.release.build-override]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic", "-Zcombine-cgu"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zcombine-cgu",
+    "-Zcross-crate-inline-threshold=yes",
+]
 strip = true
 lto = true
 rpath = true
@@ -216,7 +220,6 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Ztrait-solver=next-coherence",
-    "-Zcross-crate-inline-threshold=yes",
 
     "-Aunused",
     "-Anonstandard_style",
