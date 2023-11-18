@@ -1,6 +1,7 @@
 [alias]
 ad = "add --no-default-features --optional"
 rr = "r -r"
+re = "r -r --example"
 br = "b -r"
 z = "rustc -- -Z"
 cf = "clippy --fix --allow-no-vcs --no-deps"
@@ -117,7 +118,7 @@ inherits = "release"
 inherits = "release"
 [profile.stats]
 inherits = "release"
-rustflags = ["-Zperf-stats", "-Zmeta-stats"]
+rustflags = ["-Zmeta-stats"]
 
 #no
 [profile.no.build-override]
@@ -153,6 +154,7 @@ host-config = true
 script = true
 asymmetric-token = true
 trim-paths = true
+gc = true
 
 [unstable.gitoxide]
 checkout = true
