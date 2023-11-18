@@ -1,7 +1,8 @@
 [alias]
 ad = "add --no-default-features --optional"
 rr = "r -r"
-re = "r -r --example"
+re = "r --example"
+rb = "r --bin"
 br = "b -r"
 z = "rustc -- -Z"
 cf = "clippy --fix --allow-no-vcs --no-deps"
