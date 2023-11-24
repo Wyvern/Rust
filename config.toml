@@ -17,6 +17,7 @@ bl = "b --lib -r"
 ti = "t -- --exact --nocapture"
 dr = "d -r --no-deps"
 h = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
 bs = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
@@ -291,11 +292,14 @@ rustflags = [
     "-Frust_2018_compatibility",
 ]
 
-[target.'cfg(target_vendor="apple"))']
+[target.'cfg(target_vendor="apple")']
 rustflags = ["-Clinker-flavor=darwin-lld-cc"]
 
 [target.'cfg(target_env="msvc")']
 rustflags = ["-Clinker-flavor=msvc-lld"]
+
+[target.'cfg(any(target_vendor="apple",target_os=windows))']
+rustflags = ["-Clink-args=-fno-async-exceptions"]
 
 [target.'cfg(any(target_env="gnu",target_env="musl"))']
 rustflags = ["-Clinker-flavor=gnu-lld-cc"]
