@@ -1,22 +1,25 @@
 [alias]
 ad = "add --no-default-features --optional"
+br = "b -r"
+dr = "d -r --no-deps"
 rr = "r -r"
 re = "r --example"
 rb = "r --bin"
-br = "b -r"
+
 z = "rustc -- -Z"
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
-ndf = "r -r --no-default-features"
-all = "r -r --all-features"
-l = "b --profile lto"
+ndf = "r --no-default-features"
+all = "r --all-features"
+
 tn = "tree -e normal"
-bl = "b --lib -r"
 ti = "t -- --exact --nocapture"
-dr = "d -r --no-deps"
+
+l = "b --profile lto"
+
 h = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
 e = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
-bs = "b --profile src -Zbuild-std=core,alloc,std,proc_macro,libc,compiler_builtins,panic_abort -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+s = "b --profile src -Zbuild-std=core,std,alloc,panic_abort,proc_macro,libc,compiler_builtins -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
 
 [cargo-new]
 vcs = "none"
