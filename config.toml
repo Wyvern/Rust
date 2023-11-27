@@ -9,10 +9,8 @@ cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
 ndf = "r -r --no-default-features"
 all = "r -r --all-features"
-s = "b --profile stats"
 l = "b --profile lto"
 tn = "tree -e normal"
-no = "b --profile no"
 bl = "b --lib -r"
 ti = "t -- --exact --nocapture"
 dr = "d -r --no-deps"
@@ -31,17 +29,19 @@ vcs = "none"
 rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
-    "-Zdwarf-version=4",
-    "-Zdebuginfo-compression=zlib",
+    "-Zdwarf-version=5",
+    "-Zdebuginfo-compression=zstd",
+    "-Zcodegen-backend=cranelift",
 ]
 rpath = true
+codegen-backend = "cranelift"
 [profile.dev.package."*"]
-inherits = "release"
+inherits = "dev"
 debug-assertions = false
 debug = false
 strip = true
 [profile.dev.build-override]
-inherits = "release"
+inherits = "dev"
 debug-assertions = false
 debug = false
 strip = true
@@ -50,9 +50,9 @@ strip = true
 [profile.test]
 inherits = "dev"
 [profile.test.package."*"]
-inherits = "release"
+inherits = "dev"
 [profile.test.build-override]
-inherits = "release"
+inherits = "dev"
 
 #bench
 [profile.bench]
@@ -70,7 +70,6 @@ inherits = "release"
 [profile.release]
 rustflags = [
     "-Cprefer-dynamic",
-    "-Zcombine-cgu",
     "-Zcross-crate-inline-threshold=yes",
 ]
 strip = true
@@ -94,16 +93,6 @@ inherits = "lto"
 [profile.lto.package."*"]
 inherits = "lto"
 
-#cranelift
-[profile.cranelift.package."*"]
-inherits = "cranelift"
-[profile.cranelift.build-override]
-inherits = "cranelift"
-[profile.cranelift]
-inherits = "release"
-rustflags = ["-Zcodegen-backend=cranelift", "-Cprefer-dynamic", "-Zcombine-cgu"]
-lto = false
-
 #src
 [profile.src]
 inherits = "lto"
@@ -113,32 +102,6 @@ inherits = "src"
 [profile.src.package."*"]
 inherits = "src"
 
-#stats
-[profile.stats.build-override]
-inherits = "release"
-[profile.stats.package."*"]
-inherits = "release"
-[profile.stats]
-inherits = "release"
-rustflags = ["-Zmeta-stats"]
-
-#no
-[profile.no.build-override]
-inherits = "no"
-[profile.no.package."*"]
-inherits = "no"
-[profile.no]
-inherits = "release"
-rustflags = ["-Zparse-only", "-Zno-analysis", "-Zno-link", "-Zno-codegen"]
-
-#no-opt
-[profile.no-opt.build-override]
-inherits = "no-opt"
-[profile.no-opt.package."*"]
-inherits = "no-opt"
-[profile.no-opt]
-inherits = "release"
-rustflags = ["-Cno-prepopulate-passes", "-Copt-level=0", "-Zmir-opt-level=0"]
 
 [unstable]
 unstable-options = true
@@ -192,7 +155,7 @@ rustflags = [
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
     # "-Clinker-plugin-lto",
-    "-Cllvm-args=--enable-name-compression --debugify-quiet",
+
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
     "-Zunstable-options",
@@ -212,6 +175,7 @@ rustflags = [
     "-Zmerge-functions=trampolines",
     "-Zinline-mir",
     "-Zinline-in-all-cgus",
+    "-Zcombine-cgu",
     "-Zmir-opt-level=4",
     "-Zpacked-bundled-libs",
     "-Zteach",
@@ -251,7 +215,6 @@ rustflags = [
     "-Cno-redzone",
     "-Clink-self-contained=+linker",
 
-    "-Cllvm-args=--enable-name-compression --debugify-quiet",
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -undefined=dynamic-lookup -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
 
     "-Zunstable-options",
@@ -271,6 +234,7 @@ rustflags = [
     "-Zmerge-functions=trampolines",
     "-Zinline-mir",
     "-Zinline-in-all-cgus",
+    "-Zcombine-cgu",
     "-Zmir-opt-level=4",
     "-Zpacked-bundled-libs",
     "-Zteach",
