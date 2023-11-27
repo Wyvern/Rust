@@ -50,9 +50,9 @@ strip = true
 [profile.test]
 inherits = "dev"
 [profile.test.package."*"]
-inherits = "dev"
+inherits = "test"
 [profile.test.build-override]
-inherits = "dev"
+inherits = "test"
 
 #bench
 [profile.bench]
@@ -68,25 +68,17 @@ inherits = "release"
 [profile.release.build-override]
 inherits = "release"
 [profile.release]
-rustflags = [
-    "-Cprefer-dynamic",
-    "-Zcross-crate-inline-threshold=yes",
-]
+rustflags = ["-Cprefer-dynamic"]
 strip = true
 lto = true
 rpath = true
-#codegen-units = 1
+codegen-units = 1
 
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = [
-    "-Clto=fat",
-    "-Cembed-bitcode=y",
-    "-Cprefer-dynamic=n",
-    "-Zsplit-lto-unit",
-    "-Zvirtual-function-elimination",
-]
+rustflags = ["-Zcross-crate-inline-threshold=yes"]
+lto = true
 panic = "abort"
 [profile.lto.build-override]
 inherits = "lto"
