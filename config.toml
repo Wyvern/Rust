@@ -6,9 +6,9 @@ rr = "r -r"
 re = "r --example"
 rb = "r --bin"
 
-z = "rustc -- -Z"
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
+
 ndf = "r --no-default-features"
 all = "r --all-features"
 
@@ -75,7 +75,7 @@ rustflags = ["-Cprefer-dynamic"]
 strip = true
 lto = true
 rpath = true
-codegen-units = 1
+# codegen-units = 1
 
 #lto
 [profile.lto]
