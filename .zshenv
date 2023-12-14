@@ -1,11 +1,11 @@
 . "/opt/Rust/.cargo/env"
+
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
-export HOMEBREW_NO_ANALYTICS=1
 
 alias gt='git clone --filter=tree:0 --depth=1'
 alias diff='diff --color=always'
-alias daily='bun upgrade; rustup update; omz update --unattended; brew upgrade; brew autoremove; brew cleanup; rdf;'
+alias daily='rustup update; omz update --unattended; brew upgrade; brew autoremove; brew cleanup; rdf;'
 alias rdf='echo --- "\x1b[4m" rustc -Z "\x1b[0m" ---"\n" ; rustc -Z help|diff ~/Desktop/rz.txt -; echo --- "\x1b[4m" rustc -C "\x1b[0m" ---"\n" ; rustc -C help|diff ~/Desktop/rc.txt -; echo --- "\x1b[4m" cargo -Z "\x1b[0m" ---"\n" ; cargo -Z help|diff ~/Desktop/cargo.txt -'
 alias rt='cargo clean && cargo br'
 alias rla='rustc -Cllvm-args=--help|grep -i'
@@ -17,5 +17,6 @@ alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
 alias pn='ps -alxmrh|gi'
 alias curl='curl -fsSL'
+alias cm='git commit --allow-empty --allow-empty-message -m" "'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
