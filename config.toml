@@ -17,9 +17,9 @@ ti = "t -- --exact --nocapture"
 
 l = "b --profile lto"
 
-h = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
-e = "b --profile src -Zbuild-std=core,std,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=core,std,alloc,panic_abort,proc_macro,libc,compiler_builtins -Zbuild-std-features=panic_immediate_abort,compiler-builtins-mem --target "
+h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
 
 [cargo-new]
 vcs = "none"
@@ -38,6 +38,8 @@ rustflags = [
 ]
 rpath = true
 codegen-backend = "cranelift"
+debug = false
+strip = true
 [profile.dev.package."*"]
 inherits = "dev"
 debug-assertions = false
@@ -115,6 +117,16 @@ script = true
 asymmetric-token = true
 trim-paths = true
 gc = true
+# build-std = [
+#     "core",
+#     "std",
+#     "alloc",
+#     "proc_macro",
+#     "panic_abort",
+#     "libc",
+#     "compiler_builtins",
+# ]
+# build-std-features = ["panic_immediate_abort", "compiler-builtins-mem"]
 
 [unstable.gitoxide]
 checkout = true
@@ -129,6 +141,8 @@ color = "always"
 # quiet=true
 
 [env]
+RUST_BACKTRACE = "0"
+RUST_LIB_BACKTRACE = "0"
 # SCCACHE_DIRECT = "true"
 # SCCACHE_RECACHE = "true"
 
@@ -274,5 +288,16 @@ rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 
 [target.aarch64-unknown-linux-gnu]
 linker = "aarch64-linux-gnu-gcc"
+
+[target.'cfg(any(target_arch="arm", target_arch="aarch64"))']
+rustflags = ["-Ctarget-feature=+neon"]
+
+[target.triple."*"]
+include = ["/usr/local/opt/openssl/include"]
+rustc-link-search = ["/usr/local/opt/openssl/lib"]
+rustc-link-lib = ["ssl", "crypto"]
+linker = "..."
+cc = "clang"
+cxx = "clang++"
 
 # gnu gnu-lld gnu-cc gnu-lld-cc darwin darwin-lld darwin-cc darwin-lld-cc wasm-lld wasm-lld-cc unix unix-cc msvc-lld msvc em-cc bpf ptx gcc ld ld.lld ld64.lld lld-link wasm-ld
