@@ -153,7 +153,12 @@ lld = true
 
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
-rustdocflags = []
+rustdocflags = [
+    "-Zunstable-options",
+    "--generate-link-to-definition",
+    "--document-hidden-items",
+    "--document-private-items",
+]
 incremental = true
 # rustc-wrapper = "sccache"
 # rustc-workspace-wrapper = "sccache"
@@ -301,5 +306,23 @@ rustc-link-lib = ["ssl", "crypto"]
 linker = "..."
 cc = "clang"
 cxx = "clang++"
+
+[target.'cfg'."*"]
+include = ["/usr/local/opt/openssl/include"]
+rustc-link-search = ["/usr/local/opt/openssl/lib"]
+rustc-link-lib = ["ssl", "crypto"]
+
+ar = "..."
+linker = "..."
+runner = "..."
+
+rustdocflags = []
+rustflags = []
+
+cc = "clang"
+cxx = "clang++"
+
+rustc-cfg = ['key="value"']
+rustc-env = { key = "value" }
 
 # gnu gnu-lld gnu-cc gnu-lld-cc darwin darwin-lld darwin-cc darwin-lld-cc wasm-lld wasm-lld-cc unix unix-cc msvc-lld msvc em-cc bpf ptx gcc ld ld.lld ld64.lld lld-link wasm-ld
