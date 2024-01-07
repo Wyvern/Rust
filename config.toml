@@ -1,7 +1,7 @@
 [alias]
 ad = "add --no-default-features --optional"
 br = "b -r"
-dr = "d -r --no-deps"
+dn = "d --no-deps"
 rr = "r -r"
 re = "r --example"
 rb = "r --bin"
@@ -160,6 +160,7 @@ rustdocflags = [
     "--document-private-items",
 ]
 incremental = true
+# compiler-docs = true
 # rustc-wrapper = "sccache"
 # rustc-workspace-wrapper = "sccache"
 
@@ -189,7 +190,6 @@ rustflags = [
     "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
-    "-Zthir-unsafeck",
     "-Zshare-generics",
     "-Zmerge-functions=trampolines",
     "-Zinline-mir",
@@ -248,7 +248,6 @@ rustflags = [
     "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
-    "-Zthir-unsafeck",
     "-Zshare-generics",
     "-Zmerge-functions=trampolines",
     "-Zinline-mir",
