@@ -207,6 +207,7 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
+    "-Zuse-sync-unwind",
 
     "-Aunused",
     "-Anonstandard_style",
@@ -266,6 +267,7 @@ rustflags = [
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
     "-Zpanic-in-drop=abort",
+    "-Zuse-sync-unwind",
 
     "-Aunused",
     "-Anonstandard_style",
