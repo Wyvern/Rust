@@ -158,6 +158,8 @@ rustdocflags = [
     "--generate-link-to-definition",
     "--document-hidden-items",
     "--document-private-items",
+    "--playground-url",
+    "https://play.rust-lang.org",
 ]
 incremental = true
 # compiler-docs = true
