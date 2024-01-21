@@ -215,6 +215,8 @@ rustflags = [
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
     "-Zuse-sync-unwind",
+    "-Zno-implied-bounds-compat",
+    "-Zcollapse-macro-debuginfo=no",
 
     "-Aunused",
     "-Anonstandard_style",
@@ -275,6 +277,8 @@ rustflags = [
     "-Znext-solver=coherence",
     "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
+    "-Zno-implied-bounds-compat",
+    "-Zcollapse-macro-debuginfo=no",
 
     "-Aunused",
     "-Anonstandard_style",
