@@ -39,8 +39,6 @@ rustflags = [
 ]
 rpath = true
 codegen-backend = "cranelift"
-debug = false
-strip = true
 [profile.dev.package."*"]
 inherits = "dev"
 debug-assertions = false
@@ -181,6 +179,7 @@ rustflags = [
     "-Cno-redzone",
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
+    "-Cstrip=symbols",
     # "-Clinker-plugin-lto",
 
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
@@ -242,6 +241,7 @@ rustflags = [
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
+    "-Cstrip=symbols",
     "-Clink-self-contained=+linker",
 
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
