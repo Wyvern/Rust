@@ -45,10 +45,7 @@ debug-assertions = false
 debug = false
 strip = true
 [profile.dev.build-override]
-inherits = "dev"
-debug-assertions = false
-debug = false
-strip = true
+inherits = "dev.package"
 
 #test
 [profile.test]
