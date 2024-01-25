@@ -175,6 +175,8 @@ rustflags = [
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
 
     "-Zunstable-options",
+    "-Zexport-executable-symbols",
+    # "-Zsymbol_mangling_version=hashed",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
     "-Zplt",
@@ -204,8 +206,10 @@ rustflags = [
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
     "-Zuse-sync-unwind",
-    "-Zno-implied-bounds-compat",
     "-Zcollapse-macro-debuginfo=no",
+    "-Zgraphviz-dark-mode",
+    "-Zhas-thread-local",
+    "-Zshell-argfiles",
 
     "-Aunused",
     "-Anonstandard_style",
@@ -237,6 +241,8 @@ rustflags = [
     "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
 
     "-Zunstable-options",
+    "-Zexport-executable-symbols",
+    "-Zsymbol_mangling_version=hashed",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
     "-Zplt",
@@ -267,8 +273,10 @@ rustflags = [
     "-Znext-solver=coherence",
     "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
-    "-Zno-implied-bounds-compat",
     "-Zcollapse-macro-debuginfo=no",
+    "-Zgraphviz-dark-mode",
+    "-Zhas-thread-local",
+    "-Zshell-argfiles",
 
     "-Aunused",
     "-Anonstandard_style",
