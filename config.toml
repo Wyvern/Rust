@@ -114,15 +114,8 @@ asymmetric-token = true
 trim-paths = true
 gc = true
 precise-pre-release = true
-
-[unstable.git]
-shallow_index = true
-shallow_deps = true
-
-[unstable.gitoxide]
-checkout = true
-fetch = true
-internal_use_git2 = true
+git = { shallow_index = true, shallow_deps = true }
+gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
 
 # build-std = [
 #     "core",
