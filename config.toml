@@ -163,7 +163,7 @@ incremental = true
 rustflags = [
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
-    "-Csymbol-mangling-version=v0",
+    "-Csymbol-mangling-version=hashed",
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
@@ -176,7 +176,6 @@ rustflags = [
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
-    # "-Zsymbol_mangling_version=hashed",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
     "-Zplt",
@@ -227,11 +226,14 @@ rustdoc-args = ["--cfg", "docsrs"]
 resolver = "2"
 workspace = true
 
+[package.metadata.rust-analyzer]
+rustc_private = true
+
 [target.'cfg(all())']
 rustflags = [
     "-Ctarget-feature=-crt-static",
     "-Ctarget-cpu=native",
-    "-Csymbol-mangling-version=v0",
+    "-Csymbol-mangling-version=hashed",
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
@@ -242,7 +244,6 @@ rustflags = [
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
-    # "-Zsymbol_mangling_version=hashed",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
     "-Zplt",
@@ -293,6 +294,9 @@ rustflags = ["-Clinker-flavor=msvc-lld"]
 
 [target.'cfg(any(target_vendor="apple",target_os=windows))']
 rustflags = ["-Clink-args=-fno-async-exceptions"]
+
+[target.'cfg(target_os="linux")']
+rustflags = ["-Zrelax-elf-relocations"]
 
 [target.'cfg(any(target_env="gnu",target_env="musl"))']
 rustflags = ["-Clinker-flavor=gnu-lld-cc"]
