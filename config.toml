@@ -156,6 +156,7 @@ rustdocflags = [
     "--document-hidden-items",
     "--document-private-items",
     "--default-theme dark",
+    "--all-features",
 ]
 incremental = true
 # compiler-docs = true
@@ -289,8 +290,8 @@ rustflags = ["-Clinker-flavor=darwin-lld-cc"]
 [target.'cfg(target_env="msvc")']
 rustflags = ["-Clinker-flavor=msvc-lld"]
 
-[target.'cfg(any(target_vendor="apple",target_os=windows))']
-rustflags = ["-Clink-args=-fno-async-exceptions"]
+[target.'cfg(any(target_vendor="apple",target_os="windows"))']
+rustflags = ["-Clink-arg=-fno-async-exceptions"]
 
 [target.'cfg(target_os="linux")']
 rustflags = ["-Zrelax-elf-relocations"]
