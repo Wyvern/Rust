@@ -72,7 +72,7 @@ inherits = "release"
 [profile.release.build-override]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 strip = true
 lto = true
 rpath = true
@@ -81,7 +81,7 @@ codegen-units = 1
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zcross-crate-inline-threshold=yes"]
+rustflags = ["-Zlocation-detail=none", "-Zcross-crate-inline-threshold=yes"]
 lto = true
 panic = "abort"
 [profile.lto.build-override]
@@ -98,6 +98,8 @@ inherits = "src"
 [profile.src.package."*"]
 inherits = "src"
 
+[rust]
+lld = true
 
 [unstable]
 unstable-options = true
@@ -143,9 +145,6 @@ RUST_LIB_BACKTRACE = "0"
 RUST_PANIC_STRATEGY = "abort"
 # SCCACHE_DIRECT = "true"
 # SCCACHE_RECACHE = "true"
-
-[rust]
-lld = true
 
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
@@ -223,6 +222,7 @@ rustflags = [
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = [
+    "--no-deps",
     "--cfg",
     "docsrs",
     "--playground-url",
