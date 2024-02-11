@@ -210,7 +210,6 @@ rustflags = [
     "-Zgraphviz-dark-mode",
     "-Zhas-thread-local",
     "-Zshell-argfiles",
-    "-Zfunction-return=thunk-extern",
 
     "-Aunused",
     "-Anonstandard_style",
@@ -277,7 +276,6 @@ rustflags = [
     "-Zgraphviz-dark-mode",
     "-Zhas-thread-local",
     "-Zshell-argfiles",
-    "-Zfunction-return=thunk-extern",
 
     "-Aunused",
     "-Anonstandard_style",
