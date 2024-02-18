@@ -173,9 +173,10 @@ rustflags = [
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
     "-Cstrip=symbols",
+    # "-Crelocation-model=static",
     # "-Clinker-plugin-lto",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld 
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles", #-fuse-ld=lld 
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -240,7 +241,7 @@ rustflags = [
     "-Cstrip=symbols",
     "-Clink-self-contained=+linker",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles",
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -302,7 +303,7 @@ rustflags = ["-Clinker-flavor=gnu-lld-cc"]
 [target.'cfg(target_family="wasm")']
 rustflags = ["-Clinker-flavor=wasm-lld-cc"]
 
-[target.'cfg(target_arch="aarch64")']
+[target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 
 [target.aarch64-unknown-linux-gnu]
