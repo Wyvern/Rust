@@ -32,6 +32,7 @@ vcs = "none"
 [profile.dev]
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zlocation-detail=file,line,column",
     "-Cdebug-assertions",
     "-Zdwarf-version=5",
     "-Zdebuginfo-compression=zstd",
@@ -72,7 +73,7 @@ inherits = "release"
 [profile.release.build-override]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = ["-Cprefer-dynamic"]
 strip = true
 lto = true
 rpath = true
@@ -81,7 +82,7 @@ codegen-units = 1
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zlocation-detail=none", "-Zcross-crate-inline-threshold=yes"]
+rustflags = ["-Zcross-crate-inline-threshold=yes"]
 lto = true
 panic = "abort"
 [profile.lto.build-override]
@@ -92,11 +93,7 @@ inherits = "lto"
 #src
 [profile.src]
 inherits = "lto"
-rustflags = [
-    "-Zlocation-detail=none",
-    "-Zforce-unstable-if-unmarked",
-    "-Zpanic-in-drop=abort",
-]
+rustflags = ["-Zforce-unstable-if-unmarked", "-Zpanic-in-drop=abort"]
 [profile.src.build-override]
 inherits = "src"
 [profile.src.package."*"]
@@ -186,6 +183,7 @@ rustflags = [
     "-Zexport-executable-symbols",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
+    "-Zlocation-detail=none",
     "-Zplt",
     "-Zthinlto",
     "-Zdylib-lto",
@@ -251,6 +249,7 @@ rustflags = [
     "-Zexport-executable-symbols",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
+    "-Zlocation-detail=none",
     "-Zplt",
     "-Zthinlto",
     "-Zdylib-lto",
@@ -301,6 +300,9 @@ rustflags = ["-Clink-arg=-fno-async-exceptions"]
 [target.'cfg(target_os="linux")']
 rustflags = ["-Zrelax-elf-relocations"]
 
+[target.'cfg(target_os="android")']
+rustflags = ["-Zhas-thread-local=no"]
+
 [target.'cfg(any(target_env="gnu",target_env="musl"))']
 rustflags = ["-Clinker-flavor=gnu-lld-cc"]
 
@@ -310,11 +312,11 @@ rustflags = ["-Clinker-flavor=wasm-lld-cc"]
 [target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 
-[target.aarch64-unknown-linux-gnu]
-linker = "aarch64-linux-gnu-gcc"
-
 [target.'cfg(any(target_arch="arm", target_arch="aarch64"))']
 rustflags = ["-Ctarget-feature=+neon"]
+
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-linux-gnu-gcc"
 
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
@@ -335,9 +337,6 @@ runner = "..."
 
 rustdocflags = []
 rustflags = []
-
-cc = "clang"
-cxx = "clang++"
 
 rustc-cfg = ['key="value"']
 rustc-env = { key = "value" }
