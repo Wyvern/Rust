@@ -92,7 +92,11 @@ inherits = "lto"
 #src
 [profile.src]
 inherits = "lto"
-rustflags = ["-Zforce-unstable-if-unmarked", "-Zpanic-in-drop=abort"]
+rustflags = [
+    "-Zlocation-detail=none",
+    "-Zforce-unstable-if-unmarked",
+    "-Zpanic-in-drop=abort",
+]
 [profile.src.build-override]
 inherits = "src"
 [profile.src.package."*"]
