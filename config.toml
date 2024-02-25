@@ -17,6 +17,7 @@ ti = "t -- --exact --nocapture"
 ta = "t -- --nocapture"
 
 l = "b --profile lto"
+no = "c --profile no"
 
 h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
 e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
@@ -26,7 +27,19 @@ s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-s
 vcs = "none"
 
 [net]
-#offline = true     
+#offline = true
+
+#NO
+[profile.no]
+inherits = "dev"
+rustflags = ["-Dunused_crate_dependencies"]
+debug-assertions = false
+debug = false
+strip = true
+[profile.no.package."*"]
+inherits = "no"
+[profile.no.build-override]
+inherits = "dev"
 
 #dev
 [profile.dev]
@@ -177,7 +190,7 @@ rustflags = [
     # "-Crelocation-model=static",
     # "-Clinker-plugin-lto",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles", #-fuse-ld=lld 
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles", #-fuse-ld=lld
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -309,11 +322,8 @@ rustflags = ["-Clinker-flavor=gnu-lld-cc"]
 [target.'cfg(target_family="wasm")']
 rustflags = ["-Clinker-flavor=wasm-lld-cc"]
 
-[target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
+[target.'cfg(target_arch="aarch64")']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
-
-[target.'cfg(any(target_arch="arm", target_arch="aarch64"))']
-rustflags = ["-Ctarget-feature=+neon"]
 
 [target.aarch64-unknown-linux-gnu]
 linker = "aarch64-linux-gnu-gcc"
@@ -322,7 +332,9 @@ linker = "aarch64-linux-gnu-gcc"
 include = ["/usr/local/opt/openssl/include"]
 rustc-link-search = ["/usr/local/opt/openssl/lib"]
 rustc-link-lib = ["ssl", "crypto"]
+ar = "..."
 linker = "..."
+runner = "..."
 cc = "clang"
 cxx = "clang++"
 
