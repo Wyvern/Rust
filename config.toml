@@ -32,7 +32,7 @@ vcs = "none"
 #NO
 [profile.no]
 inherits = "dev"
-rustflags = ["-Dunused_crate_dependencies"]
+rustflags = ["-Dunused_crate_dependencies", "-Dunused_extern_crates"]
 debug-assertions = false
 debug = false
 strip = true
@@ -231,6 +231,7 @@ rustflags = [
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
     "-Aclippy::tabs_in_doc_comments",
+    "-Dclippy::redundant_clone",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
@@ -297,6 +298,7 @@ rustflags = [
     "-Aunused",
     "-Anonstandard_style",
     "-Aunexpected_cfgs",
+    "-Dclippy::redundant_clone",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
