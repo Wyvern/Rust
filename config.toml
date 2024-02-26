@@ -39,7 +39,7 @@ strip = true
 [profile.no.package."*"]
 inherits = "no"
 [profile.no.build-override]
-inherits = "dev"
+inherits = "no"
 
 #dev
 [profile.dev]
