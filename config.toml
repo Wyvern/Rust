@@ -39,8 +39,10 @@ rustflags = [
 ]
 debug-assertions = false
 [profile.no.package."*"]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "no"
 [profile.no.build-override]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "no"
 
 #dev
@@ -57,9 +59,11 @@ codegen-backend = "cranelift"
 debug = false
 strip = true
 [profile.dev.package."*"]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 debug-assertions = false
 [profile.dev.build-override]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 debug-assertions = false
 
@@ -68,8 +72,10 @@ debug-assertions = false
 rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
 inherits = "dev"
 [profile.test.package."*"]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "test"
 [profile.test.build-override]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "test"
 
 #bench
@@ -77,14 +83,18 @@ inherits = "test"
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.bench.package."*"]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "bench"
 [profile.bench.build-override]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "bench"
 
 #release
 [profile.release.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "release"
 [profile.release.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "release"
 [profile.release]
 rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
