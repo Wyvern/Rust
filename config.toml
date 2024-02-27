@@ -32,10 +32,12 @@ vcs = "none"
 #NO
 [profile.no]
 inherits = "dev"
-rustflags = ["-Dunused_crate_dependencies", "-Dunused_extern_crates"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Dunused_crate_dependencies",
+    "-Dunused_extern_crates",
+]
 debug-assertions = false
-debug = false
-strip = true
 [profile.no.package."*"]
 inherits = "no"
 [profile.no.build-override]
@@ -45,27 +47,25 @@ inherits = "no"
 [profile.dev]
 rustflags = [
     "-Cprefer-dynamic",
-    "-Zlocation-detail=file,line,column",
     "-Cdebug-assertions",
-    "-Zdwarf-version=5",
-    "-Zdebuginfo-compression=zstd",
     "-Zcodegen-backend=cranelift",
+    # "-Zdwarf-version=5",
+    # "-Zdebuginfo-compression=zstd",
 ]
 rpath = true
 codegen-backend = "cranelift"
+debug = false
+strip = true
 [profile.dev.package."*"]
 inherits = "dev"
 debug-assertions = false
-debug = false
-strip = true
 [profile.dev.build-override]
 inherits = "dev"
 debug-assertions = false
-debug = false
-strip = true
 
 #test
 [profile.test]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
 inherits = "dev"
 [profile.test.package."*"]
 inherits = "test"
@@ -74,11 +74,12 @@ inherits = "test"
 
 #bench
 [profile.bench]
+rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.bench.package."*"]
-inherits = "release"
+inherits = "bench"
 [profile.bench.build-override]
-inherits = "release"
+inherits = "bench"
 
 #release
 [profile.release.package."*"]
@@ -86,7 +87,7 @@ inherits = "release"
 [profile.release.build-override]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 strip = true
 lto = true
 rpath = true
@@ -95,8 +96,7 @@ codegen-units = 1
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zcross-crate-inline-threshold=yes"]
-lto = true
+rustflags = ["-Zcross-crate-inline-threshold=yes", "-Zlocation-detail=none"]
 panic = "abort"
 [profile.lto.build-override]
 inherits = "lto"
@@ -106,7 +106,11 @@ inherits = "lto"
 #src
 [profile.src]
 inherits = "lto"
-rustflags = ["-Zforce-unstable-if-unmarked", "-Zpanic-in-drop=abort"]
+rustflags = [
+    "-Zforce-unstable-if-unmarked",
+    "-Zpanic-in-drop=abort",
+    "-Zlocation-detail=none",
+]
 [profile.src.build-override]
 inherits = "src"
 [profile.src.package."*"]
@@ -196,7 +200,6 @@ rustflags = [
     "-Zexport-executable-symbols",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
-    "-Zlocation-detail=none",
     "-Zplt",
     "-Zthinlto",
     "-Zdylib-lto",
@@ -263,7 +266,6 @@ rustflags = [
     "-Zexport-executable-symbols",
     "-Ztune-cpu=native",
     "-Zno-profiler-runtime",
-    "-Zlocation-detail=none",
     "-Zplt",
     "-Zthinlto",
     "-Zdylib-lto",
