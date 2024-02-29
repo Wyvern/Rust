@@ -59,6 +59,7 @@ rpath = true
 codegen-backend = "cranelift"
 debug = false
 strip = true
+trim-paths = true
 [profile.dev.package."*"]
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
@@ -107,6 +108,7 @@ strip = true
 lto = true
 rpath = true
 codegen-units = 1
+trim-paths = true
 
 #lto
 [profile.lto]
@@ -148,12 +150,14 @@ codegen-backend = true
 target-applies-to-host = true
 host-config = true
 script = true
+lints = true
 asymmetric-token = true
 trim-paths = true
 gc = true
 precise-pre-release = true
 git = { shallow_index = true, shallow_deps = true }
 gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
+public-dependency = true
 
 # build-std = [
 #     "core",
@@ -166,6 +170,7 @@ gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
 # ]
 # build-std-features = ["panic_immediate_abort", "compiler-builtins-mem"]
 
+[lints]
 
 [term]
 color = "always"
