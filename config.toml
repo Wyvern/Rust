@@ -23,6 +23,7 @@ h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-s
 e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
 s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
 
+
 [cargo-new]
 vcs = "none"
 
@@ -34,9 +35,9 @@ vcs = "none"
 inherits = "dev"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
-    "-Zlocation-detail=none",
 ]
 debug-assertions = false
 [profile.no.package."*"]
@@ -62,11 +63,11 @@ debug = false
 strip = true
 trim-paths = true
 [profile.dev.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "dev"
 debug-assertions = false
 [profile.dev.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "dev"
 debug-assertions = false
 
@@ -75,10 +76,10 @@ debug-assertions = false
 rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
 inherits = "dev"
 [profile.test.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "test"
 [profile.test.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "test"
 
 #bench
@@ -86,10 +87,10 @@ inherits = "test"
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.bench.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "bench"
 [profile.bench.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "bench"
 
 #release
@@ -101,10 +102,10 @@ rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "release"
 [profile.release]
 rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
-strip = true
 lto = true
 rpath = true
 codegen-units = 1
+strip = true
 trim-paths = true
 
 #lto
@@ -113,10 +114,10 @@ inherits = "release"
 rustflags = ["-Zcross-crate-inline-threshold=yes", "-Zlocation-detail=none"]
 panic = "abort"
 [profile.lto.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "lto"
 [profile.lto.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "lto"
 
 #src
@@ -128,10 +129,10 @@ rustflags = [
     "-Zlocation-detail=none",
 ]
 [profile.src.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "src"
 [profile.src.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
 inherits = "src"
 
 [rust]
@@ -210,13 +211,13 @@ rustflags = [
     "-Coverflow-checks=no",
     "-Copt-level=s",
     "-Cno-redzone",
+    "-Cstrip=symbols",
     "-Clink-self-contained=+linker",
     "-Clinker-flavor=darwin-lld-cc",
-    "-Cstrip=symbols",
     # "-Crelocation-model=static",
     # "-Clinker-plugin-lto",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles", #-fuse-ld=lld
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables", #-fuse-ld=lld
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -282,7 +283,7 @@ rustflags = [
     "-Cstrip=symbols",
     "-Clink-self-contained=+linker",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -nostartfiles",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
