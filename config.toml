@@ -18,6 +18,7 @@ ta = "t -- --nocapture"
 
 l = "b --profile lto"
 no = "c --profile no"
+f = "add --dry-run"
 
 h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
 e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
@@ -53,7 +54,6 @@ rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
     "-Zcodegen-backend=cranelift",
-    # "-Zlocation-detail=file,line,column",
     # "-Zdwarf-version=5",
     # "-Zdebuginfo-compression=zstd",
 ]
@@ -202,6 +202,7 @@ incremental = true
 # compiler-docs = true
 # rustc-wrapper = "sccache"
 # rustc-workspace-wrapper = "sccache"
+# target-dir = "your-preferred-target-dir"
 
 [host]
 rustflags = [
