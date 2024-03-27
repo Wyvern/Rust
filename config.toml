@@ -153,14 +153,18 @@ codegen-backend = true
 target-applies-to-host = true
 host-config = true
 script = true
-lints = true
 asymmetric-token = true
 trim-paths = true
 gc = true
 precise-pre-release = true
 git = { shallow_index = true, shallow_deps = true }
-gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
+gitoxide = { checkout = true, fetch = true, internal_use_git2 = true, list_files = true }
 public-dependency = true
+cargo-lints = true
+
+[lints]
+workspace = true
+[lints.cargo]
 
 # build-std = [
 #     "core",
@@ -172,8 +176,6 @@ public-dependency = true
 #     "compiler_builtins",
 # ]
 # build-std-features = ["panic_immediate_abort", "compiler-builtins-mem"]
-
-[lints]
 
 [term]
 color = "always"
