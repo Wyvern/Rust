@@ -2,6 +2,7 @@
 
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
+export HOMEBREW_NO_AUTO_UPDATE
 
 alias l='ls -AhGx'
 alias ll='ls -AhlG'
@@ -19,7 +20,7 @@ alias cz='cargo -Z help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
 alias pn='ps -alxmrh|gi'
-alias curl='curl -fsSL'
+alias curl='curl -fsSLA "Mozilla Firefox" '
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i '
 
