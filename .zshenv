@@ -20,7 +20,7 @@ alias cz='cargo -Z help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
 alias pn='ps -alxmrh|gi'
-alias curl='curl -fsSLA "Mozilla Firefox" '
+alias curl='curl --tcp-fastopen --tcp-nodelay -fsSLA "Mozilla Firefox/Edge/Chrome" '
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i '
 
