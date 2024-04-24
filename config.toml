@@ -163,6 +163,8 @@ cargo-lints = true
 
 [lints]
 workspace = true
+[lints.rust]
+[lints.clippy]
 [lints.cargo]
 
 # build-std = [
@@ -260,11 +262,10 @@ rustflags = [
     "-Zlinker-features=+lld",
     "-Zwasm-c-abi=spec",
 
-    "-Aunused",
     "-Anonstandard_style",
-    "-Aunexpected_cfgs",
     "-Aclippy::tabs_in_doc_comments",
     "-Dclippy::redundant_clone",
+    "-Dclippy::unused_io_amount",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
@@ -332,10 +333,10 @@ rustflags = [
     "-Zlinker-features=+lld",
     "-Zwasm-c-abi=spec",
 
-    "-Aunused",
     "-Anonstandard_style",
-    "-Aunexpected_cfgs",
+    "-Aclippy::tabs_in_doc_comments",
     "-Dclippy::redundant_clone",
+    "-Dclippy::unused_io_amount",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
