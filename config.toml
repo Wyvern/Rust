@@ -124,6 +124,7 @@ inherits = "lto"
 [profile.src]
 inherits = "lto"
 rustflags = [
+    "-Cforce-frame-pointers=no",
     "-Zforce-unstable-if-unmarked",
     "-Zpanic-in-drop=abort",
     "-Zlocation-detail=none",
@@ -141,7 +142,6 @@ new-symbol-mangling = true
 
 [unstable]
 unstable-options = true
-check-cfg = true
 avoid-dev-deps = true
 dual-proc-macros = true
 panic-abort-tests = true
@@ -163,7 +163,9 @@ cargo-lints = true
 
 [lints]
 workspace = true
+
 [lints.rust]
+[lints.rustdoc]
 [lints.clippy]
 [lints.cargo]
 
@@ -250,7 +252,7 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Znext-solver",
+    "-Znext-solver=coherence",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
     "-Zhas-thread-local",
@@ -321,7 +323,7 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Znext-solver",
+    "-Znext-solver=coherence",
     "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
