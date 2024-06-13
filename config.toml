@@ -114,26 +114,25 @@ inherits = "release"
 rustflags = ["-Zcross-crate-inline-threshold=yes", "-Zlocation-detail=none"]
 panic = "abort"
 [profile.lto.build-override]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "lto"
 [profile.lto.package."*"]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "lto"
 
 #src
 [profile.src]
 inherits = "lto"
 rustflags = [
-    "-Cforce-frame-pointers=no",
     "-Zforce-unstable-if-unmarked",
     "-Zpanic-in-drop=abort",
     "-Zlocation-detail=none",
 ]
 [profile.src.build-override]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "src"
 [profile.src.package."*"]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "src"
 
 [rust]
@@ -215,6 +214,7 @@ rustflags = [
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=hashed",
     "-Coverflow-checks=no",
+    "-Cforce-frame-pointers=no",
     "-Copt-level=s",
     "-Cno-redzone",
     "-Cdebuginfo=0",
@@ -286,6 +286,7 @@ rustflags = [
     "-Ctarget-cpu=native",
     "-Csymbol-mangling-version=hashed",
     "-Coverflow-checks=no",
+    "-Cforce-frame-pointers=no",
     "-Copt-level=s",
     "-Cno-redzone",
     "-Cdebuginfo=0",
