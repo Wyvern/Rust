@@ -352,6 +352,16 @@ rustflags = [
 [target.'cfg(any(target_vendor="apple",target_os="windows"))']
 rustflags = ["-Clink-arg=-fno-async-exceptions"]
 
+[target.'cfg(target_arch="aarch64")']
+rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
+[target.'cfg(all(target_arch="aarch64",target_os="linux"))']
+linker = "aarch64-linux-gnu-gcc"
+
+[target.'cfg(target_arch="riscv64")']
+rustflags = ["-Ctarget-cpu=generic", "-Ztune-cpu=generic"]
+[target.'cfg(all(target_arch="riscv64",target_os="linux"))']
+linker = "riscv64-linux-gnu-gcc"
+
 [target.'cfg(target_os="linux")']
 rustflags = ["-Zrelax-elf-relocations"]
 
@@ -363,12 +373,6 @@ rustflags = ["-Zhas-thread-local=no"]
 
 [target.'cfg(target_family="wasm")']
 # rustflags = ["-Clinker-flavor=wasm-lld-cc"]
-
-[target.'cfg(target_arch="aarch64")']
-rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
-
-[target.aarch64-unknown-linux-gnu]
-linker = "aarch64-linux-gnu-gcc"
 
 [target.armv7-unknown-linux-gnueabi]
 linker = "armv7-linux-gnueabi-gcc"
