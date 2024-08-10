@@ -54,7 +54,6 @@ rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
     # "-Zdwarf-version=5",
-    # "-Zdebuginfo-compression=zstd",
 ]
 rpath = true
 codegen-backend = "cranelift"
@@ -124,15 +123,14 @@ inherits = "lto"
 inherits = "lto"
 rustflags = [
     "-Zforce-unstable-if-unmarked",
-    "-Zpanic-in-drop=abort",
     "-Zlocation-detail=none",
     "-Zcross-crate-inline-threshold=yes",
 ]
 [profile.src.build-override]
-rustflags = ["-Zlocation-detail=none", "-Zpanic-in-drop=abort"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "src"
 [profile.src.package."*"]
-rustflags = ["-Zlocation-detail=none", "-Zpanic-in-drop=abort"]
+rustflags = ["-Zlocation-detail=none"]
 inherits = "src"
 
 [rust]
@@ -189,6 +187,7 @@ color = "always"
 RUST_BACKTRACE = "0"
 RUST_LIB_BACKTRACE = "0"
 RUST_PANIC_STRATEGY = "abort"
+RUSTC_ICE = "0"
 # SCCACHE_DIRECT = "true"
 # SCCACHE_RECACHE = "true"
 
@@ -307,7 +306,7 @@ rustflags = [
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
     "-Zpolonius",
-    "-Zpolymorphize",
+    # "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
     "-Zshare-generics",
