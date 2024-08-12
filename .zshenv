@@ -27,3 +27,6 @@ alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -in
 
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
+alias ti='rustc --print target-list|gi '
+alias cpu='rustc --print target-cpus --target '
+alias feature='rustc --print target-features --target'
