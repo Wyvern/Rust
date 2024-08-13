@@ -325,7 +325,7 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
-    "-Zpanic-in-drop=abort",
+    # "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
     "-Zhas-thread-local",
@@ -366,8 +366,6 @@ rustflags = ["-Zrelax-elf-relocations"]
 
 [target.'cfg(target_os="android")']
 rustflags = ["-Zhas-thread-local=no"]
-
-
 
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
