@@ -325,7 +325,7 @@ rustflags = [
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver=coherence",
-    # "-Zpanic-in-drop=abort",
+    "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
     "-Zhas-thread-local",
@@ -367,10 +367,7 @@ rustflags = ["-Zrelax-elf-relocations"]
 [target.'cfg(target_os="android")']
 rustflags = ["-Zhas-thread-local=no"]
 
-[target.armv7-unknown-linux-gnueabi]
-linker = "armv7-linux-gnueabi-gcc"
-cc = "armv7-linux-gnueabi-gcc"
-cxx = "armv7-linux-gnueabi-g++"
+
 
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
