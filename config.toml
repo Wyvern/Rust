@@ -59,7 +59,7 @@ rustflags = [
 ]
 rpath = true
 codegen-backend = "cranelift"
-# debug = false
+debug = false
 strip = true
 trim-paths = true
 [profile.dev.package."*"]
@@ -111,7 +111,11 @@ trim-paths = true
 #lto
 [profile.lto]
 inherits = "release"
-rustflags = ["-Zcross-crate-inline-threshold=yes", "-Zlocation-detail=none"]
+rustflags = [
+    "-Zcross-crate-inline-threshold=yes",
+    "-Zlocation-detail=none",
+    "-Zvirtual-function-elimination",
+]
 panic = "abort"
 [profile.lto.build-override]
 rustflags = ["-Zlocation-detail=none"]
@@ -127,6 +131,7 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
     "-Zcross-crate-inline-threshold=yes",
+    "-Zvirtual-function-elimination",
 ]
 [profile.src.build-override]
 rustflags = ["-Zlocation-detail=none"]
