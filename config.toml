@@ -8,6 +8,7 @@ rb = "r --bin"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
+bs = "binstall --disable-telemetry"
 
 ndf = "r --no-default-features"
 all = "r --all-features"
@@ -21,9 +22,9 @@ l = "b --profile lto"
 no = "c --profile no"
 f = "add --dry-run"
 
-h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
-e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
+h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target "
 
 
 [cargo-new]
@@ -131,7 +132,6 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
     "-Zcross-crate-inline-threshold=yes",
-    "-Zvirtual-function-elimination",
 ]
 [profile.src.build-override]
 rustflags = ["-Zlocation-detail=none"]
@@ -180,6 +180,7 @@ workspace = true
 #     "alloc",
 #     "proc_macro",
 #     "panic_abort",
+#     "panic_unwind",
 #     "libc",
 #     "compiler_builtins",
 # ]
@@ -245,7 +246,7 @@ rustflags = [
     "-Clink-self-contained=+linker",
     # "-Cmetadata=wyvern dev",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -fPIE",
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -271,7 +272,7 @@ rustflags = [
     "-Zno-jump-tables",
     "-Zno-trait-vptr",
     "-Zterminal-urls",
-    # "-Zthreads=0",
+    "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
     "-Znext-solver",
@@ -320,6 +321,19 @@ rustflags = ["-Zrelax-elf-relocations"]
 [target.'cfg(target_os="android")']
 rustflags = ["-Zhas-thread-local=no"]
 
+[target.arm64ec-pc-windows-msvc]
+linker = "link.exe"
+rustflags = [
+    "-Ipath/to/include",
+    "-Lpath/to/all/libs",
+    "-Lnative=",
+    "-Lframework=",
+    "-Lcrate=",
+    "-Ldependency=",
+    "-Lall=",
+    "-l<lib>",
+]
+
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
 rustc-link-search = ["/usr/local/opt/openssl/lib"]
@@ -332,8 +346,8 @@ cxx = "clang++"
 
 [target.'cfg'."*"]
 include = ["/usr/local/opt/openssl/include"]
-rustc-link-search = ["/usr/local/opt/openssl/lib"]
-rustc-link-lib = ["ssl", "crypto"]
+rustc-link-search = ["/usr/local/opt/openssl/lib", "dir..."]
+rustc-link-lib = ["ssl", "crypto", "lib..."]
 
 ar = "..."
 linker = "..."
