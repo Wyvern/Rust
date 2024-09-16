@@ -3,6 +3,7 @@
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
 export HOMEBREW_NO_AUTO_UPDATE
+export PYTHON_JIT=1
 
 alias l='ls -AhGx'
 alias ll='ls -AhlG'
@@ -21,10 +22,13 @@ alias cz='cargo -Z help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -i'
 alias pn='ps -alxmrh|gi'
-alias curl='curl --tcp-fastopen --tcp-nodelay -fsSLA "Mozilla Firefox/Edge/Chrome" '
+alias curl='curl --tcp-fastopen --tcp-nodelay -fSLA "Mozilla Firefox/Edge/Chrome" '
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
-alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i '
-
+alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
+alias zs='zig build-exe -dynamic -OReleaseSmall --gc-sections -fno-compiler-rt -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC'
+alias zf='zig build-exe -dynamic -OReleaseFast --gc-sections -fno-compiler-rt -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC'
+alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fno-compiler-rt -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIC'
+alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fno-compiler-rt -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
 alias ti='rustc --print target-list|gi '
