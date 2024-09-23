@@ -22,9 +22,10 @@ l = "b --profile lto"
 no = "c --profile no"
 f = "add --dry-run"
 
-h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
-e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort,panic_unwind -Zbuild-std-features=panic_immediate_abort --target "
+h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
+z = "zigbuild --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
 
 
 [cargo-new]
