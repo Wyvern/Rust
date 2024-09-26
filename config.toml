@@ -247,7 +247,7 @@ rustflags = [
     "-Clink-self-contained=+linker",
     # "-Cmetadata=wyvern dev",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-async-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -fPIE",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -fPIE",
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -276,7 +276,7 @@ rustflags = [
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
     "-Zstaticlib-prefer-dynamic",
-    "-Znext-solver",
+    "-Znext-solver=coherence",
     # "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
@@ -313,6 +313,9 @@ linker = "aarch64-linux-gnu-gcc"
 [target.'cfg(all(target_arch="s390x",target_os="linux"))']
 linker = "s390x-linux-gnu-gcc"
 
+[target.'cfg(all(target_arch="powerpc64",target_os="linux"))']
+linker = "powerpc64-linux-gnu-gcc"
+
 [target.'cfg(all(target_arch="riscv64",target_os="linux"))']
 linker = "riscv64-linux-gnu-gcc"
 
@@ -321,6 +324,9 @@ rustflags = ["-Zrelax-elf-relocations"]
 
 [target.'cfg(target_os="android")']
 rustflags = ["-Zhas-thread-local=no"]
+
+[target.powerpc64-ibm-aix]
+linker = "powerpc64-linux-gnu-gcc"
 
 [target.arm64ec-pc-windows-msvc]
 linker = "link.exe"
