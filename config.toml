@@ -5,6 +5,7 @@ rr = "r -r"
 d = "rustdoc"
 re = "r --example"
 rb = "r --bin"
+bi = "binstall --disable-telemetry"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
