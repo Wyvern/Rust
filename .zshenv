@@ -2,8 +2,6 @@
 
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
-export HOMEBREW_NO_AUTO_UPDATE=1
-export BINSTALL_DISABLE_TELEMETRY="true"
 export PYTHON_JIT=1
 
 alias l='ls -AhGx'
