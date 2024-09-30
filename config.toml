@@ -8,7 +8,6 @@ rb = "r --bin"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
-bs = "binstall --disable-telemetry"
 
 ndf = "r --no-default-features"
 all = "r --all-features"
@@ -22,10 +21,10 @@ l = "b --profile lto"
 no = "c --profile no"
 f = "add --dry-run"
 
-h = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
-e = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
-z = "zigbuild --profile src -Zbuild-std=core,std,alloc,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
+h = "b --profile src -Zbuild-std=proc_macro,panic_abort,compiler_builtins -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=proc_macro,panic_abort,compiler_builtins -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=proc_macro,panic_abort,compiler_builtins -Zbuild-std-features=panic_immediate_abort --target "
+z = "zigbuild --profile src -Zbuild-std=proc_macro,panic_abort,compiler_builtins -Zbuild-std-features=panic_immediate_abort --target "
 
 
 [cargo-new]
@@ -114,9 +113,10 @@ trim-paths = true
 [profile.lto]
 inherits = "release"
 rustflags = [
+    # "-Clinker-plugin-lto",
     "-Zcross-crate-inline-threshold=yes",
     "-Zlocation-detail=none",
-    "-Zvirtual-function-elimination",
+    # "-Zvirtual-function-elimination",
 ]
 panic = "abort"
 [profile.lto.build-override]
@@ -323,11 +323,20 @@ linker = "riscv64-linux-gnu-gcc"
 rustflags = ["-Zlinker-features=-lld"]
 linker = "sparc64-linux-gnu-gcc"
 
+[target.'cfg(all(target_arch="mips64",target_os="linux"))']
+linker = "mips64-linux-gnuabi64-gcc"
+
 [target.'cfg(any(target_os="linux",target_os="android"))']
 rustflags = ["-Zrelax-elf-relocations"]
 
 [target.'cfg(target_os="android")']
 rustflags = ["-Zhas-thread-local=no"]
+
+[target.'cfg(target_os="haiku")']
+rustflags = ["-Zlinker-features=-lld"]
+
+[target.mips64-openwrt-linux-musl]
+rustflags = ["-Zlinker-features=-lld"]
 
 [target.sparcv9-sun-solaris]
 linker = "sparcv9-solaris-gcc"
