@@ -349,12 +349,14 @@ linker = "powerpc64-linux-gnu-gcc"
 linker = "link.exe"
 rustflags = [
     "-Ipath/to/include",
-    "-Lpath/to/all/libs",
+    "-Lpath/to/libs",
     "-Lnative=",
     "-Lframework=",
     "-Lcrate=",
     "-Ldependency=",
     "-Lall=",
+    "-Lstatic=",
+    "-Ldylib=",
     "-l<lib>",
 ]
 
