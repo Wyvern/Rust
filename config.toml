@@ -1,53 +1,397 @@
-. "/opt/Rust/.cargo/env"
+[alias]
+ad = "add --no-default-features --optional"
+br = "b -r"
+rr = "r -r"
+d = "rustdoc"
+re = "r --example"
+rb = "r --bin"
+bi = "binstall --disable-telemetry"
 
-export RUSTUP_HOME=/opt/Rust/.rustup
-export CARGO_HOME=/opt/Rust/.cargo
-export PYTHON_JIT=1
+cf = "clippy --fix --allow-no-vcs --no-deps"
+fx = "fix --allow-no-vcs"
 
-alias l='ls -AhGx'
-alias ll='ls -AhlG'
-alias grep='grep --color=always'
-alias gc='git clone --filter=tree:0 --depth=1'
-alias gf='git fetch --filter=tree:0 --depth=1'
-alias diff='diff --color=always'
-alias daily='rustup update; brew update && brew upgrade; brew autoremove; rdf;'
-alias rdf='echo [ "\x1b[93m" rustc -Z "\x1b[0m" ]"\n" ; rustc -Z help|diff ~/Desktop/rz.txt -; echo [ "\x1b[93m" rustc -C "\x1b[0m" ]"\n" ; rustc -C help|diff ~/Desktop/rc.txt -; echo [ "\x1b[93m" cargo -Z "\x1b[0m" ]"\n" ; cargo -Z help|diff ~/Desktop/cargo.txt -'
-alias rt='cargo clean && cargo b'
-alias rla='rustc -Cllvm-args=--help|grep -i'
-alias rdd='rm -rf ~/Library/Developer/Xcode/DerivedData'
-alias rz='rustc -Z help|grep -i'
-alias rc='rustc -C help|grep -i'
-alias cz='cargo -Z help|grep -i'
-alias rv='rustup -V; cargo -Vv; rustc -Vv'
-alias gi='grep -i'
-alias pn='ps -alxmrh|gi'
-alias curl='curl --tcp-fastopen --tcp-nodelay -fSLA "Mozilla Firefox/Edge/Chrome" '
-alias cm='git commit --allow-empty --allow-empty-message -am" "'
-alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
+ndf = "r --no-default-features"
+all = "r --all-features"
 
-alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc'
-alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc'
-alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIC -z nocopyreloc'
-alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc'
+tn = "tree -e normal"
+ti = "t -- --exact --nocapture"
+ta = "t -- --nocapture"
+md = "metadata --no-deps --format-version 1"
 
-alias target='rustc -vV | grep -i host | cut -d: -f2'
-alias ti='rustc --print target-list|gi '
-alias cpu='rustc --print target-cpus --target '
-alias feature='rustc --print target-features --target'
+l = "b --profile lto"
+no = "c --profile no"
+f = "add --dry-run"
 
-function zt() {
-    if [ $# -eq 0 ];then
-        echo "Please input a test file: '<file.zig>'".
-        return
-    fi
+h = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target x86_64h-apple-darwin"
+e = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
+z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
 
-    local target="$1"
-    shift
-    filter=""
 
-    for arg in "$@"; do
-        filter+="--test-filter \"$arg\" "
-    done
+[cargo-new]
+vcs = "none"
 
-    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc $target $filter"
-}
+[net]
+#offline = true
+
+#NO
+[profile.no]
+inherits = "dev"
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Dunused_crate_dependencies",
+    "-Dunused_extern_crates",
+]
+debug-assertions = false
+[profile.no.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "no"
+[profile.no.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "no"
+
+#dev
+[profile.dev]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Cdebug-assertions",
+    "-Zcodegen-backend=cranelift",
+    # "-Zdwarf-version=5",
+]
+rpath = true
+codegen-backend = "cranelift"
+debug = false
+strip = true
+trim-paths = true
+[profile.dev.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "dev"
+debug-assertions = false
+[profile.dev.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "dev"
+# debug-assertions = false
+
+#test
+[profile.test]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
+inherits = "dev"
+[profile.test.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "test"
+[profile.test.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "test"
+
+#bench
+[profile.bench]
+rustflags = ["-Cprefer-dynamic"]
+inherits = "dev"
+[profile.bench.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "bench"
+[profile.bench.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "bench"
+
+#release
+[profile.release.package."*"]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "release"
+[profile.release.build-override]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+inherits = "release"
+[profile.release]
+rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+lto = true
+rpath = true
+codegen-units = 1
+strip = true
+trim-paths = true
+
+#lto
+[profile.lto]
+inherits = "release"
+rustflags = [
+    "-Zcross-crate-inline-threshold=yes",
+    "-Zlocation-detail=none",
+    # "-Zvirtual-function-elimination",
+]
+panic = "abort"
+[profile.lto.build-override]
+rustflags = ["-Zlocation-detail=none"]
+inherits = "lto"
+[profile.lto.package."*"]
+rustflags = ["-Zlocation-detail=none"]
+inherits = "lto"
+
+#src
+[profile.src]
+inherits = "lto"
+rustflags = [
+    "-Zforce-unstable-if-unmarked",
+    "-Zlocation-detail=none",
+    "-Zcross-crate-inline-threshold=yes",
+]
+[profile.src.build-override]
+rustflags = ["-Zlocation-detail=none"]
+inherits = "src"
+[profile.src.package."*"]
+rustflags = ["-Zlocation-detail=none"]
+inherits = "src"
+
+[rust]
+lld = true
+new-symbol-mangling = true
+
+[unstable]
+unstable-options = true
+avoid-dev-deps = true
+dual-proc-macros = true
+panic-abort-tests = true
+config-include = true
+bindeps = true
+binary-dep-depinfo = true
+profile-rustflags = true
+codegen-backend = true
+target-applies-to-host = true
+host-config = true
+script = true
+asymmetric-token = true
+trim-paths = true
+gc = true
+git = { shallow_index = true, shallow_deps = true }
+gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
+public-dependency = true
+cargo-lints = true
+package-workspace = true
+checksum-freshness = true
+
+[lints]
+workspace = true
+
+[lints.rust]
+[lints.rustdoc]
+[lints.clippy]
+[lints.cargo]
+
+# build-std = [
+#     "core",
+#     "std",
+#     "alloc",
+#     "proc_macro",
+#     "panic_abort",
+#     "panic_unwind",
+#     "libc",
+#     "compiler_builtins",
+# ]
+# build-std-features = ["panic_immediate_abort", "force_alloc_jemalloc","threads"]
+
+[term]
+color = "always"
+# progress.when = "auto"
+# quiet=true
+
+[env]
+RUST_BACKTRACE = "0"
+RUST_LIB_BACKTRACE = "0"
+RUST_PANIC_STRATEGY = "abort"
+RUSTC_ICE = "0"
+CARGO_LOG = "off"
+RUSTDOC_LOG = "off"
+RUSTC_LOG = "off"
+# RUST_TEST_NOCAPTURE = "1"
+# SCCACHE_DIRECT = "true"
+# SCCACHE_RECACHE = "true"
+
+[build]
+rustflags = ["-Zpanic-in-drop=abort"]
+rustdocflags = [
+    "-Zunstable-options",
+    "--no-deps",
+    "--generate-link-to-definition",
+    "--document-hidden-items",
+    "--document-private-items",
+    "--default-theme dark",
+    "--all-features",
+]
+incremental = true
+# compiler-docs = true
+# rustc-wrapper = "sccache"
+# rustc-workspace-wrapper = "sccache"
+# target-dir = "your-preferred-target-dir"
+
+[host]
+rustflags = ["-Ctarget-cpu=native", "-Ztune-cpu=native"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [
+    "--no-deps",
+    "--cfg",
+    "docsrs",
+    "--playground-url",
+    "https://play.rust-lang.org",
+]
+
+[target.'cfg(all())']
+rustflags = [
+    "-Ctarget-feature=-crt-static",
+    "-Csymbol-mangling-version=hashed",
+    "-Coverflow-checks=no",
+    "-Cforce-frame-pointers=no",
+    "-Copt-level=s",
+    "-Cno-redzone",
+    "-Cdebuginfo=0",
+    "-Cstrip=symbols",
+    "-Ccollapse-macro-debuginfo=y",
+    "-Clink-self-contained=+linker",
+    # "-Cmetadata=wyvern dev",
+
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -fPIE",
+
+    "-Zunstable-options",
+    "-Zexport-executable-symbols",
+    "-Zno-profiler-runtime",
+    "-Zplt",
+    "-Zthinlto",
+    "-Zdylib-lto",
+    "-Zno-generate-arange-section",
+    "-Zdep-info-omit-d-target",
+    "-Zpolonius",
+    # "-Zpolymorphize",
+    "-Ztrim-diagnostic-paths",
+    "-Zoom=abort",
+    "-Zshare-generics",
+    "-Zmerge-functions=trampolines",
+    "-Zinline-mir",
+    "-Zinline-mir-preserve-debug=n",
+    "-Zinline-in-all-cgus",
+    "-Zcombine-cgu",
+    "-Zmir-opt-level=4",
+    "-Zpacked-bundled-libs",
+    "-Zmaximal-hir-to-mir-coverage",
+    "-Zno-jump-tables",
+    "-Zno-trait-vptr",
+    "-Zterminal-urls",
+    "-Zthreads=0",
+    "-Zstaticlib-allow-rdylib-deps",
+    "-Zstaticlib-prefer-dynamic",
+    "-Znext-solver=coherence",
+    # "-Zpanic-in-drop=abort",
+    "-Zuse-sync-unwind",
+    "-Zgraphviz-dark-mode",
+    "-Zhas-thread-local",
+    "-Zshell-argfiles",
+    "-Zub-checks=off",
+    "-Zlinker-features=+lld",
+    "-Zwasm-c-abi=spec",
+    "-Zchecksum-hash-algorithm=blake3",
+
+    "-Anonstandard_style",
+    "-Adead_code",
+    "-Aclippy::tabs_in_doc_comments",
+    "-Dclippy::redundant_clone",
+    "-Dclippy::unused_io_amount",
+    "-Frust_2018_idioms",
+    "-Frust_2018_compatibility",
+]
+
+[target.'cfg(target_vendor="apple")']
+rustflags = ["-Clink-arg=-undefined dynamic_lookup"]
+
+[target.'cfg(target_arch="x86_64")']
+# rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
+
+[target.'cfg(any(target_vendor="apple",target_os="windows"))']
+rustflags = ["-Clink-arg=-fno-async-exceptions"]
+
+[target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
+rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
+
+[target.'cfg(all(target_arch="aarch64",target_os="linux"))']
+linker = "aarch64-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="s390x",target_os="linux"))']
+linker = "s390x-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="powerpc64",target_os="linux",target_endian = "big"))']
+linker = "powerpc64-linux-gnu-gcc"
+[target.'cfg(all(target_arch="powerpc64",target_os="linux",target_endian = "little"))']
+linker = "powerpc64le-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="riscv64",target_os="linux"))']
+linker = "riscv64-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="sparc64",target_os="linux"))']
+rustflags = ["-Zlinker-features=-lld"]
+linker = "sparc64-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="mips64",target_os="linux",target_endian = "big"))']
+linker = "mips64-linux-gnuabi64-gcc"
+[target.'cfg(all(target_arch="mips64",target_os="linux",target_endian = "little"))']
+linker = "mips64el-linux-gnuabi64-gcc"
+
+[target.'cfg(any(target_os="linux",target_os="android"))']
+rustflags = ["-Zrelax-elf-relocations"]
+
+[target.'cfg(target_os="android")']
+rustflags = ["-Zhas-thread-local=no"]
+
+[target.'cfg(target_os="haiku")']
+rustflags = ["-Zlinker-features=-lld"]
+
+[target.mips64-openwrt-linux-musl]
+rustflags = ["-Zlinker-features=-lld"]
+linker = "mips64-openwrt-linux-musl-gcc"
+
+[target.sparcv9-sun-solaris]
+linker = "sparcv9-solaris-gcc"
+ar = "sparcv9-solaris-ar"
+
+[target.powerpc64-ibm-aix]
+linker = "powerpc64-linux-gnu-gcc"
+
+[target.x86_64-unknown-haiku]
+linker = "x86_64-unknown-haiku-gcc"
+
+[target.arm64ec-pc-windows-msvc]
+linker = "link.exe"
+rustflags = [
+    "-Ipath/to/include",
+    "-Lpath/to/libs",
+    "-Lnative=",
+    "-Lframework=",
+    "-Lcrate=",
+    "-Ldependency=",
+    "-Lall=",
+    "-Lstatic=",
+    "-Ldylib=",
+    "-l<lib>",
+]
+
+[target.triple."*"]
+include = ["/usr/local/opt/openssl/include"]
+rustc-link-search = ["/usr/local/opt/openssl/lib"]
+rustc-link-lib = ["ssl", "crypto"]
+ar = "..."
+linker = "..."
+runner = "..."
+cc = "clang"
+cxx = "clang++"
+
+[target.'cfg'."*"]
+include = ["/usr/local/opt/openssl/include"]
+rustc-link-search = ["/usr/local/opt/openssl/lib", "dir..."]
+rustc-link-lib = ["ssl", "crypto", "lib..."]
+
+ar = "..."
+linker = "..."
+runner = "..."
+
+rustdocflags = []
+rustflags = []
+
+rustc-cfg = ['key="value"']
+rustc-env = { key = "value" }
