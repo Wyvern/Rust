@@ -116,6 +116,7 @@ inherits = "release"
 rustflags = [
     "-Zcross-crate-inline-threshold=yes",
     "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
     # "-Zvirtual-function-elimination",
 ]
 panic = "abort"
@@ -133,6 +134,7 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
     "-Zcross-crate-inline-threshold=yes",
+    "-Ztrap-unreachable=no",
 ]
 [profile.src.build-override]
 rustflags = ["-Zlocation-detail=none"]
