@@ -56,11 +56,11 @@ inherits = "no"
 rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
-    # "-Zcodegen-backend=cranelift",
+    "-Zcodegen-backend=cranelift",
     # "-Zdwarf-version=5",
 ]
 rpath = true
-# codegen-backend = "cranelift"
+codegen-backend = "cranelift"
 debug = false
 strip = true
 trim-paths = true
@@ -265,14 +265,12 @@ rustflags = [
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
     "-Zshare-generics",
-    "-Zmerge-functions=trampolines",
+    "-Zmerge-functions=aliases",
     "-Zinline-mir",
     "-Zinline-mir-preserve-debug=n",
     "-Zmir-opt-level=5",
     "-Zpacked-bundled-libs",
     "-Zmaximal-hir-to-mir-coverage",
-    "-Zno-jump-tables",
-    "-Zno-trait-vptr",
     "-Zterminal-urls",
     "-Zthreads=0",
     "-Zstaticlib-allow-rdylib-deps",
