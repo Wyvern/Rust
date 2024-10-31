@@ -40,6 +40,8 @@ inherits = "dev"
 rustflags = [
     "-Cprefer-dynamic",
     "-Zlocation-detail=none",
+    "-Zno-codegen",
+    "-Zno-link",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
 ]
