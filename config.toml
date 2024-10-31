@@ -113,7 +113,6 @@ trim-paths = true
 [profile.lto]
 inherits = "release"
 rustflags = [
-    "-Zcross-crate-inline-threshold=yes",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
     # "-Zvirtual-function-elimination",
@@ -132,7 +131,6 @@ inherits = "lto"
 rustflags = [
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
-    "-Zcross-crate-inline-threshold=yes",
     "-Ztrap-unreachable=no",
 ]
 [profile.src.build-override]
