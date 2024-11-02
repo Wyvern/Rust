@@ -42,15 +42,24 @@ rustflags = [
     "-Zlocation-detail=none",
     "-Zno-codegen",
     "-Zno-link",
+    "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
 ]
 debug-assertions = false
 [profile.no.package."*"]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "no"
 [profile.no.build-override]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "no"
 
 #dev
@@ -98,7 +107,11 @@ inherits = "bench"
 
 #release
 [profile.release.package."*"]
-rustflags = ["-Cprefer-dynamic", "-Zlocation-detail=none"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "release"
 [profile.release.build-override]
 rustflags = ["-Cprefer-dynamic"]
@@ -107,7 +120,6 @@ inherits = "release"
 rustflags = ["-Cprefer-dynamic"]
 lto = true
 rpath = true
-codegen-units = 1
 strip = true
 trim-paths = true
 
@@ -119,12 +131,13 @@ rustflags = [
     "-Ztrap-unreachable=no",
     # "-Zvirtual-function-elimination",
 ]
+codegen-units = 1
 panic = "abort"
 [profile.lto.build-override]
-rustflags = ["-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
 inherits = "lto"
 [profile.lto.package."*"]
-rustflags = ["-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
 inherits = "lto"
 
 #src
@@ -136,10 +149,10 @@ rustflags = [
     "-Ztrap-unreachable=no",
 ]
 [profile.src.build-override]
-rustflags = ["-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
 inherits = "src"
 [profile.src.package."*"]
-rustflags = ["-Zlocation-detail=none"]
+rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
 inherits = "src"
 
 [rust]
