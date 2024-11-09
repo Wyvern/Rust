@@ -261,7 +261,7 @@ rustflags = [
     "-Clink-self-contained=+linker",
     # "-Cmetadata=wyvern dev",
 
-    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -fPIE",
+    "-Clink-args=-fno-ident -fno-rtti -fno-exceptions -fno-backtrace -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-sanitize=undefined -fPIC -fPIE",
 
     "-Zunstable-options",
     "-Zexport-executable-symbols",
@@ -279,7 +279,7 @@ rustflags = [
     "-Zmerge-functions=aliases",
     "-Zinline-mir",
     "-Zinline-mir-preserve-debug=n",
-    "-Zmir-opt-level=5",
+    "-Zmir-opt-level=4",
     "-Zpacked-bundled-libs",
     "-Zmaximal-hir-to-mir-coverage",
     "-Zterminal-urls",
