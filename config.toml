@@ -125,7 +125,7 @@ inherits = "release"
 rustflags = [
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
-    "-Zcross-crate-inline-threshold",
+    "-Zcross-crate-inline-threshold=yes",
     # "-Zvirtual-function-elimination",
 ]
 codegen-units = 1
