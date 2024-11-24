@@ -144,7 +144,7 @@ rustflags = [
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
-    "-Zcross-crate-inline-threshold",
+    "-Zcross-crate-inline-threshold=yes",
 ]
 [profile.src.build-override]
 rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
