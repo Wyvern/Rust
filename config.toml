@@ -114,7 +114,6 @@ rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
 [profile.release]
 rustflags = ["-Cprefer-dynamic"]
-lto = true
 rpath = true
 strip = true
 trim-paths = true
@@ -125,10 +124,10 @@ inherits = "release"
 rustflags = [
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
-    "-Zcross-crate-inline-threshold=yes",
     # "-Zvirtual-function-elimination",
 ]
 codegen-units = 1
+lto = true
 panic = "abort"
 [profile.lto.build-override]
 rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
