@@ -67,11 +67,11 @@ inherits = "no"
 rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
-    "-Zcodegen-backend=cranelift",
+    # "-Zcodegen-backend=cranelift",
     # "-Zdwarf-version=5",
 ]
 rpath = true
-codegen-backend = "cranelift"
+# codegen-backend = "cranelift"
 debug = false
 strip = true
 trim-paths = true
@@ -305,6 +305,9 @@ rustflags = [
     "-Frust_2018_compatibility",
 ]
 
+[target.'cfg(any(target_arch="arm64ec",target_os="freebsd",target_os="openbsd",target_os="netbsd"))']
+rustflags = ["-Zlinker-features=-lld"]
+
 [target.'cfg(target_vendor="apple")']
 rustflags = ["-Clink-arg=-undefined dynamic_lookup"]
 
@@ -350,33 +353,15 @@ rustflags = ["-Zhas-thread-local=no"]
 rustflags = ["-Zlinker-features=-lld"]
 
 [target.mips64-openwrt-linux-musl]
-rustflags = ["-Zlinker-features=-lld"]
 linker = "mips64-openwrt-linux-musl-gcc"
-
-[target.sparcv9-sun-solaris]
-linker = "sparcv9-solaris-gcc"
-ar = "sparcv9-solaris-ar"
 
 [target.powerpc64-ibm-aix]
 linker = "powerpc64-linux-gnu-gcc"
 
 [target.x86_64-unknown-haiku]
+rustflags = ["-Zlinker-features=-lld"]
 linker = "x86_64-unknown-haiku-gcc"
 
-[target.arm64ec-pc-windows-msvc]
-linker = "link.exe"
-rustflags = [
-    "-Ipath/to/include",
-    "-Lpath/to/libs",
-    "-Lnative=",
-    "-Lframework=",
-    "-Lcrate=",
-    "-Ldependency=",
-    "-Lall=",
-    "-Lstatic=",
-    "-Ldylib=",
-    "-l<lib>",
-]
 
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
