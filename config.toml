@@ -288,7 +288,6 @@ rustflags = [
     # "-Zpanic-in-drop=abort",
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
-    "-Zhas-thread-local",
     "-Zshell-argfiles",
     "-Zlinker-features=+lld",
     "-Zwasm-c-abi=spec",
@@ -303,7 +302,7 @@ rustflags = [
     "-Frust_2018_compatibility",
 ]
 
-[target.'cfg(any(target_arch="arm64ec",target_os="freebsd",target_os="openbsd",target_os="netbsd",target_os="solaris"))']
+[target.'cfg(any(target_arch="arm64ec",target_os="freebsd",target_os="openbsd",target_os="netbsd",target_os="solaris",target_os="haiku"))']
 rustflags = ["-Zlinker-features=-lld"]
 
 [target.'cfg(not(any(target_os="wasi",target_arch="wasm",target_env="emscripten")))']
@@ -349,22 +348,11 @@ linker = "mips64el-linux-gnuabi64-gcc"
 [target.'cfg(any(target_os="linux",target_os="android"))']
 rustflags = ["-Zrelax-elf-relocations"]
 
-[target.'cfg(target_os="android")']
-rustflags = ["-Zhas-thread-local=no"]
-
-[target.'cfg(target_os="haiku")']
-rustflags = ["-Zlinker-features=-lld"]
-
 [target.mips64-openwrt-linux-musl]
 linker = "mips64-openwrt-linux-musl-gcc"
 
 [target.powerpc64-ibm-aix]
 linker = "powerpc64-linux-gnu-gcc"
-
-[target.x86_64-unknown-haiku]
-rustflags = ["-Zlinker-features=-lld"]
-linker = "x86_64-unknown-haiku-gcc"
-
 
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
