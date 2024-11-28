@@ -251,7 +251,7 @@ incremental = true
 # target-dir = "your-preferred-target-dir"
 
 [host]
-rustflags = ["-Ctarget-cpu=native", "-Ztune-cpu=native"]
+rustflags = ["-Cprefer-dynamic", "-Ctarget-cpu=native", "-Ztune-cpu=native"]
 
 [package.metadata.docs.rs]
 all-features = true
