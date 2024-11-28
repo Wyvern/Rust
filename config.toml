@@ -130,10 +130,18 @@ codegen-units = 1
 lto = true
 panic = "abort"
 [profile.lto.build-override]
-rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "lto"
 [profile.lto.package."*"]
-rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "lto"
 
 #src
@@ -146,10 +154,18 @@ rustflags = [
     "-Zcross-crate-inline-threshold=yes",
 ]
 [profile.src.build-override]
-rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "src"
 [profile.src.package."*"]
-rustflags = ["-Zlocation-detail=none", "-Ztrap-unreachable=no"]
+rustflags = [
+    "-Cprefer-dynamic",
+    "-Zlocation-detail=none",
+    "-Ztrap-unreachable=no",
+]
 inherits = "src"
 
 [rust]
