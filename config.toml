@@ -85,17 +85,17 @@ inherits = "dev"
 [profile.test]
 inherits = "dev"
 [profile.test.package."*"]
-inherits = "test"
+inherits = "dev"
 [profile.test.build-override]
-inherits = "test"
+inherits = "dev"
 
 #bench
 [profile.bench]
 inherits = "dev"
 [profile.bench.package."*"]
-inherits = "bench"
+inherits = "dev"
 [profile.bench.build-override]
-inherits = "bench"
+inherits = "dev"
 
 #release
 [profile.release.package."*"]
