@@ -67,11 +67,9 @@ inherits = "no"
 rustflags = [
     "-Cprefer-dynamic",
     "-Cdebug-assertions",
-    # "-Zcodegen-backend=cranelift",
     # "-Zdwarf-version=5",
 ]
 rpath = true
-# codegen-backend = "cranelift"
 debug = false
 strip = true
 trim-paths = true
@@ -85,24 +83,18 @@ inherits = "dev"
 
 #test
 [profile.test]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
 inherits = "dev"
 [profile.test.package."*"]
-rustflags = ["-Cprefer-dynamic"]
 inherits = "test"
 [profile.test.build-override]
-rustflags = ["-Cprefer-dynamic"]
 inherits = "test"
 
 #bench
 [profile.bench]
-rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.bench.package."*"]
-rustflags = ["-Cprefer-dynamic"]
 inherits = "bench"
 [profile.bench.build-override]
-rustflags = ["-Cprefer-dynamic"]
 inherits = "bench"
 
 #release
@@ -167,6 +159,11 @@ rustflags = [
     "-Ztrap-unreachable=no",
 ]
 inherits = "src"
+
+[profile.'cfg(target_os = "windows")'.build-overide]
+rustflags = ["-Cprefer-dynamic=no"]
+[profile.'cfg(target_os = "windows")'.package."*"]
+rustflags = ["-Cprefer-dynamic=no"]
 
 [rust]
 lld = true
