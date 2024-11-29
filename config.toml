@@ -40,8 +40,10 @@ inherits = "dev"
 rustflags = [
     "-Cprefer-dynamic",
     "-Zlocation-detail=none",
+    "-Zno-analysis",
     "-Zno-codegen",
     "-Zno-link",
+    "-Zparse-only",
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
@@ -52,6 +54,8 @@ rustflags = [
     "-Cprefer-dynamic",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
+    "-Dunused_crate_dependencies",
+    "-Dunused_extern_crates",
 ]
 inherits = "no"
 [profile.no.build-override]
@@ -59,6 +63,8 @@ rustflags = [
     "-Cprefer-dynamic",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
+    "-Dunused_crate_dependencies",
+    "-Dunused_extern_crates",
 ]
 inherits = "no"
 
