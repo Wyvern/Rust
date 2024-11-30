@@ -70,11 +70,7 @@ inherits = "no"
 
 #dev
 [profile.dev]
-rustflags = [
-    "-Cprefer-dynamic",
-    "-Cdebug-assertions",
-    # "-Zdwarf-version=5",
-]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
 rpath = true
 debug = false
 strip = true
