@@ -43,7 +43,7 @@ rustflags = [
     "-Zno-analysis",
     "-Zno-codegen",
     "-Zno-link",
-    "-Zparse-only",
+    "-Zparse-crate-root-only=yes",
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
