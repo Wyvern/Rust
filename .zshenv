@@ -35,7 +35,7 @@ alias target='rustc -vV | grep -i host | cut -d: -f2'
 alias ti='rustc --print target-list|gi '
 alias cpu='rustc --print target-cpus --target '
 alias feature='rustc --print target-features --target'
-
+alias tsj='rustc -Z unstable-options --print target-spec-json --target'
 function zt() {
     if [ $# -eq 0 ];then
         echo "Please input a test file: '<file.zig>'".
