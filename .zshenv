@@ -33,9 +33,9 @@ alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
 alias ti='rustc --print target-list|gi '
-alias cpu='rustc --print target-cpus --target '
-alias feature='rustc --print target-features --target'
-alias tsj='rustc -Z unstable-options --print target-spec-json --target'
+alias cpu='rustc --print target-cpus'
+alias feature='rustc --print target-features'
+alias tsj='rustc -Z unstable-options --print target-spec-json'
 function zt() {
     if [ $# -eq 0 ];then
         echo "Please input a test file: '<file.zig>'".
