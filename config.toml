@@ -24,8 +24,8 @@ f = "add --dry-run"
 
 h = "s --target x86_64h-apple-darwin"
 e = "s --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort"
-z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort --target "
+s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,panic-unwind,optimize_for_size"
+z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,panic-unwind,optimize_for_size --target "
 
 
 [cargo-new]
@@ -285,7 +285,6 @@ rustflags = [
     "-Zno-generate-arange-section",
     "-Zdep-info-omit-d-target",
     "-Zpolonius=next",
-    "-Zpolymorphize",
     "-Ztrim-diagnostic-paths",
     "-Zoom=abort",
     "-Zshare-generics",
@@ -307,6 +306,7 @@ rustflags = [
     "-Zlinker-features=+lld",
     "-Zwasm-c-abi=spec",
     "-Zchecksum-hash-algorithm=blake3",
+    "-Zmir-strip-debuginfo=all-locals",
 
     "-Anonstandard_style",
     "-Adead_code",
