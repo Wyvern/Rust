@@ -332,7 +332,7 @@ rustflags = [
 ]
 
 [target.'cfg(target_vendor="apple")']
-# rustflags = ["-Clink-arg=-undefined dynamic-lookup"]
+rustflags = ["-Clink-arg=-Wl-z,nodefs"]
 
 [target.'cfg(target_arch="x86_64")']
 # rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
