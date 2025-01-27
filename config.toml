@@ -319,6 +319,7 @@ rustflags = [
     "-Aclippy::tabs_in_doc_comments",
     "-Dclippy::redundant_clone",
     "-Dclippy::unused_io_amount",
+    "-Wlinker_messages",
     "-Frust_2018_idioms",
     "-Frust_2018_compatibility",
 ]
@@ -332,13 +333,10 @@ rustflags = [
 ]
 
 [target.'cfg(target_vendor="apple")']
-rustflags = ["-Clink-arg=-Wl-z,nodefs"]
+rustflags = ["-Clink-arg=-Wl-z,nodefs", "-Clink-arg=-fno-async-exceptions"]
 
 [target.'cfg(target_arch="x86_64")']
 # rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
-
-[target.'cfg(any(target_vendor="apple",target_os="windows"))']
-rustflags = ["-Clink-arg=-fno-async-exceptions"]
 
 [target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
