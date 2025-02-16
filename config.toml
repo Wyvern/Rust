@@ -200,6 +200,7 @@ public-dependency = true
 cargo-lints = true
 package-workspace = true
 checksum-freshness = true
+feature-unification = true
 
 [lints]
 workspace = true
