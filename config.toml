@@ -201,6 +201,7 @@ cargo-lints = true
 package-workspace = true
 checksum-freshness = true
 feature-unification = true
+build-dir = true
 
 [lints]
 workspace = true
@@ -252,6 +253,7 @@ rustdocflags = [
     "--all-features",
 ]
 incremental = true
+build-dir = "build-dir"
 # compiler-docs = true
 # rustc-wrapper = "sccache"
 # rustc-workspace-wrapper = "sccache"
