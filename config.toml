@@ -39,7 +39,6 @@ vcs = "none"
 inherits = "dev"
 rustflags = [
     "-Cprefer-dynamic",
-    "-Cno-prepopulate-passes",
     "-Zlocation-detail=none",
     "-Zno-analysis",
     "-Zno-codegen",
