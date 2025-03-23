@@ -348,12 +348,12 @@ rustflags = ["-Clink-arg=-Wl,--icf=all"]
 rustflags = [
     "-Clink-arg=/OPT:REF",
     "-Clink-arg=/OPT:ICF",
-    "-Clink-arg=/LTCG",
     "-Clink-arg=/DEBUG:NONE",
     "-Clink-arg=/INCREMENTAL:NO",
     "-Clink-arg=/MERGE:.rdata=.text",
     "-Clink-arg=/MERGE:.pdata=.text",
     "-Clink-arg=/FILEALIGN:512",
+    # "-Clink-arg=/LTCG",
     # "-Clink-arg=/DYNAMICBASE",
     # "-Clink-arg=/NXCOMPAT",
 ]
