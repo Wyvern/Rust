@@ -349,7 +349,6 @@ rustflags = [
     "-Clink-arg=/OPT:REF",
     "-Clink-arg=/OPT:ICF",
     "-Clink-arg=/LTCG",
-    "-Clink-arg=/NODEFAULTLIB",
     "-Clink-arg=/DEBUG:NONE",
     "-Clink-arg=/INCREMENTAL:NO",
     "-Clink-arg=/MERGE:.rdata=.text",
