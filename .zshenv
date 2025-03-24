@@ -26,16 +26,18 @@ alias curl='curl --tcp-fastopen --tcp-nodelay -fSLA "Mozilla Firefox/Edge/Chrome
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
 
-alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-sanitize=undefined -fPIE -fPIC -z nocopyreloc'
-alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-sanitize=undefined -fPIE -fPIC -flto -z nocopyreloc'
-alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-sanitize=undefined -fPIC -z nocopyreloc'
-alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-sanitize=undefined -fPIE -fPIC -z nocopyreloc'
+alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
+alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
+alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIC -z nocopyreloc'
+alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
 alias ti='rustc --print target-list|gi '
 alias cpu='rustc --print target-cpus'
 alias feature='rustc --print target-features'
 alias tsj='rustc -Z unstable-options --print target-spec-json'
+alias gb='go build -ldflags="-s -w -buildid= -linkmode=external -extldflags "-Wl,--gc-sections,--strip-all""'
+
 function zt() {
     if [ $# -eq 0 ];then
         echo "Please input a test file: '<file.zig>'".
@@ -50,5 +52,5 @@ function zt() {
         filter+="--test-filter \"$arg\" "
     done
 
-    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -fno-formatted-panics -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc $target $filter"
+    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc $target $filter"
 }
