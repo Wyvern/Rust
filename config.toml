@@ -316,6 +316,8 @@ rustflags = [
     "-Zwasm-c-abi=spec",
     "-Zchecksum-hash-algorithm=blake3",
     "-Zmir-strip-debuginfo=all-locals",
+    "-Ztyping-mode-borrowck=y",
+    "-Zexperimental-default-bounds=y",
 
     "-Anonstandard_style",
     "-Adead_code",
