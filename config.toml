@@ -6,6 +6,7 @@ d = "rustdoc"
 re = "r --example"
 rb = "r --bin"
 bi = "binstall --disable-telemetry"
+gl = "generate-lockfile"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
@@ -20,7 +21,6 @@ md = "metadata --no-deps --format-version 1"
 
 l = "b --profile lto"
 no = "c --profile no"
-f = "add --dry-run"
 
 h = "s --target x86_64h-apple-darwin"
 e = "s --target arm64e-apple-darwin"
