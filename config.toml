@@ -278,6 +278,7 @@ rustflags = [
     "-Csymbol-mangling-version=hashed",
     "-Coverflow-checks=no",
     "-Cforce-frame-pointers=no",
+    "-Cforce-unwind-tables=no",
     "-Copt-level=s",
     "-Cno-redzone",
     "-Cdebuginfo=0",
@@ -342,6 +343,7 @@ rustflags = [
     "-Clink-arg=-Wl,--discard-all",
     "-Clink-arg=-Wl,--build-id=none",
     "-Clink-arg=-Wl,--strip-all",
+    "-Clink-arg=-Wl,--no-eh-frame-hdr",
 ]
 
 [target.'cfg(any(target_arch="sparc64",target_arch="powerpc64",target_os="freebsd",target_os="openbsd",target_os="netbsd",target_os="solaris"))']
@@ -356,6 +358,7 @@ rustflags = ["-Clink-arg=-Wl,--icf=all", "-Clink-arg=-Wl,--relax"]
 
 [target.'cfg(all(target_family="windows",target_env="msvc"))']
 rustflags = [
+    "-Cforce-unwind-tables=yes",
     "-Zlinker-features=-lld",
     "-Clink-arg=/OPT:REF",
     "-Clink-arg=/OPT:ICF",
@@ -377,6 +380,7 @@ rustflags = [
     "-Clink-arg=-Wl,--relax",
     "-Clink-arg=-Wl,--build-id=none",
     "-Clink-arg=-Wl,--strip-all",
+    "-Clink-arg=-Wl,--no-eh-frame-hdr",
 ]
 
 [target.'cfg(target_vendor="apple")']
