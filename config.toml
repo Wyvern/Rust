@@ -204,6 +204,7 @@ build-dir = true
 rustdoc-depinfo = true
 no-embed-metadata = true
 
+
 [lints]
 workspace = true
 
@@ -313,7 +314,6 @@ rustflags = [
     "-Zuse-sync-unwind",
     "-Zgraphviz-dark-mode",
     "-Zshell-argfiles",
-    "-Zwasm-c-abi=spec",
     "-Zchecksum-hash-algorithm=blake3",
     "-Zmir-strip-debuginfo=all-locals",
     "-Ztyping-mode-borrowck",
@@ -390,6 +390,10 @@ rustflags = [
     "-Clink-arg=-Wl,-dead_strip_dylibs",
     "-Clink-arg=-Wl,-undefined,dynamic_lookup",
 ]
+[target.arm64e-apple-darwin]
+rustflags = []
+linker = "ld"
+# linker-flavor = "darwin"
 
 [target.'cfg(target_arch="x86_64")']
 # rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
