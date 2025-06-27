@@ -384,7 +384,6 @@ rustflags = [
     "-Clink-arg=-Wl,-S",
     "-Clink-arg=-Wl,-dead_strip",
     "-Clink-arg=-Wl,-dead_strip_dylibs",
-    "-Clink-arg=-Wl,-undefined,dynamic_lookup",
 ]
 
 [target.'cfg(target_arch="x86_64")']
