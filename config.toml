@@ -359,6 +359,9 @@ rustflags = [
     "-Clink-arg=/MERGE:.rdata=.text",
     "-Clink-arg=/MERGE:.pdata=.text",
     "-Clink-arg=/FILEALIGN:512",
+    "-Clink-arg=/VERSION:0.0",
+    "-Clink-arg=/PDB:NONE",
+    # "-Clink-arg=/ALIGN:1",
     # "-Clink-arg=/LTCG",
     # "-Clink-arg=/DYNAMICBASE",
     # "-Clink-arg=/NXCOMPAT",
@@ -384,6 +387,9 @@ rustflags = [
     "-Clink-arg=-Wl,-S",
     "-Clink-arg=-Wl,-dead_strip",
     "-Clink-arg=-Wl,-dead_strip_dylibs",
+    # "-Clink-arg=-Wl,-segalign",
+    # "-Clink-arg=-Wl,1",
+    # "-Clink-arg=-Wl,-no_version_load_command",
 ]
 
 [target.'cfg(target_arch="x86_64")']
