@@ -261,7 +261,11 @@ build-dir = "build-dir"
 # target-dir = "your-preferred-target-dir"
 
 [host]
-rustflags = ["-Cprefer-dynamic", "-Ctarget-cpu=native", "-Ztune-cpu=native"]
+rustflags = [
+    "-Ctarget-cpu=native",
+    "-Ztune-cpu=native",
+    # "-Cprefer-dynamic"
+]
 
 [package.metadata.docs.rs]
 all-features = true
