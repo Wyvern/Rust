@@ -201,7 +201,6 @@ feature-unification = true
 build-dir = true
 rustdoc-depinfo = true
 no-embed-metadata = true
-profile-hint-mostly-unused = true
 
 
 [lints]
@@ -317,7 +316,6 @@ rustflags = [
     "-Zmir-strip-debuginfo=all-locals",
     "-Ztyping-mode-borrowck",
     "-Zexperimental-default-bounds",
-    "-Zhint-mostly-unused",
     "-Zhigher-ranked-assumptions",
     "-Zoffload=Enable",
     # "-Zbuild-sdylib-interface",
