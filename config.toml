@@ -478,6 +478,13 @@ rustflags = [
     "-Clink-arg=aarch64--netbsd",
 ]
 
+[target.sparc64-unknown-netbsd]
+rustflags = [
+    "-Clink-arg=--sysroot=/opt/netbsd/sparc64",
+    "-Clink-arg=-target",
+    "-Clink-arg=sparc64--netbsd",
+]
+
 [target.triple."*"]
 include = ["/usr/local/opt/openssl/include"]
 rustc-link-search = ["/usr/local/opt/openssl/lib"]
