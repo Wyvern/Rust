@@ -351,6 +351,7 @@ rustflags = [
 
 [target.'cfg(all(target_family="windows",target_env="msvc"))']
 rustflags = [
+    "-Cforce-unwind-tables=yes",
     "-Clink-arg=/OPT:REF",
     "-Clink-arg=/OPT:ICF",
     "-Clink-arg=/DEBUG:NONE",
