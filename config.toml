@@ -71,7 +71,7 @@ inherits = "no"
 
 #dev
 [profile.dev]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zhint-mostly-unused"]
 rpath = true
 debug = false
 strip = true
@@ -86,7 +86,7 @@ inherits = "dev"
 
 #test
 [profile.test]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions"]
+rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zhint-mostly-unused"]
 inherits = "dev"
 [profile.test.package."*"]
 rustflags = ["-Cprefer-dynamic"]
@@ -107,17 +107,17 @@ rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 
 #release
+[profile.release]
+rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
+rpath = true
+strip = true
+trim-paths = true
 [profile.release.package."*"]
 rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
 [profile.release.build-override]
 rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
-[profile.release]
-rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
-rpath = true
-strip = true
-trim-paths = true
 
 #lto
 [profile.lto]
@@ -547,4 +547,3 @@ rustflags = []
 
 rustc-cfg = ['key="value"']
 rustc-env = { key = "value" }
-
