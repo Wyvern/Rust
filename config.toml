@@ -39,6 +39,7 @@ vcs = "none"
 inherits = "dev"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Zno-analysis",
     "-Zno-codegen",
@@ -52,6 +53,7 @@ debug-assertions = false
 [profile.no.package."*"]
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
@@ -61,6 +63,7 @@ inherits = "no"
 [profile.no.build-override]
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
@@ -107,13 +110,13 @@ inherits = "dev"
 
 #release
 [profile.release.package."*"]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
 inherits = "release"
 [profile.release.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
 inherits = "release"
 [profile.release]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
 rpath = true
 strip = true
 trim-paths = true
@@ -124,6 +127,7 @@ inherits = "release"
 rustflags = [
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
+    "-Zhint-mostly-unused",
     # "-Zvirtual-function-elimination",
 ]
 codegen-units = 1
@@ -133,6 +137,7 @@ panic = "abort"
 inherits = "lto"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
 ]
@@ -140,6 +145,7 @@ rustflags = [
 inherits = "lto"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
 ]
@@ -148,6 +154,7 @@ rustflags = [
 [profile.src]
 inherits = "lto"
 rustflags = [
+    "-Zhint-mostly-unused",
     "-Zforce-unstable-if-unmarked",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
@@ -157,6 +164,7 @@ rustflags = [
 inherits = "src"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
 ]
@@ -164,6 +172,7 @@ rustflags = [
 inherits = "src"
 rustflags = [
     "-Cprefer-dynamic",
+    "-Zhint-mostly-unused",
     "-Zlocation-detail=none",
     "-Ztrap-unreachable=no",
 ]
@@ -201,6 +210,7 @@ feature-unification = true
 build-dir = true
 rustdoc-depinfo = true
 no-embed-metadata = true
+profile-hint-mostly-unused = true
 
 
 [lints]
