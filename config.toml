@@ -48,6 +48,7 @@ rustflags = [
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
+    "-Dclippy::redundant_pub_crate",
 ]
 debug-assertions = false
 [profile.no.package."*"]
@@ -57,6 +58,7 @@ rustflags = [
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
+    "-Dclippy::redundant_pub_crate",
 ]
 inherits = "no"
 [profile.no.build-override]
@@ -66,6 +68,7 @@ rustflags = [
     "-Ztrap-unreachable=no",
     "-Dunused_crate_dependencies",
     "-Dunused_extern_crates",
+    "-Dclippy::redundant_pub_crate",
 ]
 inherits = "no"
 
@@ -330,8 +333,6 @@ rustflags = [
     "-Dclippy::redundant_clone",
     "-Dclippy::unused_io_amount",
     "-Wlinker_messages",
-    "-Frust_2018_idioms",
-    "-Frust_2018_compatibility",
 ]
 
 [target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64", target_arch="powerpc64"))))']
