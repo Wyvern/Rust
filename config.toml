@@ -24,7 +24,7 @@ no = "c --profile no"
 
 h = "s --target x86_64h-apple-darwin"
 e = "s --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size"
+s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size,std_detect_file_io"
 z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size --target"
 
 
@@ -204,7 +204,6 @@ public-dependency = true
 cargo-lints = true
 checksum-freshness = true
 feature-unification = true
-build-dir = true
 rustdoc-depinfo = true
 no-embed-metadata = true
 profile-hint-mostly-unused = true
@@ -524,10 +523,24 @@ rustflags = [
     "-Clink-arg=riscv64gc--openbsd",
 ]
 
+[target.'cfg(target_os = "android")']
+rustflags = ["-Clink-arg=--sysroot=sysroot/sysroot"]
+
 [target.riscv64-linux-android]
 ar = "sysroot/bin/riscv64-linux-android-ar"
 linker = "sysroot/bin/riscv64-linux-android35-clang"
-rustflags = ["-Clink-arg=--sysroot=sysroot/sysroot"]
+
+[target.aarch64-linux-android]
+ar = "sysroot/bin/aarch64-linux-android-ar"
+linker = "sysroot/bin/aarch64-linux-android35-clang"
+
+[target.x86_64-linux-android]
+ar = "sysroot/bin/x86_64-linux-android-ar"
+linker = "sysroot/bin/x86_64-linux-android35-clang"
+
+[target.armv7-linux-androideabi]
+ar = "sysroot/bin/arm-linux-androideabi-ar"
+linker = "sysroot/bin/armv7a-linux-androideabi35-clang"
 
 
 [target.triple."*"]
