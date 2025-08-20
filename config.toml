@@ -24,7 +24,7 @@ no = "c --profile no"
 
 h = "s --target x86_64h-apple-darwin"
 e = "s --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size,std_detect_file_io"
+s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size,"
 z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=panic_immediate_abort,optimize_for_size --target"
 
 
