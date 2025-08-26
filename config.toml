@@ -427,8 +427,12 @@ linker = "loongarch64-linux-gnu-gcc"
 linker = "mips64-linux-gnuabi64-gcc"
 [target.'cfg(all(target_arch="mips64",target_os="linux",target_endian = "little"))']
 linker = "mips64el-linux-gnuabi64-gcc"
-[target.'cfg(all(target_arch="mips64",target_os="linux"))']
+[target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6"),target_os="linux"))']
 rustflags = ["-Clink-arg=-Wl,-z,execstack"]
+[target.'cfg(all(target_arch="mips64r6",target_os="linux",target_endian = "big"))']
+linker = "mipsisa64r6-linux-gnuabi64-gcc"
+[target.'cfg(all(target_arch="mips64r6",target_os="linux",target_endian = "little"))']
+linker = "mipsisa64r6el-linux-gnuabi64-gcc"
 
 [target.'cfg(any(target_os="linux",target_os="android"))']
 rustflags = ["-Zrelax-elf-relocations"]
