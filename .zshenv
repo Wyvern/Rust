@@ -1,4 +1,3 @@
-. "/opt/Rust/.cargo/env"
 
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
@@ -11,7 +10,7 @@ alias grep='grep --color=always'
 alias gc='git clone --depth=1 --no-single-branch'
 alias diff='diff --color=always'
 alias daily='rustup update; brew update && brew upgrade; brew autoremove; rdf;'
-alias rdf='echo [ "\x1b[93m" rustc -Z "\x1b[0m" ]"\n" ; rustc -Z help|diff ~/Desktop/rz.txt -; echo [ "\x1b[93m" rustc -C "\x1b[0m" ]"\n" ; rustc -C help|diff ~/Desktop/rc.txt -; echo [ "\x1b[93m" cargo -Z "\x1b[0m" ]"\n" ; cargo -Z help|diff ~/Desktop/cz.txt -'
+alias rdf='echo [ "\x1b[93m"rustc -Z"\x1b[0m" ]"\n"; rustc -Z help|diff ~/Desktop/rz.txt -; echo [ "\x1b[93m"rustc -C"\x1b[0m" ]"\n"; rustc -C help|diff ~/Desktop/rc.txt -; echo [ "\x1b[93m"cargo -Z"\x1b[0m" ]"\n"; cargo -Z help|diff ~/Desktop/cz.txt -;echo [ "\x1b[93m"target list"\x1b[0m" ]"\n"; rustc --print target-list|diff ~/Desktop/target.txt -'
 alias rt='cargo clean && cargo b'
 alias rla='rustc -Cllvm-args=--help|grep -i'
 alias rdd='rm -rf ~/Library/Developer/Xcode/DerivedData'
@@ -25,17 +24,17 @@ alias curl='curl --tcp-fastopen --tcp-nodelay -fSLA "Mozilla Firefox/Edge/Chrome
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /Library/LaunchAgents /System/Library/LaunchAgents/ /Library/LaunchDaemons/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
 
-alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
-alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
-alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIC -z nocopyreloc'
-alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fPIE -fPIC -z nocopyreloc'
+alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
+alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-stack-check -z nocopyreloc -mcpu=native'
+alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
+alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 
 alias target='rustc -vV | grep -i host | cut -d: -f2'
 alias ti='rustc --print target-list|gi '
 alias cpu='rustc --print target-cpus'
 alias feature='rustc --print target-features'
-alias tsj='rustc -Z unstable-options --print target-spec-json'
-alias atsj='rustc -Z unstable-options --print all-target-specs-json'
+alias tsj='rustc -Z unstable-options --print target-spec-json --target'
+alias cfg='rustc --print cfg --target'
 alias gb='go build -ldflags="-s -w -buildid= -linkmode=external -extldflags "-Wl,--gc-sections,--strip-all""'
 
 function zt() {
@@ -52,5 +51,6 @@ function zt() {
         filter+="--test-filter \"$arg\" "
     done
 
-    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fPIE -fPIC -z nocopyreloc $target $filter"
+    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -z nocopyreloc -mcpu=native $target $filter"
 }
+. "/opt/Rust/.cargo/env"
