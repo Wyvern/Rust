@@ -29,7 +29,7 @@ alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unw
 alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 
-alias target='rustc -vV | grep -i host | cut -d: -f2'
+alias target='rustc --print host-tuple'
 alias ti='rustc --print target-list|gi '
 alias cpu='rustc --print target-cpus'
 alias feature='rustc --print target-features'
