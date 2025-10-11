@@ -1,8 +1,6 @@
 
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
-export PYTHON_JIT=1
-#export PYTHON_GIL=0
 
 alias l='ls -AhGx'
 alias ll='ls -AhlG'
