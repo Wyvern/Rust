@@ -7,33 +7,37 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent": {
+    "model_parameters": [],
+    "enable_feedback": false
+  },
+  "icon_theme": "Zed (Default)",
   "soft_wrap": "editor_width",
   "auto_update": false,
   "inlay_hints": {
     "enabled": true
   },
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
-    },
-    "version": "2"
-  },
   "ui_font_size": 20,
   "buffer_font_size": 22,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
     "dark": "Ayu Dark"
   },
   "gutter": {
     "line_numbers": false
   },
-  "Zig": {
-    "language_servers": ["/usr/local/bin/zls", "..."]
-  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "cargo": {
+          "analyzerTargetDir": true
+        }
+      }
+    }
   }
 }
