@@ -18,7 +18,7 @@ alias cz='cargo -Z help|grep -i'
 alias rv='rustup -V; cargo -Vv; rustc -Vv'
 alias gi='grep -ie'
 alias pn='ps -alxmrh|gi'
-alias curl='curl --tcp-fastopen --tcp-nodelay -fSLA "Mozilla Firefox/Edge/Chrome" '
+alias curl='curl --tcp-fastopen --tcp-nodelay -#fSLA "Mozilla Firefox/Edge/Chrome" '
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /Library/LaunchAgents /System/Library/LaunchAgents/ /Library/LaunchDaemons/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
 
@@ -26,6 +26,7 @@ alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_stri
 alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-stack-check -z nocopyreloc -mcpu=native'
 alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
+alias zs='zig run -dynamic -OReleaseSafe --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 
 alias target='rustc --print host-tuple'
 alias ti='rustc --print target-list|gi '
