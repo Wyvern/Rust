@@ -29,12 +29,20 @@ alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno
 alias zs='zig run -dynamic -OReleaseSafe --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
 
 alias target='rustc --print host-tuple'
-alias ti='rustc --print target-list|gi '
+alias targets='rustc --print target-list'
+alias ti='targets | gi'
 alias cpu='rustc --print target-cpus'
 alias feature='rustc --print target-features'
 alias tsj='rustc -Z unstable-options --print target-spec-json --target'
 alias cfg='rustc --print cfg --target'
 alias gb='go build -ldflags="-s -w -buildid= -linkmode=external -extldflags "-Wl,--gc-sections,--strip-all""'
+
+function tier(){
+    for t in $(targets | grep --color=never -ie "$1"); do
+        tier=$(tsj "$t" 2>/dev/null | jq -r '.metadata.tier // "unknown"');
+        printf "%-50s tier-%s\n" "$t" "$tier";
+    done
+}
 
 function zt() {
     if [ $# -eq 0 ];then
