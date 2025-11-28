@@ -38,8 +38,21 @@ alias cfg='rustc --print cfg --target'
 alias gb='go build -ldflags="-s -w -buildid= -linkmode=external -extldflags "-Wl,--gc-sections,--strip-all""'
 
 function tier(){
+    local want_tier="${2:-}"
     for t in $(targets | grep --color=never -ie "$1"); do
-        tier=$(tsj "$t" 2>/dev/null | jq -r '.metadata.tier // "unknown"');
+        tier=$(tsj "$t" 2>/dev/null |
+                    jq -r --argjson want "${want_tier:-null}" '
+                        if $want == null then
+                            .metadata.tier // "unknown"
+                        else
+                            if (.metadata.tier == $want) then
+                                .metadata.tier
+                            else
+                                empty
+                            end
+                        end
+                    ')
+                [[ -z "$tier" ]] && continue
         printf "%-50s tier-%s\n" "$t" "$tier";
     done
 }
