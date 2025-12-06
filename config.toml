@@ -209,8 +209,9 @@ rustdoc-depinfo = true
 no-embed-metadata = true
 build-dir-new-layout = true
 profile-hint-mostly-unused = true
-panic-immediate-abort=true
+panic-immediate-abort = true
 rustc-unicode = true
+rustdoc-mergeable-info = true
 
 [lints]
 workspace = true
