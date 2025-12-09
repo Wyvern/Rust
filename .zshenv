@@ -1,6 +1,6 @@
-
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
+. "/opt/Rust/.cargo/env"
 
 alias l='ls -AhGx'
 alias ll='ls -AhlG'
@@ -71,6 +71,5 @@ function zt() {
         filter+="--test-filter \"$arg\" "
     done
 
-    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -z nocopyreloc -mcpu=native $target $filter"
+    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native $target $filter"
 }
-. "/opt/Rust/.cargo/env"
