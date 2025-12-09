@@ -22,11 +22,13 @@ alias curl='curl --tcp-fastopen --tcp-nodelay -#fSLA "Mozilla Firefox/Edge/Chrom
 alias cm='git commit --allow-empty --allow-empty-message -am" "'
 alias fad='find /Library/LaunchAgents /System/Library/LaunchAgents/ /Library/LaunchDaemons/ /System/Library/LaunchDaemons/ -iname "*"|grep -i'
 
-alias ze='zig build-exe -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
-alias zf='zig build-exe -OReleaseFast --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -fno-stack-check -z nocopyreloc -mcpu=native'
-alias zl='zig build-lib -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
-alias zr='zig run -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
-alias zs='zig run -dynamic -OReleaseSafe --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native'
+zigs=(-OReleaseSmall -dynamic -fstrip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -mcpu=native --gc-sections -dead_strip -z nocopyreloc)
+
+alias ze='zig build-exe ${zigs[@]}'
+alias zf='zig build-exe -OReleaseFast ${zigs[@]:2}'
+alias zl='zig build-lib ${zigs[@]}'
+alias zr='zig run ${zigs[@]}'
+alias zs='zig run -OReleaseSafe ${zigs[@]:1}'
 
 alias target='rustc --print host-tuple'
 alias targets='rustc --print target-list'
@@ -71,5 +73,5 @@ function zt() {
         filter+="--test-filter \"$arg\" "
     done
 
-    eval "zig test -dynamic -OReleaseSmall --gc-sections -fstrip -dead_strip -fno-unwind-tables -fomit-frame-pointer -mno-red-zone -fno-reference-trace -fno-error-tracing -z nocopyreloc -mcpu=native $target $filter"
+    eval "zig test ${zigs[@]} $target $filter"
 }
