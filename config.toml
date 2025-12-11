@@ -307,7 +307,6 @@ rustflags = [
     "-Zdep-info-omit-d-target",
     "-Zpolonius=next",
     "-Ztrim-diagnostic-paths",
-    "-Zoom=abort",
     "-Zshare-generics",
     "-Zmerge-functions=aliases",
     "-Zinline-mir",
