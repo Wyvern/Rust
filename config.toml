@@ -282,7 +282,7 @@ rustdoc-args = [
     "https://play.rust-lang.org",
 ]
 
-[target.'cfg(all())']
+[target.'cfg(true)']
 rustflags = [
     "-Ctarget-feature=-crt-static",
     "-Csymbol-mangling-version=hashed",
