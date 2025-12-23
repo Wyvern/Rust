@@ -22,11 +22,10 @@ md = "metadata --no-deps --format-version 1"
 l = "b --profile lto"
 no = "c --profile no"
 
-h = "s --target x86_64h-apple-darwin"
-e = "s --target arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=optimize_for_size"
+h = "s x86_64h-apple-darwin"
+e = "s arm64e-apple-darwin"
+s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=optimize_for_size --target"
 z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=optimize_for_size --target"
-
 
 [cargo-new]
 vcs = "none"
