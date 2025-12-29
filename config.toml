@@ -262,6 +262,7 @@ rustdocflags = [
 ]
 incremental = true
 build-dir = "build-dir"
+# target-dir = "target-dir"
 warnings = "allow"
 # compiler-docs = true
 # rustc-wrapper = "sccache"
@@ -331,6 +332,7 @@ rustflags = [
   # "-Zbuild-sdylib-interface",
 
   "-Adead_code",
+  "-Aclippy::tabs_in_doc_comments",
   "-Dclippy::redundant_clone",
   "-Dclippy::unused_io_amount",
   "-Dclippy::format_in_format_args",
