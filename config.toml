@@ -211,6 +211,7 @@ panic-immediate-abort = true
 rustc-unicode = true
 rustdoc-mergeable-info = true
 fine-grain-locking = true
+any-build-script-metadata = true
 
 [lints]
 workspace = true
@@ -503,6 +504,12 @@ rustflags = [
   "-Clink-arg=--target=riscv64gc--netbsd",
 ]
 
+[target.sparc64-unknown-netbsd]
+rustflags = [
+  "-Clink-arg=--sysroot=sysroot/netbsd/sparc64",
+  "-Clink-arg=--target=sparc64--netbsd",
+]
+
 [target.'cfg(target_os = "openbsd")']
 rustflags = ["-Ctarget-feature=+crt-static"]
 
@@ -528,6 +535,12 @@ rustflags = [
 rustflags = [
   "-Clink-arg=--sysroot=sysroot/openbsd/powerpc64",
   "-Clink-arg=--target=powerpc64--openbsd",
+]
+
+[target.sparc64-unknown-openbsd]
+rustflags = [
+  "-Clink-arg=--sysroot=sysroot/openbsd/sparc64",
+  "-Clink-arg=--target=sparc64--openbsd",
 ]
 
 [target.'cfg(target_os = "android")']
