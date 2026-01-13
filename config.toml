@@ -43,6 +43,7 @@ rustflags = [
   "-Zno-analysis",
   "-Zno-codegen",
   "-Zno-link",
+  "-Zembed-metadata=no",
   "-Zparse-crate-root-only",
   "-Ztrap-unreachable=no",
   "-Dunused_crate_dependencies",
@@ -63,6 +64,7 @@ inherits = "no"
 [profile.no.build-override]
 rustflags = [
   "-Cprefer-dynamic",
+  "-Zembed-metadata=no",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
   "-Dunused_crate_dependencies",
@@ -83,7 +85,7 @@ rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 debug-assertions = false
 [profile.dev.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zembed-metadata=no"]
 inherits = "dev"
 
 #test
@@ -94,7 +96,7 @@ inherits = "dev"
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.test.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zembed-metadata=no"]
 inherits = "dev"
 
 #bench
@@ -105,7 +107,7 @@ inherits = "dev"
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 [profile.bench.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zembed-metadata=no"]
 inherits = "dev"
 
 #release
@@ -118,7 +120,7 @@ trim-paths = true
 rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
 [profile.release.build-override]
-rustflags = ["-Cprefer-dynamic"]
+rustflags = ["-Cprefer-dynamic", "-Zembed-metadata=no"]
 inherits = "release"
 
 #lto
@@ -128,6 +130,7 @@ rustflags = [
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
   "-Zhint-mostly-unused",
+  # "-Zembed-metadata=no",
   # "-Zvirtual-function-elimination",
 ]
 codegen-units = 1
@@ -139,6 +142,7 @@ rustflags = [
   "-Cprefer-dynamic",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
+  "-Zembed-metadata=no",
 ]
 [profile.lto.package."*"]
 inherits = "lto"
@@ -165,6 +169,7 @@ rustflags = [
   "-Cprefer-dynamic",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
+  "-Zembed-metadata=no",
 ]
 [profile.src.package."*"]
 inherits = "src"
@@ -173,11 +178,6 @@ rustflags = [
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
 ]
-
-[profile.'cfg(target_os = "windows")'.build-overide]
-rustflags = ["-Cprefer-dynamic=no"]
-[profile.'cfg(target_os = "windows")'.package."*"]
-rustflags = ["-Cprefer-dynamic=no"]
 
 [rust]
 lld = true
