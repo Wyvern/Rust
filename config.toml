@@ -209,6 +209,7 @@ rustdoc-mergeable-info = true
 fine-grain-locking = true
 any-build-script-metadata = true
 lockfile-path = true
+json-target-spec = true
 
 [lints]
 workspace = true
