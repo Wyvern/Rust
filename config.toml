@@ -158,7 +158,7 @@ rustflags = [
   "-Zforce-unstable-if-unmarked",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
-  "-Zcross-crate-inline-threshold=yes",
+  # "-Zcross-crate-inline-threshold=yes",
 ]
 [profile.src.build-override]
 inherits = "src"
@@ -496,6 +496,12 @@ rustflags = [
 rustflags = [
   "-Clink-arg=--sysroot=sysroot/netbsd/evbarm-aarch64",
   "-Clink-arg=--target=aarch64--netbsd",
+]
+
+[target.aarch64_be-unknown-netbsd]
+rustflags = [
+  "-Clink-arg=--sysroot=sysroot/netbsd/evbarm-aarch64eb",
+  "-Clink-arg=--target=aarch64_be--netbsd",
 ]
 
 [target.riscv64gc-unknown-netbsd]
