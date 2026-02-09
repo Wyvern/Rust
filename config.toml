@@ -336,7 +336,7 @@ rustflags = [
   "-Wlinker_messages",
 ]
 
-[target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64", target_arch="powerpc64"))))']
+[target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64", all(target_arch="powerpc64",target_endian = "big")))))']
 rustflags = [
   "-Clink-self-contained=+linker",
   "-Clinker-features=+lld",
@@ -384,7 +384,7 @@ rustflags = [
   "-Clink-arg=-Wl,--as-needed",
   "-Clink-arg=-Wl,--build-id=none",
   "-Clink-arg=-Wl,--strip-all",
-  "-Clinker-plugin-lto"
+  "-Clinker-plugin-lto",
 ]
 
 [target.'cfg(target_vendor="apple")']
@@ -590,7 +590,7 @@ rustflags = ["-Clink-arg=--sysroot=wrt/mips64-openwrt-linux-musl"]
 
 [target.'cfg(target_os="fuchsia")']
 linker = "clang"
-rustflags = ["-Clink-arg=-fuse-ld=lld","-Clinker-plugin-lto"]
+rustflags = ["-Clink-arg=-fuse-ld=lld", "-Clinker-plugin-lto"]
 [target.aarch64-unknown-fuchsia]
 rustflags = [
   "-Clink-arg=--target=aarch64--fuchsia",
