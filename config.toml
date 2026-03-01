@@ -24,7 +24,7 @@ no = "c --profile no"
 
 h = "s x86_64h-apple-darwin"
 e = "s arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=optimize_for_size --target"
+s = "b --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
 z = "zigbuild --profile src -Zbuild-std=std,proc_macro,panic_abort -Zbuild-std-features=optimize_for_size --target"
 
 [cargo-new]
@@ -343,12 +343,14 @@ rustflags = [
   "-Clinker-plugin-lto",
   "-Clink-arg=-Wl,--icf=all",
   "-Clink-arg=-Wl,--relax",
+  "-Clink-arg=-Wl,-z,pack-relative-relocs",
 ]
 
 [target.'cfg(all(target_os="linux",not(target_family="wasm")))']
 rustflags = [
   "-Clink-arg=-Wl,--gc-sections",
   "-Clink-arg=-Wl,-z,norelro",
+  "-Clink-arg=-Wl,-z,pack-relative-relocs",
   "-Clink-arg=-Wl,--as-needed",
   "-Clink-arg=-Wl,--discard-all",
   "-Clink-arg=-Wl,--build-id=none",
@@ -442,7 +444,10 @@ linker = "mipsisa64r6-linux-gnuabi64-gcc"
 linker = "mipsisa64r6el-linux-gnuabi64-gcc"
 
 [target.'cfg(any(target_os="linux",target_os="android"))']
-rustflags = ["-Zrelax-elf-relocations"]
+rustflags = [
+  "-Zrelax-elf-relocations",
+  "-Clink-arg=-Wl,-z,pack-relative-relocs",
+]
 
 [target.'cfg(any(target_os="freebsd",target_os="netbsd",target_os="openbsd",target_os="dragonfly"))']
 linker = "clang"
