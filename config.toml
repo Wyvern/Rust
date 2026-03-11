@@ -180,6 +180,8 @@ lld = true
 new-symbol-mangling = true
 
 [unstable]
+# build-std = ["std", "panic_abort"]
+# build-std-features = ["optimize_for_size"]
 unstable-options = true
 avoid-dev-deps = true
 panic-abort-tests = true
@@ -592,6 +594,10 @@ rustflags = ["-Clink-arg=--target=x86_64--linux-ohos"]
 [target.mips64-openwrt-linux-musl]
 linker = "wrt/bin/mips64-openwrt-linux-gcc"
 rustflags = ["-Clink-arg=--sysroot=wrt/mips64-openwrt-linux-musl"]
+
+[target.hexagon-unknown-linux-musl]
+linker = "hexagon/bin/hexagon-unknown-linux-musl-clang"
+rustflags = ["-Clink-arg=--sysroot=hexagon/target/hexagon-unknown-linux-musl"]
 
 [target.'cfg(target_os="fuchsia")']
 linker = "clang"
