@@ -1,6 +1,8 @@
 export RUSTUP_HOME=/opt/Rust/.rustup
 export CARGO_HOME=/opt/Rust/.cargo
 . "/opt/Rust/.cargo/env"
+export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib/rustlib/$(rustc --print host-tuple)/lib
+
 
 alias l='ls -AhGx'
 alias ll='ls -AhlG'
@@ -9,7 +11,7 @@ alias gc='git clone --depth=1 --no-single-branch'
 alias diff='diff --color=always'
 alias daily='rustup update; brew update && brew upgrade; brew autoremove; rdf;'
 alias rdf='echo [ "\x1b[93m"rustc -Z"\x1b[0m" ]"\n"; rustc -Z help|diff ~/Desktop/Rust/rz.txt -; echo [ "\x1b[93m"rustc -C"\x1b[0m" ]"\n"; rustc -C help|diff ~/Desktop/Rust/rc.txt -; echo [ "\x1b[93m"cargo -Z"\x1b[0m" ]"\n"; cargo -Z help|diff ~/Desktop/Rust/cz.txt -;echo [ "\x1b[93m"target list"\x1b[0m" ]"\n"; rustc --print target-list|diff ~/Desktop/Rust/target.txt -'
-alias rt='cargo clean && cargo b'
+alias rt='cargo update && cargo clean && cargo b'
 alias rla='rustc -Cllvm-args=--help|grep -i'
 alias rdd='rm -rf ~/Library/Developer/Xcode/DerivedData'
 alias rz='rustc -Z help|grep -i'
