@@ -651,3 +651,21 @@ rustflags = ["-Clink-arg=--sysroot=espidf-riscv"]
 [target.'cfg(all(target_os="espidf",target_arch="xtensa"))']
 linker = "espidf-xtensa/bin/xtensa-esp-elf-gcc"
 rustflags = ["-Clink-arg=--sysroot=espidf-xtensa"]
+
+[target.mipsel-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=mipsel-netbsd"]
+
+[target.powerpc-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=powerpc-netbsd"]
+
+[target.armv7-unknown-netbsd-eabihf]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=arm-netbsd"]
+
+[target.armv7-unknown-linux-uclibceabihf]
+linker = "uclibc/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
+rustflags = [
+  "-Clink-arg=--sysroot=uclibc/arm-buildroot-linux-uclibcgnueabihf/sysroot"
+]
