@@ -352,7 +352,7 @@ rustflags = [
   # "-Wlinker_messages",
 ]
 
-[target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64", all(target_arch="powerpc64",target_endian = "big")))))']
+[target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big")))))']
 rustflags = [
   "-Clink-self-contained=+linker",
   "-Clinker-features=+lld",
@@ -669,6 +669,14 @@ rustflags = ["-Clink-arg=--target=arm-netbsd"]
 [target.powerpc-unknown-openbsd]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=powerpc-openbsd"]
+
+[target.aarch64_be-unknown-linux-gnu]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=aarch64_be-linux-gnu"]
+
+[target.aarch64_be-unknown-linux-musl]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=aarch64_be-linux-musl"]
 
 [target.armv7-unknown-linux-uclibceabihf]
 linker = "uclibc/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
