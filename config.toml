@@ -349,7 +349,7 @@ rustflags = [
   "-Dclippy::format_in_format_args",
   "-Dclippy::to_string_in_format_args",
   "-Dclippy::uninlined_format_args",
-  "-Wlinker_messages",
+  # "-Wlinker_messages",
 ]
 
 [target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64", all(target_arch="powerpc64",target_endian = "big")))))']
@@ -537,12 +537,6 @@ rustflags = [
   "-Clink-arg=--target=riscv64gc--netbsd",
 ]
 
-[target.sparc64-unknown-netbsd]
-rustflags = [
-  "-Clink-arg=--sysroot=sysroot/netbsd/sparc64",
-  "-Clink-arg=--target=sparc64--netbsd",
-]
-
 [target.'cfg(target_os = "openbsd")']
 rustflags = ["-Ctarget-feature=+crt-static"]
 
@@ -652,6 +646,10 @@ rustflags = ["-Clink-arg=--sysroot=espidf-riscv"]
 linker = "espidf-xtensa/bin/xtensa-esp-elf-gcc"
 rustflags = ["-Clink-arg=--sysroot=espidf-xtensa"]
 
+[target.armv7-unknown-freebsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=arm-freebsd"]
+
 [target.mipsel-unknown-netbsd]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=mipsel-netbsd"]
@@ -660,9 +658,17 @@ rustflags = ["-Clink-arg=--target=mipsel-netbsd"]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=powerpc-netbsd"]
 
+[target.sparc64-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=sparc64-netbsd"]
+
 [target.armv7-unknown-netbsd-eabihf]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=arm-netbsd"]
+
+[target.powerpc-unknown-openbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=powerpc-openbsd"]
 
 [target.armv7-unknown-linux-uclibceabihf]
 linker = "uclibc/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
