@@ -570,12 +570,6 @@ rustflags = [
   "-Clink-arg=--target=powerpc64--openbsd",
 ]
 
-[target.sparc64-unknown-openbsd]
-rustflags = [
-  "-Clink-arg=--sysroot=sysroot/openbsd/sparc64",
-  "-Clink-arg=--target=sparc64--openbsd",
-]
-
 [target.'cfg(target_os = "android")']
 rustflags = ["-Clink-arg=--sysroot=ndk/sysroot"]
 
@@ -695,13 +689,15 @@ rustflags = [
 ]
 
 [target.mips-unknown-linux-uclibc]
-linker = "mips/bin/mips32-buildroot-linux-uclibc-gcc"
+linker = "mips/bin/mips-buildroot-linux-uclibc-gcc"
 rustflags = [
-  "-Clink-arg=--sysroot=mips/mips32-buildroot-linux-uclibc/sysroot",
+  "-Clink-arg=--sysroot=mips/mips-buildroot-linux-uclibc/sysroot",
+  "-Ctarget-feature=-soft-float",
 ]
 
 [target.mipsel-unknown-linux-uclibc]
 linker = "mipsel/bin/mipsel-buildroot-linux-uclibc-gcc"
 rustflags = [
   "-Clink-arg=--sysroot=mipsel/mipsel-buildroot-linux-uclibc/sysroot",
+  "-Ctarget-feature=-soft-float",
 ]
