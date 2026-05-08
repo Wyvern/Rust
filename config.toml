@@ -652,17 +652,17 @@ rustflags = ["-Clink-arg=--sysroot=espidf-riscv"]
 linker = "espidf-xtensa/bin/xtensa-esp-elf-gcc"
 rustflags = ["-Clink-arg=--sysroot=espidf-xtensa"]
 
+[target.armv7-unknown-freebsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=arm-freebsd"]
+
 [target.mipsel-unknown-netbsd]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=mipsel-netbsd"]
 
 [target.powerpc-unknown-netbsd]
 linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc-netbsd"]
-
-[target.sparc64-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=sparc64-netbsd"]
+rustflags = ["-Clink-arg=--target=powerpc-netbsd", "-Crelocation-model=static"]
 
 [target.armv7-unknown-netbsd-eabihf]
 linker = "./zig-cc.sh"
@@ -680,8 +680,28 @@ rustflags = ["-Clink-arg=--target=aarch64_be-linux-gnu"]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=aarch64_be-linux-musl"]
 
+[target.sparc64-unknown-openbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=sparc64-openbsd", "-Crelocation-model=static"]
+
+[target.sparc64-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=sparc64-netbsd", "-Crelocation-model=static"]
+
 [target.armv7-unknown-linux-uclibceabihf]
-linker = "uclibc/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
+linker = "armv7/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
 rustflags = [
-  "-Clink-arg=--sysroot=uclibc/arm-buildroot-linux-uclibcgnueabihf/sysroot"
+  "-Clink-arg=--sysroot=armv7/arm-buildroot-linux-uclibcgnueabihf/sysroot",
+]
+
+[target.mips-unknown-linux-uclibc]
+linker = "mips/bin/mips32-buildroot-linux-uclibc-gcc"
+rustflags = [
+  "-Clink-arg=--sysroot=mips/mips32-buildroot-linux-uclibc/sysroot",
+]
+
+[target.mipsel-unknown-linux-uclibc]
+linker = "mipsel/bin/mipsel-buildroot-linux-uclibc-gcc"
+rustflags = [
+  "-Clink-arg=--sysroot=mipsel/mipsel-buildroot-linux-uclibc/sysroot",
 ]
