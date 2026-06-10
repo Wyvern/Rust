@@ -338,10 +338,11 @@ rustflags = [
   "-Ztyping-mode-borrowck",
   "-Zexperimental-default-bounds",
   "-Zhigher-ranked-assumptions",
-  "-Zcache-proc-macros=y",
+  "-Zcache-proc-macros",
   "-Zvalidate-mir=no",
   "-Zoffload=Device",
-  "-Zpanic-abort-tests=y",
+  "-Zpanic-abort-tests",
+  # "-Zautodiff=Enable",
   # "-Zassumptions-on-binders",
   # "-Zllvm-writable",
   # "-Zpanic-in-drop=abort",
@@ -353,6 +354,9 @@ rustflags = [
   "-Dclippy::to_string_in_format_args",
   "-Dclippy::uninlined_format_args",
 ]
+
+[target.'cfg(all(target_family = "unix", crate_type = "staticlib"))']
+rustflags = ["-Zstaticlib-hide-internal-symbols"]
 
 [target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64",target_arch="hexagon",target_arch="powerpc",target_arch="mips",target_arch="mipsel",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big")))))']
 rustflags = [
@@ -389,6 +393,7 @@ rustflags = [
   "-Clink-arg=/MERGE:.pdata=.text",
   "-Clink-arg=/VERSION:0.0",
   "-Clink-arg=/PDB:NONE",
+  "-Clink-arg=/NOLOGO",
   # "-Clink-arg=/LTCG",
   # "-Clink-arg=/FILEALIGN:512",
   # "-Clink-arg=/ALIGN:1",
