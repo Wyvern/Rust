@@ -24,6 +24,7 @@ h = "s x86_64h-apple-darwin"
 e = "s arm64e-apple-darwin"
 s = "b --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
 z = "zigbuild --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
+slib = "rustc --lib --crate-type=staticlib -- -Zstaticlib-hide-internal-symbols -Zstaticlib-rename-internal-symbols"
 
 [cargo-new]
 vcs = "none"
@@ -335,7 +336,7 @@ rustflags = [
   "-Zshell-argfiles",
   "-Zchecksum-hash-algorithm=blake3",
   "-Zmir-strip-debuginfo=all-locals",
-  "-Ztyping-mode-borrowck",
+  "-Ztyping-mode-post-typeck-until-borrowck",
   "-Zexperimental-default-bounds",
   "-Zhigher-ranked-assumptions",
   "-Zcache-proc-macros",
@@ -356,7 +357,10 @@ rustflags = [
 ]
 
 [target.'cfg(all(target_family = "unix", crate_type = "staticlib"))']
-rustflags = ["-Zstaticlib-hide-internal-symbols"]
+rustflags = [
+  "-Zstaticlib-hide-internal-symbols",
+  "-Zstaticlib-rename-internal-symbols"
+]
 
 [target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64",target_arch="hexagon",target_arch="powerpc",target_arch="mips",target_arch="mipsel",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big")))))']
 rustflags = [
@@ -714,3 +718,11 @@ rustflags = [
   "-Clink-arg=--sysroot=mipsel/mipsel-buildroot-linux-uclibc/sysroot",
   "-Ctarget-feature=-soft-float",
 ]
+
+[target.powerpc64-unknown-linux-gnuelfv2]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=powerpc64-linux-gnu"]
+
+[target.powerpc64-unknown-linux-musl]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=powerpc64-linux-musl"]
