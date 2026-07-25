@@ -1,77 +1,41 @@
 [alias]
 ad = "add --no-default-features --optional"
 br = "b -r"
+dr = "d -r --no-deps"
 rr = "r -r"
-d = "rustdoc"
+re = "r --example"
+rb = "r --bin"
 bi = "binstall --disable-telemetry"
-gl = "generate-lockfile"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
-mt = "miri test -- --exact --nocapture"
 
 ndf = "r --no-default-features"
 all = "r --all-features"
 
 tn = "tree -e normal"
 ti = "t -- --exact --nocapture"
-ta = "t -- --nocapture"
-md = "metadata --no-deps --format-version 1"
 
-l = "b --profile lto"
-no = "c --profile no"
+l = "b -q --profile lto"
 
 h = "s x86_64h-apple-darwin"
 e = "s arm64e-apple-darwin"
-s = "b --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
-z = "zigbuild --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
-slib = "rustc --lib --crate-type=staticlib -- -Zstaticlib-hide-internal-symbols -Zstaticlib-rename-internal-symbols"
+s = "b -q --profile src -Zbuild-std=std,panic_abort --target"
+v = "b -v --profile src -Zbuild-std=std,panic_abort --target"
+z = "zigbuild -q --profile src -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size --target"
 
 [cargo-new]
 vcs = "none"
 
+[env]
+RUST_BACKTRACE = "0"
+RUST_LIB_BACKTRACE = "0"
+RUST_PANIC_STRATEGY = "abort"
+RUSTC_ICE = "0"
+RUSTC_BOOTSTRAP = "1"
+
 [net]
 # offline = true
-
-# NO
-[profile.no]
-inherits = "dev"
-rustflags = [
-  "-Cprefer-dynamic",
-  "-Zhint-mostly-unused",
-  "-Zlocation-detail=none",
-  "-Zno-analysis",
-  "-Zno-codegen",
-  "-Zno-link",
-  "-Zparse-crate-root-only",
-  "-Ztrap-unreachable=no",
-  "-Dunused_crate_dependencies",
-  "-Dunused_extern_crates",
-  "-Dclippy::redundant_pub_crate",
-]
-debug-assertions = false
-
-[profile.no.package."*"]
-rustflags = [
-  "-Cprefer-dynamic",
-  "-Zlocation-detail=none",
-  "-Ztrap-unreachable=no",
-  "-Dunused_crate_dependencies",
-  "-Dunused_extern_crates",
-  "-Dclippy::redundant_pub_crate",
-]
-inherits = "no"
-
-[profile.no.build-override]
-rustflags = [
-  "-Cprefer-dynamic",
-  "-Zlocation-detail=none",
-  "-Ztrap-unreachable=no",
-  "-Dunused_crate_dependencies",
-  "-Dunused_extern_crates",
-  "-Dclippy::redundant_pub_crate",
-]
-inherits = "no"
 
 # dev
 [profile.dev]
@@ -104,46 +68,32 @@ inherits = "dev"
 rustflags = ["-Cprefer-dynamic"]
 inherits = "dev"
 
-# bench
-[profile.bench]
-rustflags = ["-Cprefer-dynamic", "-Cdebug-assertions", "-Zhint-mostly-unused"]
-inherits = "dev"
-
-[profile.bench.package."*"]
-rustflags = ["-Cprefer-dynamic"]
-inherits = "dev"
-
-[profile.bench.build-override]
-rustflags = ["-Cprefer-dynamic"]
-inherits = "dev"
-
 # release
 [profile.release]
 rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
 rpath = true
-strip = true
 trim-paths = true
 
-[profile.release.package."*"]
+[profile.release.build-override]
 rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
 
-[profile.release.build-override]
+[profile.release.package."*"]
 rustflags = ["-Cprefer-dynamic"]
 inherits = "release"
 
 # lto
 [profile.lto]
 inherits = "release"
-rustflags = [
-  "-Zlocation-detail=none",
-  "-Ztrap-unreachable=no",
-  "-Zhint-mostly-unused",
-  # "-Zvirtual-function-elimination",
-]
-codegen-units = 1
 lto = true
 panic = "abort"
+codegen-units = 1
+rustflags = [
+  "-Zhint-mostly-unused",
+  "-Zlocation-detail=none",
+  "-Ztrap-unreachable=no",
+  # "-Zvirtual-function-elimination",
+]
 
 [profile.lto.build-override]
 inherits = "lto"
@@ -176,7 +126,7 @@ rustflags = [
 [profile.src.build-override]
 inherits = "src"
 rustflags = [
-  "-Cprefer-dynamic",
+  # "-Cprefer-dynamic",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
 ]
@@ -184,18 +134,39 @@ rustflags = [
 [profile.src.package."*"]
 inherits = "src"
 rustflags = [
+  # "-Cprefer-dynamic",
+  "-Zlocation-detail=none",
+  "-Ztrap-unreachable=no",
+]
+
+[profile.redox]
+inherits = "lto"
+rustflags = [
+  "-Awarnings",
+  "-Zhint-mostly-unused",
+  "-Zforce-unstable-if-unmarked",
+  "-Zlocation-detail=none",
+  "-Ztrap-unreachable=no",
+  # "-Zcross-crate-inline-threshold=yes",
+]
+
+[profile.redox.build-override]
+inherits = "redox"
+rustflags = [
   "-Cprefer-dynamic",
   "-Zlocation-detail=none",
   "-Ztrap-unreachable=no",
 ]
 
-[rust]
-lld = true
-new-symbol-mangling = true
+[profile.redox.package."*"]
+inherits = "redox"
+rustflags = [
+  "-Cprefer-dynamic",
+  "-Zlocation-detail=none",
+  "-Ztrap-unreachable=no",
+]
 
 [unstable]
-# build-std = ["std", "panic_abort"]
-# build-std-features = ["optimize_for_size"]
 unstable-options = true
 avoid-dev-deps = true
 panic-abort-tests = true
@@ -205,8 +176,6 @@ profile-rustflags = true
 codegen-backend = true
 target-applies-to-host = true
 host-config = true
-script = true
-asymmetric-token = true
 trim-paths = true
 gc = true
 git = { shallow_index = true, shallow_deps = true }
@@ -221,86 +190,34 @@ build-dir-new-layout = true
 profile-hint-mostly-unused = true
 panic-immediate-abort = true
 rustc-unicode = true
-rustdoc-mergeable-info = true
 fine-grain-locking = true
 any-build-script-metadata = true
 json-target-spec = true
 
-[lints]
-workspace = true
-
-[lints.rust]
-
-[lints.rustdoc]
-
-[lints.clippy]
-
-[lints.cargo]
 # build-std = [
 #     "core",
 #     "std",
 #     "alloc",
-#     "proc_macro",
 #     "panic_abort",
-#     "panic_unwind",
 #     "libc",
 #     "compiler_builtins",
 # ]
-# build-std-features = ["force_alloc_jemalloc","threads"]
+# build-std-features = ["compiler-builtins-mem"]
 
-[term]
-color = "always"
-# progress.when = "auto"
-# quiet=true
-
-[env]
-RUST_BACKTRACE = "0"
-RUST_LIB_BACKTRACE = "0"
-RUST_PANIC_STRATEGY = "abort"
-RUSTC_ICE = "0"
-CARGO_LOG = "off"
-RUSTDOC_LOG = "off"
-RUSTC_LOG = "off"
-RUSTC_BOOTSTRAP = "1"
-MIRIFLAGS = "-Zmiri-disable-isolation"
-# RUST_TEST_NOCAPTURE = "1"
-# SCCACHE_DIRECT = "true"
-# SCCACHE_RECACHE = "true"
+[host]
+# rustflags = ["-Ctarget-cpu=native", "-Ztune-cpu=native"]
 
 [build]
 rustflags = ["-Zpanic-in-drop=abort"]
-rustdocflags = [
-  "-Zunstable-options",
-  "--no-deps",
-  "--generate-link-to-definition",
-  "--document-hidden-items",
-  "--document-private-items",
-  "--default-theme dark",
-  "--all-features",
-]
 incremental = true
 build-dir = "build-dir"
-# target-dir = "target-dir"
-warnings = "allow"
-# compiler-docs = true
-# rustc-wrapper = "sccache"
-# rustc-workspace-wrapper = "sccache"
-# target-dir = "your-preferred-target-dir"
-
-[host]
-rustflags = ["-Ctarget-cpu=native", "-Ztune-cpu=native", "-Cprefer-dynamic"]
+# target-dir = "/home/runner/target-dir"
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = [
-  "--no-deps",
-  "--cfg",
-  "docsrs",
-  "--playground-url",
-  "https://play.rust-lang.org",
-]
+rustdoc-args = ["--cfg", "docsrs"]
 
-[target."cfg(true)"]
+[target."cfg(all())"]
 rustflags = [
   "-Ctarget-feature=-crt-static",
   "-Csymbol-mangling-version=hashed",
@@ -311,12 +228,14 @@ rustflags = [
   "-Cdebuginfo=0",
   "-Cstrip=symbols",
   "-Ccollapse-macro-debuginfo=y",
-  # "-Cpanic=immediate-abort",
+  "-Cpanic=immediate-abort",
 
   "-Zunstable-options",
   "-Zembed-metadata=no",
   "-Zexport-executable-symbols",
   "-Zno-profiler-runtime",
+  "-Zlocation-detail=none",
+  "-Ztrap-unreachable=no",
   "-Zplt",
   "-Zthinlto",
   "-Zdylib-lto",
@@ -332,7 +251,8 @@ rustflags = [
   "-Zthreads=0",
   "-Zstaticlib-allow-rdylib-deps",
   "-Zstaticlib-prefer-dynamic",
-  "-Znext-solver=globally",
+  "-Znext-solver=coherence",
+  "-Zpanic-in-drop=abort",
   "-Zuse-sync-unwind",
   "-Zgraphviz-dark-mode",
   "-Zshell-argfiles",
@@ -344,25 +264,14 @@ rustflags = [
   "-Zcache-proc-macros",
   "-Zvalidate-mir=no",
   "-Zoffload=Device",
-  "-Zpanic-abort-tests",
-  # "-Zautodiff=Enable",
-  # "-Zassumptions-on-binders",
   # "-Zllvm-writable",
-  # "-Zpanic-in-drop=abort",
   # "-Zbuild-sdylib-interface",
-
   "-Dclippy::redundant_clone",
   "-Dclippy::unused_io_amount",
-  "-Dclippy::format_in_format_args",
-  "-Dclippy::to_string_in_format_args",
-  "-Dclippy::uninlined_format_args",
 ]
 
 [target.'cfg(all(target_family = "unix", crate_type = "staticlib"))']
-rustflags = [
-  "-Zstaticlib-hide-internal-symbols",
-  "-Zstaticlib-rename-internal-symbols"
-]
+rustflags = ["-Zstaticlib-hide-internal-symbols"]
 
 [target.'cfg(all(target_os="linux",not(any(target_family="wasm",target_arch="sparc64",target_arch="hexagon",target_arch="powerpc",target_arch="mips",target_arch="mipsel",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big")))))']
 rustflags = [
@@ -374,7 +283,7 @@ rustflags = [
   "-Clink-arg=-Wl,-z,pack-relative-relocs",
 ]
 
-[target.'cfg(all(target_os="linux",not(target_family="wasm")))']
+[target.'cfg(all(target_os="linux",not(any(target_family="wasm"))))']
 rustflags = [
   "-Clink-arg=-Wl,--gc-sections",
   "-Clink-arg=-Wl,-z,norelro",
@@ -425,13 +334,10 @@ rustflags = [
   "-Clink-arg=-Wl,-S",
   "-Clink-arg=-Wl,-dead_strip",
   "-Clink-arg=-Wl,-dead_strip_dylibs",
-  # "-Clink-arg=-Wl,-segalign",
-  # "-Clink-arg=-Wl,1",
-  # "-Clink-arg=-Wl,-no_version_load_command",
 ]
 
 [target.'cfg(target_arch="x86_64")']
-# rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
+rustflags = ["-Ctarget-cpu=x86-64-v3", "-Ztune-cpu=x86-64-v3"]
 
 [target.'cfg(all(target_arch="aarch64",target_vendor="apple"))']
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
@@ -439,7 +345,7 @@ rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 [target.'cfg(all(target_arch="aarch64",target_os="linux",not(target_env="ohos")))']
 linker = "aarch64-linux-gnu-gcc"
 
-[target.'cfg(all(target_arch="x86_64",target_os="linux",not(target_env="ohos")))']
+[target.'cfg(all(target_arch="x86_64",target_os="linux",not(target_env="ohos"),not(target_abi="x32")))']
 linker = "x86_64-linux-gnu-gcc"
 
 [target.'cfg(all(target_arch="x86_64",target_os="linux",target_abi="x32"))']
@@ -451,17 +357,17 @@ linker = "arm-linux-gnueabihf-gcc"
 [target.'cfg(all(target_arch="s390x",target_os="linux"))']
 linker = "s390x-linux-gnu-gcc"
 
-[target.'cfg(all(target_arch="powerpc64",target_os="linux",target_endian = "big"))']
-linker = "powerpc64-linux-gnu-gcc"
-
 [target.'cfg(all(target_arch="powerpc64",target_os="linux",target_endian = "little"))']
 linker = "powerpc64le-linux-gnu-gcc"
 
-[target.'cfg(all(target_arch="powerpc",target_os="linux",target_endian = "big"))']
-linker = "powerpc-linux-gnu-gcc"
+[target.'cfg(all(target_arch="powerpc64",target_os="linux",target_endian = "big"))']
+linker = "powerpc64-linux-gnu-gcc"
 
 [target.'cfg(all(target_arch="powerpc",target_os="linux",target_endian = "little"))']
 linker = "powerpcle-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="powerpc",target_os="linux",target_endian = "big"))']
+linker = "powerpc-linux-gnu-gcc"
 
 [target.'cfg(all(target_arch="riscv64",target_os="linux"))']
 linker = "riscv64-linux-gnu-gcc"
@@ -470,7 +376,7 @@ linker = "riscv64-linux-gnu-gcc"
 linker = "sparc64-linux-gnu-gcc"
 
 [target.'cfg(all(target_arch="loongarch64",target_os="linux",not(target_env="ohos")))']
-linker = "loongarch64-linux-gnu-gcc"
+linker = "loongarch64-linux-gnu-gcc-14"
 
 [target.'cfg(all(target_arch="mips64",target_os="linux",target_endian = "big"))']
 linker = "mips64-linux-gnuabi64-gcc"
@@ -487,7 +393,7 @@ linker = "mipsel-linux-gnu-gcc"
 [target.'cfg(all(target_arch="mips",target_os="linux",target_env="musl"))']
 rustflags = ["-Ctarget-feature=-soft-float"]
 
-[target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6"),target_os="linux"))']
+[target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6",target_arch="mips32r6"),target_os="linux"))']
 rustflags = ["-Clink-arg=-Wl,-z,execstack"]
 
 [target.'cfg(all(target_arch="mips64r6",target_os="linux",target_endian = "big"))']
@@ -495,6 +401,12 @@ linker = "mipsisa64r6-linux-gnuabi64-gcc"
 
 [target.'cfg(all(target_arch="mips64r6",target_os="linux",target_endian = "little"))']
 linker = "mipsisa64r6el-linux-gnuabi64-gcc"
+
+[target.'cfg(all(target_arch="mips32r6",target_os="linux",target_endian = "big"))']
+linker = "mipsisa32r6-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="mips32r6",target_os="linux",target_endian = "little"))']
+linker = "mipsisa32r6el-linux-gnu-gcc"
 
 [target.'cfg(any(target_os="linux",target_os="android"))']
 rustflags = ["-Zrelax-elf-relocations"]
@@ -565,6 +477,13 @@ rustflags = [
   "-Clink-arg=--target=riscv64gc--netbsd",
 ]
 
+# [target.sparc64-unknown-netbsd]
+# rustflags = [
+#   "-Clink-arg=--sysroot=sysroot/netbsd/sparc64",
+#   "-Clink-arg=--target=sparc64--netbsd",
+#   "-Crelocation-model=static",
+# ]
+
 [target.'cfg(target_os = "openbsd")']
 rustflags = ["-Ctarget-feature=+crt-static"]
 
@@ -591,6 +510,13 @@ rustflags = [
   "-Clink-arg=--sysroot=sysroot/openbsd/powerpc64",
   "-Clink-arg=--target=powerpc64--openbsd",
 ]
+
+# [target.sparc64-unknown-openbsd]
+# rustflags = [
+#   "-Clink-arg=--sysroot=sysroot/openbsd/sparc64",
+#   "-Clink-arg=--target=sparc64--openbsd",
+#   "-Crelocation-model=static",
+# ]
 
 [target.'cfg(target_os = "android")']
 rustflags = ["-Clink-arg=--sysroot=ndk/sysroot"]
@@ -636,6 +562,8 @@ linker = "wrt/bin/mips64-openwrt-linux-gcc"
 rustflags = ["-Clink-arg=--sysroot=wrt/mips64-openwrt-linux-musl"]
 
 [target.hexagon-unknown-linux-musl]
+# linker = "./zig-cc.sh"
+# rustflags = ["-Clink-arg=--target=hexagon-linux-musl"]
 linker = "hexagon/bin/hexagon-unknown-linux-musl-clang"
 rustflags = ["-Clink-arg=--sysroot=hexagon/target/hexagon-unknown-linux-musl"]
 
@@ -716,10 +644,6 @@ rustflags = [
   "-Ctarget-feature=-soft-float",
 ]
 
-[target.powerpc64-unknown-linux-gnuelfv2]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc64-linux-gnu"]
-
 [target.powerpc64-unknown-linux-musl]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=powerpc64-linux-musl"]
@@ -739,3 +663,19 @@ rustflags = ["-Clink-arg=--sysroot=sysroots/riscv64imafdc-poky-linux"]
 [target.x86_64-oe-linux-gnu]
 linker = "x86_64-poky-linux-gcc"
 rustflags = ["-Clink-arg=--sysroot=sysroots/core2-64-poky-linux"]
+
+[target.'cfg(target_os = "solaris")']
+rustflags = ["-Clink-arg=/compat.o"]
+
+[target.powerpc64-unknown-linux-gnuelfv2]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=powerpc64-linux-gnu","-Clink-arg=-mabi=elfv2"]
+
+# [target.x86_64-unknown-illumos]
+# linker = "./zig-cc.sh"
+# rustflags = [
+#   "-Clink-arg=--target=x86_64-illumos",
+#   "-Clink-arg=--sysroot=illumos/",
+#   "-Clink-arg=-Lillumos/usr/lib/amd64",
+#   "-Clink-arg=-Lillumos/lib/amd64",
+# ]
