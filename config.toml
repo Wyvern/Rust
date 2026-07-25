@@ -8,6 +8,7 @@ gl = "generate-lockfile"
 
 cf = "clippy --fix --allow-no-vcs --no-deps"
 fx = "fix --allow-no-vcs"
+mt = "miri test -- --exact --nocapture"
 
 ndf = "r --no-default-features"
 all = "r --all-features"
@@ -215,7 +216,7 @@ cargo-lints = true
 checksum-freshness = true
 feature-unification = true
 rustdoc-depinfo = true
-no-embed-metadata = true
+embed-metadata = "DoNotEmbed"
 build-dir-new-layout = true
 profile-hint-mostly-unused = true
 panic-immediate-abort = true
@@ -261,6 +262,7 @@ CARGO_LOG = "off"
 RUSTDOC_LOG = "off"
 RUSTC_LOG = "off"
 RUSTC_BOOTSTRAP = "1"
+MIRIFLAGS = "-Zmiri-disable-isolation"
 # RUST_TEST_NOCAPTURE = "1"
 # SCCACHE_DIRECT = "true"
 # SCCACHE_RECACHE = "true"
@@ -298,7 +300,7 @@ rustdoc-args = [
   "https://play.rust-lang.org",
 ]
 
-[target.'cfg(true)']
+[target."cfg(true)"]
 rustflags = [
   "-Ctarget-feature=-crt-static",
   "-Csymbol-mangling-version=hashed",
@@ -330,7 +332,7 @@ rustflags = [
   "-Zthreads=0",
   "-Zstaticlib-allow-rdylib-deps",
   "-Zstaticlib-prefer-dynamic",
-  "-Znext-solver=coherence",
+  "-Znext-solver=globally",
   "-Zuse-sync-unwind",
   "-Zgraphviz-dark-mode",
   "-Zshell-argfiles",
@@ -439,6 +441,9 @@ linker = "aarch64-linux-gnu-gcc"
 
 [target.'cfg(all(target_arch="x86_64",target_os="linux",not(target_env="ohos")))']
 linker = "x86_64-linux-gnu-gcc"
+
+[target.'cfg(all(target_arch="x86_64",target_os="linux",target_env=gnux32,not(target_env="ohos")))']
+linker = "x86_64-linux-gnux32-gcc"
 
 [target.'cfg(all(target_arch="arm",target_os="linux",not(target_env="ohos")))']
 linker = "arm-linux-gnueabihf-gcc"
@@ -655,14 +660,6 @@ rustflags = [
   "-Lnative=fuchsia/arch/riscv64/lib",
 ]
 
-[target.'cfg(all(target_os="espidf",target_arch="riscv32"))']
-linker = "espidf-riscv/bin/riscv32-esp-elf-gcc"
-rustflags = ["-Clink-arg=--sysroot=espidf-riscv"]
-
-[target.'cfg(all(target_os="espidf",target_arch="xtensa"))']
-linker = "espidf-xtensa/bin/xtensa-esp-elf-gcc"
-rustflags = ["-Clink-arg=--sysroot=espidf-xtensa"]
-
 [target.armv7-unknown-freebsd]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=arm-freebsd"]
@@ -726,3 +723,19 @@ rustflags = ["-Clink-arg=--target=powerpc64-linux-gnu"]
 [target.powerpc64-unknown-linux-musl]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=powerpc64-linux-musl"]
+
+[target.aarch64-oe-linux-gnu]
+linker = "aarch64-poky-linux-gcc"
+rustflags = ["-Clink-arg=--sysroot=sysroots/armv8a-poky-linux"]
+
+[target.armv7-oe-linux-gnueabihf]
+linker = "arm-poky-linux-gnueabi-gcc"
+rustflags = ["-Clink-arg=--sysroot=sysroots/cortexa8hf-neon-poky-linux-gnueabi"]
+
+[target.riscv64-oe-linux-gnu]
+linker = "riscv64-poky-linux-gcc"
+rustflags = ["-Clink-arg=--sysroot=sysroots/riscv64imafdc-poky-linux"]
+
+[target.x86_64-oe-linux-gnu]
+linker = "x86_64-poky-linux-gcc"
+rustflags = ["-Clink-arg=--sysroot=sysroots/core2-64-poky-linux"]
