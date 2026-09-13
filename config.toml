@@ -80,7 +80,7 @@ rpath = true
 debug = false
 strip = true
 opt-level = "s"
-trim-paths = true
+trim-paths = "all"
 
 [profile.dev.package."*"]
 rustflags = ["-Cprefer-dynamic"]
@@ -122,7 +122,7 @@ inherits = "dev"
 rustflags = ["-Cprefer-dynamic", "-Zhint-mostly-unused"]
 rpath = true
 strip = true
-trim-paths = true
+trim-paths = "all"
 
 [profile.release.package."*"]
 rustflags = ["-Cprefer-dynamic"]
@@ -212,7 +212,6 @@ gc = true
 git = { shallow_index = true, shallow_deps = true }
 gitoxide = { checkout = true, fetch = true, internal_use_git2 = true }
 public-dependency = true
-cargo-lints = true
 checksum-freshness = true
 feature-unification = true
 rustdoc-depinfo = true
@@ -343,10 +342,11 @@ rustflags = [
   "-Zhigher-ranked-assumptions",
   "-Zcache-proc-macros",
   "-Zvalidate-mir=no",
-  "-Zoffload=Device",
   "-Zpanic-abort-tests",
-  # "-Zautodiff=Enable",
+  # "-Zwasm-proc-macros",
+  # "-Zoffload=Device",
   # "-Zassumptions-on-binders",
+  # "-Zautodiff=Enable",
   # "-Zllvm-writable",
   # "-Zpanic-in-drop=abort",
   # "-Zbuild-sdylib-interface",
@@ -371,20 +371,24 @@ rustflags = [
   "-Clinker-plugin-lto",
   "-Clink-arg=-Wl,--icf=all",
   "-Clink-arg=-Wl,--relax",
-  "-Clink-arg=-Wl,-z,pack-relative-relocs",
 ]
 
-[target.'cfg(all(target_os="linux",not(target_family="wasm")))']
+[target.'cfg(all(unix,not(any(target_vendor="apple",target_family="wasm"))))']
 rustflags = [
   "-Clink-arg=-Wl,--gc-sections",
   "-Clink-arg=-Wl,-z,norelro",
-  "-Clink-arg=-Wl,-z,pack-relative-relocs",
   "-Clink-arg=-Wl,--as-needed",
   "-Clink-arg=-Wl,--discard-all",
   "-Clink-arg=-Wl,--build-id=none",
   "-Clink-arg=-Wl,--strip-all",
   "-Clink-arg=-Wl,--no-eh-frame-hdr",
 ]
+
+[target.'cfg(all(unix,not(any(target_vendor="apple",target_family="wasm",all(target_arch="aarch64",target_endian="big",target_os="linux"),all(target_arch="arm",target_endian="big",target_os="linux"))))']
+rustflags = ["-Clink-arg=-Wl,-z,noseparate-code"]
+
+[target.'cfg(all(target_os="linux",not(target_family="wasm")))']
+rustflags = ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
 [target.'cfg(target_family="windows")']
 rustflags = ["-Cforce-unwind-tables=y"]
@@ -688,14 +692,6 @@ rustflags = ["-Clink-arg=--target=aarch64_be-linux-gnu"]
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=aarch64_be-linux-musl"]
 
-[target.sparc64-unknown-openbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=sparc64-openbsd", "-Crelocation-model=static"]
-
-[target.sparc64-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=sparc64-netbsd", "-Crelocation-model=static"]
-
 [target.armv7-unknown-linux-uclibceabihf]
 linker = "armv7/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
 rustflags = [
@@ -717,12 +713,10 @@ rustflags = [
 ]
 
 [target.powerpc64-unknown-linux-gnuelfv2]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc64-linux-gnu"]
+linker = "ppc64-gnu/bin/powerpc64-unknown-linux-gnuabielfv2-gcc"
 
 [target.powerpc64-unknown-linux-musl]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc64-linux-musl"]
+linker = "ppc64-musl/bin/powerpc64-unknown-linux-musl-gcc"
 
 [target.armeb-unknown-linux-gnueabi]
 linker = "./zig-cc.sh"
@@ -743,3 +737,10 @@ rustflags = ["-Clink-arg=--sysroot=sysroots/riscv64imafdc-poky-linux"]
 [target.x86_64-oe-linux-gnu]
 linker = "x86_64-poky-linux-gcc"
 rustflags = ["-Clink-arg=--sysroot=sysroots/core2-64-poky-linux"]
+
+[target.sparc64-unknown-openbsd]
+linker = "sparc64-unknown-openbsd-clang"
+rustflags = ["-Clink-arg=-lc"]
+
+[target.sparc64-unknown-netbsd]
+linker = "sparc64-unknown-netbsd-gcc"
