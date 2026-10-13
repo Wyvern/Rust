@@ -52,9 +52,9 @@ vcs = "none"
 
 [env]
 CARGO_LOG = "off"
-CFLAGS = { value = "-O3 -fno-exceptions -fno-rtti -flto -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -pipe -g0 -fvisibility=hidden", force = true }
+CFLAGS = { value = "-O3 -flto -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -pipe -g0 -fvisibility=hidden", force = true }
 CPPFLAGS = { value = "-DNDEBUG", force = true }
-CXXFLAGS = { value = "-O3 -fno-exceptions -fno-rtti -flto -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -pipe -g0 -fvisibility=hidden -fvisibility-inlines-hidden", force = true }
+CXXFLAGS = { value = "-O3 -flto -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables -pipe -g0 -fvisibility=hidden -fvisibility-inlines-hidden -fno-exceptions -fno-rtti", force = true }
 LDFLAGS = { value = "-Wl,-O3 -Wl,--gc-sections", force = true }
 MIRIFLAGS = "-Zmiri-disable-isolation"
 RUSTC_BOOTSTRAP = "1"
@@ -318,15 +318,10 @@ linker = "arm-poky-linux-gnueabi-gcc"
 rustflags = ["-Clink-arg=--sysroot=sysroots/cortexa8hf-neon-poky-linux-gnueabi"]
 
 [target.armv7-unknown-freebsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=arm-freebsd"]
+rustflags = ["-Clink-arg=--sysroot=freebsd/armv7", "-Clink-arg=--target=armv7--freebsd"]
 
 [target.armv7-unknown-linux-ohos]
 rustflags = ["-Clink-arg=--target=armv7--linux-ohos"]
-
-[target.armv7-unknown-linux-uclibceabi]
-linker = "armv7/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
-rustflags = ["-Clink-arg=--sysroot=armv7/arm-buildroot-linux-uclibcgnueabihf/sysroot"]
 
 [target.armv7-unknown-linux-uclibceabihf]
 linker = "armv7/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
@@ -336,7 +331,7 @@ rustflags = ["-Clink-arg=--sysroot=armv7/arm-buildroot-linux-uclibcgnueabihf/sys
 linker = "./zig-cc.sh"
 rustflags = ["-Clink-arg=--target=arm-netbsd"]
 
-[target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6"),target_os="linux"))']
+[target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6",target_arch="mips32r6",target_arch="mips",target_arch="mipsel"),target_os="linux"))']
 rustflags = ["-Clink-arg=-Wl,-z,execstack"]
 
 [target.'cfg(all(any(target_arch="sparc64",target_arch="sparc"),target_os="linux"))']
@@ -352,6 +347,12 @@ linker = "aarch64-linux-gnu-gcc"
 rustflags = ["-Ctarget-cpu=apple-m1", "-Ztune-cpu=apple-m1"]
 
 [target.'cfg(all(target_arch="arm",target_os="linux",not(target_env="ohos")))']
+linker = "arm-linux-gnueabihf-gcc"
+
+[target.'cfg(all(target_arch="arm",target_os="linux",target_abi="eabi",not(target_env="ohos")))']
+linker = "arm-linux-gnueabi-gcc"
+
+[target.'cfg(all(target_arch="arm",target_os="linux",target_abi="eabihf",not(target_env="ohos")))']
 linker = "arm-linux-gnueabihf-gcc"
 
 [target.'cfg(all(target_arch="loongarch64",target_os="linux",not(target_env="ohos")))']
@@ -396,6 +397,9 @@ linker = "riscv64-linux-gnu-gcc"
 [target.'cfg(all(target_arch="s390x",target_os="linux"))']
 linker = "s390x-linux-gnu-gcc"
 
+[target.'cfg(all(target_arch="x86",target_os="linux"))']
+linker = "i686-linux-gnu-gcc"
+
 [target.'cfg(all(target_arch="x86_64",target_os="linux",not(target_env="ohos"),not(target_abi="x32")))']
 linker = "x86_64-linux-gnu-gcc"
 
@@ -433,7 +437,7 @@ rustflags = [
   # "-Clink-arg=/NXCOMPAT",
 ]
 
-[target.'cfg(all(target_os="linux",not(any(target_abi="x32",target_family="wasm",target_arch="sparc64",target_arch="sparc",target_arch="hexagon",target_arch="powerpc",target_arch="mips",target_arch="mipsel",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big"),all(target_arch="arm",target_endian="big")))))']
+[target.'cfg(all(target_os="linux",not(any(target_abi="x32",target_arch="csky",target_family="wasm",target_arch="sparc64",target_arch="sparc",target_arch="hexagon",target_arch="powerpc",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big"),all(target_arch="aarch64",target_abi="ilp32"),all(target_arch="arm",target_endian="big"),target_arch="riscv32"))))']
 rustflags = [
   "-Clink-self-contained=+linker",
   "-Clinker-features=+lld",
@@ -483,6 +487,9 @@ rustflags = ["-Ctarget-feature=+crt-static"]
 [target.'cfg(target_os="espidf")']
 linker = "ldproxy"
 rustflags = ["-Cdefault-linker-libraries=yes"]
+
+[target.'cfg(target_os="l4re")']
+linker = "l4re/bin/aarch64-l4re-gcc"
 
 [target.'cfg(target_vendor="apple")']
 rustflags = [
@@ -567,26 +574,37 @@ linker = "csky-unknown-linux-gnuabiv2hf-gcc"
 linker = "hexagon/bin/hexagon-unknown-linux-musl-clang"
 rustflags = ["-Clink-arg=--sysroot=hexagon/target/hexagon-unknown-linux-musl"]
 
+[target.i586-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=x86-netbsd"]
+
+[target.i586-unknown-redox]
+linker = "redox/i586-unknown-redox/bin/i586-unknown-redox-gcc"
+rustflags = ["-Clink-arg=--sysroot=redox/i586-unknown-redox"]
+
+[target.i686-unknown-netbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=x86-netbsd"]
+
+[target.i686-unknown-openbsd]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=x86-openbsd"]
+
+[target.i686-uwp-windows-gnu]
+linker = "C:\\msys64\\mingw32\\bin\\gcc.exe"
+
 [target.loongarch64-unknown-linux-ohos]
 rustflags = ["-Clink-arg=--target=loongarch64--linux-ohos"]
 
 [target.mips-unknown-linux-uclibc]
-linker = "mips/bin/mips-buildroot-linux-uclibc-gcc"
-rustflags = [
-  "-Clink-arg=--sysroot=mips/mips-buildroot-linux-uclibc/sysroot",
-  "-Ctarget-feature=-soft-float",
-]
+rustflags = ["-Ctarget-feature=-soft-float"]
 
 [target.mips64-openwrt-linux-musl]
 linker = "wrt/bin/mips64-openwrt-linux-gcc"
 rustflags = ["-Clink-arg=--sysroot=wrt/mips64-openwrt-linux-musl"]
 
 [target.mipsel-unknown-linux-uclibc]
-linker = "mipsel/bin/mipsel-buildroot-linux-uclibc-gcc"
-rustflags = [
-  "-Clink-arg=--sysroot=mipsel/mipsel-buildroot-linux-uclibc/sysroot",
-  "-Ctarget-feature=-soft-float",
-]
+rustflags = ["-Ctarget-feature=-soft-float"]
 
 [target.mipsel-unknown-netbsd]
 linker = "./zig-cc.sh"
@@ -623,6 +641,14 @@ rustflags = [
   "-Clink-arg=--sysroot=sysroot/freebsd/powerpc64le",
   "-Clink-arg=--target=powerpc64le--freebsd",
 ]
+
+[target.riscv32gc-unknown-linux-gnu]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=riscv32-linux-gnu"]
+
+[target.riscv32gc-unknown-linux-musl]
+linker = "./zig-cc.sh"
+rustflags = ["-Clink-arg=--target=riscv32-linux-musl"]
 
 [target.riscv64-linux-android]
 linker = "ndk/bin/riscv64-linux-android35-clang"
@@ -669,6 +695,10 @@ rustflags = ["-Clink-arg=-lc"]
 
 [target.thumbv7neon-linux-androideabi]
 linker = "ndk/bin/armv7a-linux-androideabi35-clang"
+
+[target.wasm32-wali-linux-musl]
+linker = "WALI/build/llvm/bin/wasm-ld"
+rustflags = ["-LWALI/build/sysroot/lib"]
 
 [target.x86_64-linux-android]
 linker = "ndk/bin/x86_64-linux-android35-clang"
@@ -718,6 +748,10 @@ rustflags = [
 [target.x86_64-unknown-redox]
 linker = "redox/x86_64-unknown-redox/bin/x86_64-unknown-redox-gcc"
 rustflags = ["-Clink-arg=--sysroot=redox/x86_64-unknown-redox"]
+
+[target.x86_64-uwp-windows-gnu]
+linker = "C:\\msys64\\mingw64\\bin\\gcc.exe"
+rustflags = ["-lgcc_eh"]
 
 [term]
 color = "always"
