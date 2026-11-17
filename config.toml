@@ -293,12 +293,14 @@ linker = "redox/aarch64-unknown-redox/bin/aarch64-unknown-redox-gcc"
 rustflags = ["-Clink-arg=--sysroot=redox/aarch64-unknown-redox"]
 
 [target.aarch64_be-unknown-linux-gnu]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=aarch64_be-linux-gnu"]
+linker = "aarch64be-gnu/bin/aarch64_be-linux-gcc"
+# linker = "./zig-cc.sh"
+# rustflags = ["-Clink-arg=--target=aarch64_be-linux-gnu"]
 
 [target.aarch64_be-unknown-linux-musl]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=aarch64_be-linux-musl"]
+linker = "aarch64be-musl/bin/aarch64_be-linux-gcc"
+# linker = "./zig-cc.sh"
+# rustflags = ["-Clink-arg=--target=aarch64_be-linux-musl"]
 
 [target.aarch64_be-unknown-netbsd]
 rustflags = [
@@ -326,10 +328,6 @@ rustflags = ["-Clink-arg=--target=armv7--linux-ohos"]
 [target.armv7-unknown-linux-uclibceabihf]
 linker = "armv7/bin/arm-buildroot-linux-uclibcgnueabihf-gcc"
 rustflags = ["-Clink-arg=--sysroot=armv7/arm-buildroot-linux-uclibcgnueabihf/sysroot"]
-
-[target.armv7-unknown-netbsd-eabihf]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=arm-netbsd"]
 
 [target.'cfg(all(any(target_arch="mips64",target_arch="mips64r6",target_arch="mips32r6",target_arch="mips",target_arch="mipsel"),target_os="linux"))']
 rustflags = ["-Clink-arg=-Wl,-z,execstack"]
@@ -437,17 +435,15 @@ rustflags = [
   # "-Clink-arg=/NXCOMPAT",
 ]
 
-[target.'cfg(all(target_os="linux",not(any(target_abi="x32",target_arch="csky",target_family="wasm",target_arch="sparc64",target_arch="sparc",target_arch="hexagon",target_arch="powerpc",all(target_arch="powerpc64",target_endian="big"),all(target_arch="aarch64",target_endian="big"),all(target_arch="aarch64",target_abi="ilp32"),all(target_arch="arm",target_endian="big"),target_arch="riscv32"))))']
+[target.'cfg(all(target_os="linux",not(any(target_abi="x32",target_arch="csky",target_family="wasm",target_arch="sparc64",target_arch="sparc",target_arch="hexagon",target_arch="powerpc",all(target_arch="powerpc64",target_env="gnu"),all(target_arch="aarch64",target_abi="ilp32"),all(target_arch="arm",target_endian="big")))))']
 rustflags = [
   "-Clink-self-contained=+linker",
   "-Clinker-features=+lld",
   "-Clinker-plugin-lto",
   "-Clink-arg=-Wl,--icf=all",
   "-Clink-arg=-Wl,--relax",
+  "-Clink-arg=-Wl,-z,pack-relative-relocs",
 ]
-
-[target.'cfg(all(target_os="linux",not(target_family="wasm")))']
-rustflags = ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
 [target.'cfg(all(unix,not(any(target_vendor="apple",target_family="wasm"))))']
 rustflags = [
@@ -466,7 +462,13 @@ rustflags = ["-Clink-arg=-Wl,-z,noseparate-code"]
 
 [target.'cfg(any(target_os="freebsd",target_os="netbsd",target_os="openbsd",target_os="dragonfly",target_os="fuchsia"))']
 linker = "clang"
-rustflags = ["-Clink-arg=-fuse-ld=lld", "-Clinker-plugin-lto"]
+rustflags = [
+  "-Clink-arg=-fuse-ld=lld",
+  "-Clink-arg=-Wl,--icf=all",
+  "-Clink-arg=-Wl,--relax",
+  "-Clink-arg=-Wl,-z,pack-relative-relocs",
+  "-Clinker-plugin-lto",
+]
 
 [target.'cfg(target_arch="x86_64")']
 # rustflags = ["-Ctarget-cpu=broadwell", "-Ztune-cpu=broadwell"]
@@ -480,9 +482,6 @@ rustflags = ["-Cforce-unwind-tables=y"]
 
 [target.'cfg(target_os = "android")']
 rustflags = ["-Clink-arg=--sysroot=ndk/sysroot"]
-
-[target.'cfg(target_os = "openbsd")']
-rustflags = ["-Ctarget-feature=+crt-static"]
 
 [target.'cfg(target_os="espidf")']
 linker = "ldproxy"
@@ -515,10 +514,10 @@ rustflags = [
   "-Cdebuginfo=0",
   "-Cstrip=symbols",
   "-Ccollapse-macro-debuginfo=y",
+  "-Zembed-metadata=no",
   # "-Cpanic=immediate-abort",
 
   "-Zunstable-options",
-  "-Zembed-metadata=no",
   # "-Zexport-executable-symbols",
   "-Zno-profiler-runtime",
   "-Zplt",
@@ -534,7 +533,6 @@ rustflags = [
   "-Zmir-opt-level=4",
   "-Zpacked-bundled-libs",
   "-Zterminal-urls",
-  "-Zthreads=0",
   "-Zstaticlib-allow-rdylib-deps",
   "-Zstaticlib-prefer-dynamic",
   "-Znext-solver=globally",
@@ -543,13 +541,16 @@ rustflags = [
   "-Zshell-argfiles",
   "-Zchecksum-hash-algorithm=blake3",
   "-Zmir-strip-debuginfo=all-locals",
-  "-Ztyping-mode-post-typeck-until-borrowck",
   "-Zexperimental-default-bounds",
   # "-Zassumptions-on-binders",
   "-Zcache-proc-macros",
   "-Zvalidate-mir=no",
   "-Zpanic-abort-tests",
   "-Zmir-move-elimination=y",
+  "-Zasync-panic=y",
+  "--jobs-frontend=0",
+  "--jobs-backend=0",
+  # "-Zllvm-tpde=try",
   # "-Zwasm-proc-macros",
   # "-Zoffload=Device",
   # "-Zautodiff=Enable",
@@ -574,21 +575,13 @@ linker = "csky-unknown-linux-gnuabiv2hf-gcc"
 linker = "hexagon/bin/hexagon-unknown-linux-musl-clang"
 rustflags = ["-Clink-arg=--sysroot=hexagon/target/hexagon-unknown-linux-musl"]
 
-[target.i586-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=x86-netbsd"]
-
 [target.i586-unknown-redox]
 linker = "redox/i586-unknown-redox/bin/i586-unknown-redox-gcc"
 rustflags = ["-Clink-arg=--sysroot=redox/i586-unknown-redox"]
 
-[target.i686-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=x86-netbsd"]
-
-[target.i686-unknown-openbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=x86-openbsd"]
+[target.i686-oe-linux-gnu]
+linker = "i686-poky-linux-gcc"
+rustflags = ["-Clink-arg=--sysroot=sysroots/core2-32-poky-linux"]
 
 [target.i686-uwp-windows-gnu]
 linker = "C:\\msys64\\mingw32\\bin\\gcc.exe"
@@ -606,17 +599,8 @@ rustflags = ["-Clink-arg=--sysroot=wrt/mips64-openwrt-linux-musl"]
 [target.mipsel-unknown-linux-uclibc]
 rustflags = ["-Ctarget-feature=-soft-float"]
 
-[target.mipsel-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=mipsel-netbsd"]
-
 [target.powerpc-unknown-netbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc-netbsd", "-Crelocation-model=static"]
-
-[target.powerpc-unknown-openbsd]
-linker = "./zig-cc.sh"
-rustflags = ["-Clink-arg=--target=powerpc-openbsd"]
+rustflags = ["-Crelocation-model=static"]
 
 [target.powerpc64-unknown-freebsd]
 rustflags = [
@@ -697,8 +681,8 @@ rustflags = ["-Clink-arg=-lc"]
 linker = "ndk/bin/armv7a-linux-androideabi35-clang"
 
 [target.wasm32-wali-linux-musl]
-linker = "WALI/build/llvm/bin/wasm-ld"
-rustflags = ["-LWALI/build/sysroot/lib"]
+linker = "WALI/build/llvm/bin/clang"
+rustflags = ["-LWALI/build/sysroot/lib", "-LWALI/build/libcxx/lib/", "-Ctarget-feature=+crt-static"]
 
 [target.x86_64-linux-android]
 linker = "ndk/bin/x86_64-linux-android35-clang"
